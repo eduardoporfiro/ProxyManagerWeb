@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'proxy_manager_web.wsgi.application'
 DATABASES = {
     'default' :{
         'ENGINE': 'django.db.backends.mysql',
-        'NAME' : 'proxy_manager',
+        'NAME' : 'proxy_manager_web',
         'USER': 'eduardo',
         'PASSWORD': 'Potterharry1!',
         'HOST': 'localhost',
