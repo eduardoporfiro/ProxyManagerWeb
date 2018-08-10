@@ -1,9 +1,9 @@
 from django.http import HttpResponse
 from django.template import loader
-from block.models import Teste
+from block.models import Dado
 
 def index(request):
-    testes = Teste.objects.all()
+    testes = Dado.objects.all()
     template = loader.get_template('block/index.html')
     context = {
         'testes': testes,

@@ -1,5 +1,14 @@
-from django.db import models
+from core.models import *
 
-# Create your models here.
-class Teste(models.Model):
-    sensor = models.CharField(max_length=100)
+class Broker(AbstractBroker):
+    def __str__(self):
+        return self.endereco
+
+
+class Mqtt(AbstractMqtt):
+    broker = models.ForeignKey(Broker, on_delete=True)
+    def __str__(self):
+        return self.topico
+
+class Dado(AbstractDado):
+    mqtt = models.ForeignKey(Mqtt, on_delete=models.CASCADE, editable=False)
