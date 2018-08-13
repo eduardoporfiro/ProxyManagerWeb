@@ -1,18 +1,12 @@
 from django.db import models
 from solo.models import SingletonModel
 from django.utils import timezone
-from django.contrib.auth.models import AbstractUser, UserManager
+
 Qos = [
     (0, 'QoS - 0'),
     (1, 'QoS - 1'),
     (2, 'QoS - 2')
 ]
-
-class CustomUserManager(UserManager):
-    pass
-
-class CustomUser(AbstractUser):
-    objects = CustomUserManager()
 
 class AbstractBroker(SingletonModel):
     ESTADO_BROKER = (

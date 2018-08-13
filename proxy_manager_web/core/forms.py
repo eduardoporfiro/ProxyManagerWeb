@@ -1,15 +1,20 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import CustomUser
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
-class CustomUserCreationForm(UserCreationForm):
+class RegisterForm(UserCreationForm):#Form padrão de criação de user
+    email = forms.EmailField(label='E-mail') #quero que coloque o e-mail
 
-    class Meta(UserCreationForm.Meta):
-        model = CustomUser
-        fields = ('username', 'email')
+    def clean_email(self):#verificação de e-mail
+        email = self.cleaned_data['email'] #pego o e-mail
+        if User.objects.filter(email=email).exists():#verifico se já existe
+            raise forms.ValidationError('Already exists user with this e-mail') #retorno se já existe
+        return email
 
-class CustomUserChangeForm(UserChangeForm):
 
-    class Meta:
-        model = CustomUser
-        fields = UserChangeForm.Meta.fields
+    def save(self, commit=True):
+        user = super(RegisterForm, self).save(commit=False)
+        user.email = self.cleaned_data['email']#adicionando o campo e-mail no salvamento
+        if commit:
+            user.save()
+        return user

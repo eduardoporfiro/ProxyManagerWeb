@@ -1,8 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'core/base.html' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Sign Up{% endblock %}
 
 {% block content %}
+  <h2>Sign up</h2>
 <h2>Login</h2>
 <form method="post">
     {% csrf_token %}
@@ -15,7 +16,7 @@
                 {{field.errors}}
         </div>
         {% endfor %}
+        <button type="submit">Sign in</button>
     </fieldset>
 </form>
-<a href="{% url 'signup' %}">SignUp</a>
 {% endblock %}
