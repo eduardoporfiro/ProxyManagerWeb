@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<h2>Login</h2>
+<form method="post">
+    {% csrf_token %}
+    <fieldset>
+        {{form.non_field_errors}}
+        {% for field in form %}
+        <div>
+                {{field.label_tag}}
+                {{field}}
+                {{field.errors}}
+        </div>
+        {% endfor %}
+    </fieldset>
+</form>
+<a href="{% url 'signup' %}">SignUp</a>
+{% endblock %}
