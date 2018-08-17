@@ -19,7 +19,7 @@ class AbstractBroker(SingletonModel):
     )
     endereco = models.CharField(max_length=200)
     porta = models.IntegerField(default=1883)
-    user = models.CharField(max_length=200, blank=True)
+    username = models.CharField(max_length=200, blank=True)
     password = models.CharField(max_length=200, blank=True)
     estado = models.IntegerField(choices=ESTADO_BROKER, default=0)
     class Meta:

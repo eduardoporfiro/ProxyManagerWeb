@@ -1,6 +1,9 @@
 from core.models import *
+from django.contrib.auth.models import User
+from django.db import models
 
 class Broker(AbstractBroker):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.endereco
 

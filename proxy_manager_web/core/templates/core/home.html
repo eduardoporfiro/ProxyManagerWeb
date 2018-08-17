@@ -6,6 +6,7 @@
 {% block content %}
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
+  <a href="{% url 'block:index' %}">Block</a>
   <p><a href="{% url 'logout' %}">logout</a></p>
 {% else %}
   <p>You are not logged in</p>
