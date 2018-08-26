@@ -3,7 +3,7 @@ from django.contrib import admin
 from . import views
 
 admin.autodiscover()
-
+app_name='core'
 urlpatterns =[
-    path('', views.home, name='core.home'),
+    path('', views.home, name='home'),
 ]

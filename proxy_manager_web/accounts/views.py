@@ -27,7 +27,7 @@ def register(request):
                 username=user.username, password=form.cleaned_data['password1']
             )
             login(request, user)
-            return redirect('core.home')#loga ele na sessão e retorna para a página definida no redirect login
+            return redirect('core:home')#loga ele na sessão e retorna para a página definida no redirect login
     else:
         form = RegisterForm()
     context = {
@@ -67,7 +67,7 @@ def edit(request):
             messages.success(
                 request, 'Os dados da sua conta foram alterados com sucesso'
             )
-            return redirect('accounts.dashboard')
+            return redirect('accounts:dashboard')
     else:
         form = EditAccountForm(instance=request.user)
     context['form'] = form

@@ -1,12 +1,12 @@
 {% extends "core/base.html" %}
 
-
+{% load broker_tag %}
 {% block content %}
 <div class="pure-g-r content-ribbon">
     <div class="pure-u-1">
         <ul class="breadcrumb">
             {% block breadcrumb %}
-            <li><a href="{% url 'accounts.dashboard' %}">Meu Painel</a></li>
+            <li><a href="{% url 'accounts:dashboard' %}">Meu Painel</a></li>
             {% endblock %}
         </ul>
     </div>
@@ -17,16 +17,27 @@
                     Bem-vindo, {{ user }}
                 </li>
                 {% block menu_options %}
-
+                {%load_my_broker user as relations%}
+                <li class="pure-menu-heading">Brokers</li>
+                {% for realtion in relations %}
+                <li>
+                    <a href="{% url 'accounts:edit' %}">
+                    <i class="fa fa-cog"></i>
+                        {{relation.broker.name}}
+                    </a>
+                </li>
+                {% empty %}
+                <li>Nenhum Broker Cadastrado</li>
+                {% endfor %}
                 <li class="pure-menu-heading">Configurações de Conta</li>
                 <li>
-                    <a href="{% url 'accounts.edit' %}">
+                    <a href="{% url 'accounts:edit' %}">
                     <i class="fa fa-cog"></i>
                     Editar Informações
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'accounts.edit_password' %}">
+                    <a href="{% url 'accounts:edit_password' %}">
                     <i class="fa fa-lock"></i>
                     Editar Senha
                     </a>
