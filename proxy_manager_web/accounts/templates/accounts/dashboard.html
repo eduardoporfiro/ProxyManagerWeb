@@ -17,13 +17,13 @@
                     Bem-vindo, {{ user }}
                 </li>
                 {% block menu_options %}
-                {%load_my_broker user as relations%}
-                <li class="pure-menu-heading">Brokers</li>
-                {% for realtion in relations %}
+                {%load_my_proxy user as proxys%}
+                <li class="pure-menu-heading">Proxys</li>
+                {% for proxy in proxys %}
                 <li>
-                    <a href="{% url 'accounts:edit' %}">
+                    <a href="{% url 'block:edit_proxy' %}">
                     <i class="fa fa-cog"></i>
-                        {{relation.broker.name}}
+                        {{proxy.name}}
                     </a>
                 </li>
                 {% empty %}

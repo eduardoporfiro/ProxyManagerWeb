@@ -4,8 +4,8 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 
-from block.forms import ProxyAdd, ProxyEdit
-from block.models import Dado, Broker, Relation
+from block.forms import ProxyAdd, ProxyEdit, BrokerAdd, BrokerEdit, MqttAdd, MqttEdit
+from block.models import Dado, Broker, Proxy
 
 def index(request):
     testes = Dado.objects.filter(user=request.User).all()
@@ -15,21 +15,14 @@ def index(request):
     }
     return HttpResponse(template.render(context, request))
 
-@login_required
-def relation (request, slug):
-    broker = get_object_or_404(Broker, slug=slug)
-    relation, created = Relation.objects.get_or_create(user=request.User, broker=broker)
-    return redirect('account.dashboard')
 
 @login_required
 def add_proxy(request):
-    template_name = 'block/proxy/proxy_add.html'
+    template_name = 'block/add_form.html'
     if request.method == 'POST':
         form = ProxyAdd(request.POST)
         if form.is_valid():  # Vê se ta tudo okay
-            proxy = form.save()  # salva o usuário
-            relation = Relation(proxy=proxy, user=request.user)
-            relation.save()
+            proxy = form.save(request.user)  # salva o usuário
             return redirect('core:home')  # loga ele na sessão e retorna para a página definida no redirect login
     else:
         form = ProxyAdd()
@@ -40,11 +33,12 @@ def add_proxy(request):
 
 @login_required
 def edit_proxy(request):
-    template_name = 'block/proxy/proxy_edit.html'
+    template_name = 'block/edit_form.html'
     context = {}
     if request.method == 'POST':
-        form = ProxyEdit(request.POST, instance=request.user)
+        form = ProxyEdit(request.POST)
         if form.is_valid():
+
             form.save()
             messages.success(
                 request, 'Os dados da sua conta foram alterados com sucesso'
@@ -53,4 +47,74 @@ def edit_proxy(request):
     else:
         form = ProxyEdit(instance=request.user)
     context['form'] = form
+    return render(request, template_name, context)
+
+
+@login_required
+def edit_broker(request):
+    template_name = 'block/edit_form.html'
+    context = {}
+    if request.method == 'POST':
+        form = BrokerEdit(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, 'Os dados da sua conta foram alterados com sucesso'
+            )
+            return redirect('accounts:dashboard')
+    else:
+        form = BrokerAdd()
+        form.fields['proxy'].queryset = Proxy.objects.filter(user=request.user)
+    context['form'] = form
+    return render(request, template_name, context)
+
+@login_required
+def add_broker(request):
+    template_name = 'block/add_form.html'
+    if request.method == 'POST':
+        form = BrokerAdd(request.POST)
+        if form.is_valid():  # Vê se ta tudo okay
+            broker = form.save()  # salva o usuário
+            return redirect('core:home')  # loga ele na sessão e retorna para a página definida no redirect login
+    else:
+        form = BrokerAdd()
+        form.fields['proxy'].queryset = Proxy.objects.filter(user=request.user)
+    context = {
+        'form': form
+    }
+    return render(request, template_name, context)
+
+
+
+@login_required
+def edit_mqtt(request):
+    template_name = 'block/edit_form.html'
+    context = {}
+    if request.method == 'POST':
+        form = MqttEdit(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, 'Os dados da sua conta foram alterados com sucesso'
+            )
+            return redirect('accounts:dashboard')
+    else:
+        form = MqttEdit()
+        #form.fields['broker'] = Broker.objects.filter
+    context['form'] = form
+    return render(request, template_name, context)
+
+@login_required
+def add_Mqtt(request):
+    template_name = 'block/add_form.html'
+    if request.method == 'POST':
+        form = MqttAdd(request.POST)
+        if form.is_valid():  # Vê se ta tudo okay
+            mqtt = form.save()  # salva o usuário
+            return redirect('core:home')  # loga ele na sessão e retorna para a página definida no redirect login
+    else:
+        form = MqttAdd()
+    context = {
+        'form': form
+    }
     return render(request, template_name, context)

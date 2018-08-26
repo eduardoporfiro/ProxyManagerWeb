@@ -1,5 +1,4 @@
 from django.db import models
-from solo.models import SingletonModel
 from django.utils import timezone
 
 Qos = [
@@ -8,7 +7,7 @@ Qos = [
     (2, 'QoS - 2')
 ]
 
-class AbstractBroker(SingletonModel):
+class AbstractBroker(models.Model):
     ESTADO_BROKER = (
         (0, 'Desligado'),
         (1, 'Iniciando'),
