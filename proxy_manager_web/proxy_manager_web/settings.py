@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     'core',
     'block',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -105,6 +106,7 @@ SITE_ID = 1
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
+AUTH_USER_MODEL = 'accounts.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {

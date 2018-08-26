@@ -1,11 +1,9 @@
-from django.urls import path
-from django.conf.urls import url
-from django.contrib.auth import views as auth_views
+from django.urls import include, path
+from django.contrib import admin
 from . import views
 
+admin.autodiscover()
 
-urlpatterns = [
-    url(r'^login/$', auth_views.login, {'template_name': 'core/login.html'}, name='login'),
-    url(r'^logout/$', auth_views.logout, {'template_name': 'core/home.html'}, name='logout'),
-    path('signup/', views.register, name='signup'),
+urlpatterns =[
+    path('', views.home, name='core.home'),
 ]

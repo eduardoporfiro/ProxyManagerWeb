@@ -1,16 +1,47 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+{% load staticfiles %}
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-    {% load staticfiles %}
-  <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static '/admin/css/base.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static '/admin/css/forms.css' %}" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ProxyManager" />
+    <title>ProxyManagerWeb</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="{% static 'core/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'core/css/styles.css' %}" />
 </head>
 <body>
-  <main>
-    {% block content %}
-    {% endblock %}
-  </main>
+<div class="header">
+    <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading" href="{% url 'core.home' %}">ProxyManagerWeb</a>
+        <ul>
+            <li class="pure-menu-selected"><a href="{% url 'core.home' %}">Início</a></li>
+            <li><a href="">Cursos</a></li>
+            <li><a href="">Contato</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'accounts.dashboard' %}">Painel</a></li>
+            <li><a href="{% url 'accounts.logout' %}">Sair</a></li>
+            {% else %}
+            <li><a href="{% url 'accounts.login' %}">Entrar</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+<div class="content">
+    {% if messages %}
+    <div class="pure-g-r content-ribbon">
+        <aside class="pure-u-1">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </aside>
+    </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+    <div class="footer">
+        ProxyManagerWeb - Plataforma de Gerenciamento de IoT
+    </div>
+</div>
+<script src="http://yui.yahooapis.com/3.12.0/build/yui/yui-min.js"></script>
 </body>
 </html>
