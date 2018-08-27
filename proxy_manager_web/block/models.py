@@ -11,13 +11,14 @@ class Proxy(models.Model):
 
 class Broker(AbstractBroker):
     name = models.CharField(max_length=100, blank=True)
-    proxy = models.ForeignKey(Proxy, on_delete=models.CASCADE, related_name='proxy_set')
+    proxy = models.ForeignKey(Proxy, on_delete=models.CASCADE, related_name='broker')
     def __str__(self):
         return self.name
 
 
 class Mqtt(AbstractMqtt):
     broker = models.ForeignKey(Broker, on_delete=True, related_name='mqtt')
+    proxy = models.ForeignKey(Proxy, on_delete=True, related_name='mqtt')
     def __str__(self):
         return self.topico
 
