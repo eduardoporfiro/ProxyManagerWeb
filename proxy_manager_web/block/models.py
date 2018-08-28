@@ -8,17 +8,18 @@ class Proxy(models.Model):
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user')
+    def __str__(self):
+        return self.name
 
 class Broker(AbstractBroker):
     name = models.CharField(max_length=100, blank=True)
-    proxy = models.ForeignKey(Proxy, on_delete=models.CASCADE, related_name='broker')
+    proxy = models.OneToOneField(Proxy, on_delete=models.CASCADE, related_name='broker')
     def __str__(self):
         return self.name
 
 
 class Mqtt(AbstractMqtt):
-    broker = models.ForeignKey(Broker, on_delete=True, related_name='mqtt')
-    proxy = models.ForeignKey(Proxy, on_delete=True, related_name='mqtt')
+    broker = models.ForeignKey(Broker, on_delete=models.CASCADE, related_name='mqtt')
     def __str__(self):
         return self.topico
 

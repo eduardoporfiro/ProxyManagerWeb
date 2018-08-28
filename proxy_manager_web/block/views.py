@@ -34,6 +34,12 @@ def add_proxy(request):
     }
     return render(request, template_name, context)
 
+class MqttCreateView(LoginRequiredMixin, CreateView):
+    model = Mqtt
+    form_class = MqttAdd
+    template_name = 'block/mqtt_add.html'
+    success_url = reverse_lazy('core:home')
+
 @login_required
 def edit_proxy(request):
     template_name = 'block/edit_form.html'
@@ -50,6 +56,7 @@ def edit_proxy(request):
     else:
         form = ProxyEdit(instance=request.user)
     context['form'] = form
+    context['edit_proxy'] = "active"
     return render(request, template_name, context)
 
 
@@ -69,6 +76,7 @@ def edit_broker(request):
         form = BrokerAdd()
         form.fields['proxy'].queryset = Proxy.objects.filter(user=request.user)
     context['form'] = form
+    context['edit_broker'] = "active"
     return render(request, template_name, context)
 
 @login_required
@@ -105,19 +113,8 @@ def edit_mqtt(request):
         form = MqttEdit()
         #form.fields['broker'] = Broker.objects.filter
     context['form'] = form
+    context['edit_mqtt'] = "active"
     return render(request, template_name, context)
-
-
-class MqttCreateView(LoginRequiredMixin, CreateView):
-    model = Mqtt
-    form_class = MqttAdd
-    template_name = 'block/mqtt_add.html'
-    success_url = reverse_lazy('core:home')
-
-    def get(self, request, *args, **kwargs):
-        form = self.form_class(initial=self.initial)
-        form.fields['proxy'].queryset = Proxy.objects.filter(user=request.user)
-        return render(request, self.template_name, {'form': form})
 
 
 def load_broker(request):
