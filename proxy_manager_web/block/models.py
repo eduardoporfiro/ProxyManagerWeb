@@ -20,6 +20,7 @@ class Broker(AbstractBroker):
 
 class Mqtt(AbstractMqtt):
     broker = models.ForeignKey(Broker, on_delete=models.CASCADE, related_name='mqtt')
+    proxy = models.ForeignKey(Proxy, on_delete=models.CASCADE, related_name='mqtt', default=1)
     def __str__(self):
         return self.topico
 

@@ -10,6 +10,7 @@ from django.urls import reverse_lazy
 from block.forms import ProxyAdd, ProxyEdit, BrokerAdd, BrokerEdit, MqttAdd, MqttEdit
 from block.models import Dado, Broker, Proxy,Mqtt
 
+
 def index(request):
     testes = Dado.objects.filter(user=request.User).all()
     template = loader.get_template('block/index.html')
@@ -41,42 +42,21 @@ class MqttCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('core:home')
 
 @login_required
-def edit_proxy(request):
-    template_name = 'block/edit_form.html'
-    context = {}
+def add_mqtt(request):
+    template_name = 'block/mqtt_add.html'
+    proxys = Proxy.objects.filter(user=request.user)
     if request.method == 'POST':
-        form = ProxyEdit(request.POST)
-        if form.is_valid():
-
-            form.save()
-            messages.success(
-                request, 'Os dados da sua conta foram alterados com sucesso'
-            )
-            return redirect('accounts:dashboard')
+        form = MqttAdd(request.POST)
+        if form.is_valid():  # Vê se ta tudo okay
+            mqtt = form.save()  # salva o usuário
+            return redirect('core:home')  # loga ele na sessão e retorna para a página definida no redirect login
     else:
-        form = ProxyEdit(instance=request.user)
-    context['form'] = form
-    context['edit_proxy'] = "active"
-    return render(request, template_name, context)
-
-
-@login_required
-def edit_broker(request):
-    template_name = 'block/edit_form.html'
-    context = {}
-    if request.method == 'POST':
-        form = BrokerEdit(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            messages.success(
-                request, 'Os dados da sua conta foram alterados com sucesso'
-            )
-            return redirect('accounts:dashboard')
-    else:
-        form = BrokerAdd()
-        form.fields['proxy'].queryset = Proxy.objects.filter(user=request.user)
-    context['form'] = form
-    context['edit_broker'] = "active"
+        form = MqttAdd()
+        form.fields['proxy'].queryset = proxys
+        form.fields['broker'].queryset = Broker.objects.filter(proxy_id=proxys.first().pk)
+    context = {
+        'form': form
+    }
     return render(request, template_name, context)
 
 @login_required
@@ -95,10 +75,49 @@ def add_broker(request):
     }
     return render(request, template_name, context)
 
+@login_required
+def edit_proxy(request, proxy_id):
+    template_name = 'block/edit_form.html'
+    context = {}
+    proxy = Proxy.objects.get(pk=proxy_id)
+    if request.method == 'POST':
+        form = ProxyEdit(request.POST)
+        if form.is_valid():
+
+            form.save(request.user)
+            messages.success(
+                request, 'Os dados da sua conta foram alterados com sucesso'
+            )
+            return redirect('accounts:dashboard')
+    else:
+        form = ProxyEdit(instance=proxy)
+    context['form'] = form
+    context['proxy']= proxy
+    context['edit_proxy'] = "active"
+    return render(request, template_name, context)
 
 
 @login_required
-def edit_mqtt(request):
+def edit_broker(request, broker_id):
+    template_name = 'block/edit_form.html'
+    context = {}
+    if request.method == 'POST':
+        form = BrokerEdit(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, 'Os dados da sua conta foram alterados com sucesso'
+            )
+            return redirect('accounts:dashboard')
+    else:
+        form = BrokerAdd()
+        form.fields['proxy'].queryset = Proxy.objects.filter(user=request.user)
+    context['form'] = form
+    context['edit_broker'] = "active"
+    return render(request, template_name, context)
+
+@login_required
+def edit_mqtt(request, mqtt_id):
     template_name = 'block/edit_form.html'
     context = {}
     if request.method == 'POST':

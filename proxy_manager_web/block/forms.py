@@ -13,6 +13,12 @@ class ProxyAdd(forms.ModelForm):
         fields = ['name','url','username', 'password']
 
 class ProxyEdit(forms.ModelForm):
+    def save(self, user, commit=True):
+        proxy = super(ProxyEdit, self).save(commit=False)
+        proxy.user=user
+        if commit:
+            proxy.save()
+        return proxy
     class Meta:
         model = Proxy
         fields = ['name','url','username', 'password']
@@ -20,7 +26,10 @@ class ProxyEdit(forms.ModelForm):
 class MqttAdd(forms.ModelForm):
     class Meta:
         model = Mqtt
-        fields = ['broker','QoS','topico',]
+        fields = ['proxy','broker','QoS','topico']
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['broker'].queryset = Broker.objects.none()
 
 class MqttEdit(forms.ModelForm):
     class Meta:

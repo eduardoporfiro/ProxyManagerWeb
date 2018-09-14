@@ -21,8 +21,8 @@
                 <li class="pure-menu-heading">Proxys</li>
                 {% for proxy in proxys %}
                 <li>
-                    <a href="{% url 'block:edit_proxy' %}">
-                    <i class="fa fa-cog"></i>
+                    <a href="{% url 'block:edit_proxy' proxy.id %}">
+                    <i class="fa fa-dashboard"></i>
                         {{proxy.name}}
                     </a>
                 </li>
@@ -49,7 +49,6 @@
     <div class="pure-u-2-3">
         <div class="inner">
             {% block dashboard_content %}
-                {% include 'block/edit_main.html' %}
             {% endblock %}
         </div>
     </div>

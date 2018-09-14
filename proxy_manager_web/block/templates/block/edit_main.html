@@ -4,13 +4,13 @@
     <div id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item {{ edit_proxy }}">
-          <a class="nav-link" href="{% url 'block:edit_proxy' %}">Proxy</a>
+          <a class="nav-link" href="{% url 'block:edit_proxy' proxy.id %}">Proxy</a>
         </li>
         <li class="nav-item {{ edit_broker }}">
-          <a class="nav-link" href="{% url 'block:edit_broker' %}">Mqtt</a>
+          <a class="nav-link" href="{% url 'block:edit_broker' broker_id %}">Broker</a>
         </li>
         <li class="nav-item {{ edit_mqtt }}">
-          <a class="nav-link" href="{% url 'block:edit_mqtt' %}">Broker</a>
+          <a class="nav-link" href="{% url 'block:edit_mqtt' broker_id %}">MQTT</a>
         </li>
       </ul>
     </div>
