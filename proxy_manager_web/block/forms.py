@@ -2,12 +2,6 @@ from django import forms
 from block.models import Mqtt, Proxy,Broker
 
 class ProxyAdd(forms.ModelForm):
-    def save(self, user, commit=True):
-        proxy = super(ProxyAdd, self).save(commit=False)
-        proxy.user=user
-        if commit:
-            proxy.save()
-        return proxy
     class Meta:
         model = Proxy
         fields = ['name','url','username', 'password']
@@ -16,12 +10,6 @@ class ProxyAdd(forms.ModelForm):
         }
 
 class ProxyEdit(forms.ModelForm):
-    def save(self, user, commit=True):
-        proxy = super(ProxyEdit, self).save(commit=False)
-        proxy.user=user
-        if commit:
-            proxy.save()
-        return proxy
     class Meta:
         model = Proxy
         fields = ['name','url','username', 'password']

@@ -88,8 +88,8 @@ DATABASES = {
     'default' :{
         'ENGINE': 'django.db.backends.mysql',
         'NAME' : 'proxy_manager_web',
-        'USER': 'eduardo',
-        'PASSWORD': 'Potterharry1!',
+        'USER': 'root',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'POR': '3306'
     }
