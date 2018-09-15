@@ -15,18 +15,25 @@
 
   <div class="tab-content" id="tabContent">
     <div class="container tab-pane active" id="proxy-div">
-
     </div>
+
     <div id="broker-div" class="container tab-pane fade">
-
     </div>
-    <div id="mqtt-div" class="container tab-pane fade">
 
+    <div id="mqtt-div" class="container tab-pane fade">
     </div>
   </div>
 
 <script>
 $(document).ready(function(){
+    $.ajax({
+        url: '{% url 'block:edit_proxy' proxy.id %}',
+        data: {},
+        success: function (data) {
+            var div = document.getElementById("proxy-div");
+            div.innerHTML = data;
+        }
+    });
     $(".nav-tabs a").click(function(){
         var url = $(this).attr("form-url");  // get the url of the `load_cities` view
         $.ajax({                       // initialize an AJAX request

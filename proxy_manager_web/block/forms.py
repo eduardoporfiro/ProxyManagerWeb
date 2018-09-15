@@ -1,18 +1,13 @@
 from django import forms
 from block.models import Mqtt, Proxy,Broker
 
-class ProxyAdd(forms.ModelForm):
+class ProxyForm(forms.ModelForm):
     class Meta:
         model = Proxy
         fields = ['name','url','username', 'password']
         widgets = {
             'password': forms.PasswordInput(),
         }
-
-class ProxyEdit(forms.ModelForm):
-    class Meta:
-        model = Proxy
-        fields = ['name','url','username', 'password']
 
 class MqttAdd(forms.ModelForm):
     class Meta:
@@ -25,17 +20,12 @@ class MqttAdd(forms.ModelForm):
 class MqttEdit(forms.ModelForm):
     class Meta:
         model = Mqtt
-        fields = ['broker','QoS','topico',]
+        fields = ['proxy', 'broker', 'QoS', 'topico']
 
-class BrokerAdd(forms.ModelForm):
+class BrokerForm(forms.ModelForm):
     class Meta:
         model = Broker
         fields = ['name','proxy','endereco', 'porta', 'username', 'password']
         widgets = {
             'password': forms.PasswordInput(),
         }
-
-class BrokerEdit(forms.ModelForm):
-    class Meta:
-        model = Broker
-        fields = ['name','proxy','endereco', 'porta', 'username', 'password']

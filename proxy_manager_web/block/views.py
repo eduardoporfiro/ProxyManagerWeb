@@ -7,7 +7,7 @@ from django.views.generic import  CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
-from block.forms import ProxyAdd, ProxyEdit, BrokerAdd, BrokerEdit, MqttAdd, MqttEdit
+from block.forms import ProxyForm, BrokerForm, MqttAdd, MqttEdit
 from block.models import Dado, Broker, Proxy,Mqtt
 from accounts.models import User
 
@@ -32,7 +32,7 @@ def tab_edit(request, proxy_id):
 def add_proxy(request):
     template_name = 'block/forms/add/add_form.html'
     if request.method == 'POST':
-        form = ProxyAdd(request.POST)
+        form = ProxyForm(request.POST)
         if form.is_valid():  # Vê se ta tudo okay
             proxy = form.save(commit=False)  # salva o usuário
             proxy.user = request.user
@@ -42,7 +42,7 @@ def add_proxy(request):
             )
             return redirect('core:home')  # loga ele na sessão e retorna para a página definida no redirect login
     else:
-        form = ProxyAdd()
+        form = ProxyForm()
     context = {
         'form': form
     }
@@ -76,7 +76,7 @@ def add_broker(request):
     template_name = 'block/forms/add/add_form.html'
     proxys = Proxy.objects.filter(user=request.user)
     if request.method == 'POST':
-        form = BrokerAdd(request.POST)
+        form = BrokerForm(request.POST)
         if form.is_valid():  # Vê se ta tudo okay
             broker = form.save()  # salva o usuário
             messages.success(
@@ -86,7 +86,7 @@ def add_broker(request):
         else:
             form.fields['proxy'].queryset = proxys
     else:
-        form = BrokerAdd()
+        form = BrokerForm()
         form.fields['proxy'].queryset = proxys
     context = {
         'form': form
@@ -100,7 +100,7 @@ def edit_proxy(request, proxy_id):
     proxy = Proxy.objects.get(pk=proxy_id)
     if request.method == 'POST':
         proxy = get_object_or_404(Proxy, pk=proxy_id)
-        form = ProxyAdd(data=request.POST, instance=proxy)
+        form = ProxyForm(data=request.POST, instance=proxy)
         if form.is_valid():
             proxy = form.save(commit=False)
             proxy.user = request.user
@@ -108,11 +108,11 @@ def edit_proxy(request, proxy_id):
             messages.success(
                 request, 'Os dados da sua conta foram alterados com sucesso'
             )
-            return redirect('accounts:dashboard')
+            return redirect('block:tab_edit', proxy.id)
     else:
-        form = ProxyEdit(instance=proxy)
+        form = ProxyForm(instance=proxy)
         context['form'] = form
-        context['proxy']= proxy
+        context['proxy'] = proxy
         context['edit_proxy'] = "active"
     return render(request, template_name, context)
 
@@ -123,16 +123,18 @@ def edit_broker(request, broker_id):
     context = {}
     broker = Broker.objects.get(pk=broker_id)
     if request.method == 'POST':
-        form = BrokerEdit(request.POST, instance=broker)
+        form = BrokerForm(request.POST, instance=broker)
         if form.is_valid():
-            form.save()
+            broker = form.save()
             messages.success(
                 request, 'Os dados da sua conta foram alterados com sucesso'
             )
-            return redirect('accounts:dashboard')
+            context = {'proxy': broker.proxy}
+            return redirect('block:tab_edit', broker.proxy.id)
     else:
-        form = BrokerAdd(instance=broker)
+        form = BrokerForm(instance=broker)
         context['form'] = form
+        context['broker'] = broker
     return render(request, template_name, context)
 
 @login_required
