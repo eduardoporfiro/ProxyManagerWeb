@@ -11,6 +11,9 @@ class ProxyAdd(forms.ModelForm):
     class Meta:
         model = Proxy
         fields = ['name','url','username', 'password']
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
 
 class ProxyEdit(forms.ModelForm):
     def save(self, user, commit=True):
@@ -40,6 +43,9 @@ class BrokerAdd(forms.ModelForm):
     class Meta:
         model = Broker
         fields = ['name','proxy','endereco', 'porta', 'username', 'password']
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
 
 class BrokerEdit(forms.ModelForm):
     class Meta:

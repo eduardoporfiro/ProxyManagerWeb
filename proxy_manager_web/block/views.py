@@ -27,6 +27,9 @@ def add_proxy(request):
         form = ProxyAdd(request.POST)
         if form.is_valid():  # Vê se ta tudo okay
             proxy = form.save(request.user)  # salva o usuário
+            messages.success(
+                request, 'Os dados do Proxy foram adicionados com sucesso'
+            )
             return redirect('core:home')  # loga ele na sessão e retorna para a página definida no redirect login
     else:
         form = ProxyAdd()
@@ -34,12 +37,6 @@ def add_proxy(request):
         'form': form
     }
     return render(request, template_name, context)
-
-class MqttCreateView(LoginRequiredMixin, CreateView):
-    model = Mqtt
-    form_class = MqttAdd
-    template_name = 'block/mqtt_add.html'
-    success_url = reverse_lazy('core:home')
 
 @login_required
 def add_mqtt(request):
@@ -49,7 +46,12 @@ def add_mqtt(request):
         form = MqttAdd(request.POST)
         if form.is_valid():  # Vê se ta tudo okay
             mqtt = form.save()  # salva o usuário
+            messages.success(
+                request, 'Os dados do MQTT foram adicionados com sucesso'
+            )
             return redirect('core:home')  # loga ele na sessão e retorna para a página definida no redirect login
+        else:
+            form.fields['proxy'].queryset = proxys
     else:
         form = MqttAdd()
         form.fields['proxy'].queryset = proxys
@@ -62,14 +64,20 @@ def add_mqtt(request):
 @login_required
 def add_broker(request):
     template_name = 'block/add_form.html'
+    proxys = Proxy.objects.filter(user=request.user)
     if request.method == 'POST':
         form = BrokerAdd(request.POST)
         if form.is_valid():  # Vê se ta tudo okay
             broker = form.save()  # salva o usuário
+            messages.success(
+                request, 'Os dados do Broker foram adicionados com sucesso'
+            )
             return redirect('core:home')  # loga ele na sessão e retorna para a página definida no redirect login
+        else:
+            form.fields['proxy'].queryset = proxys
     else:
         form = BrokerAdd()
-        form.fields['proxy'].queryset = Proxy.objects.filter(user=request.user)
+        form.fields['proxy'].queryset = proxys
     context = {
         'form': form
     }
@@ -77,7 +85,7 @@ def add_broker(request):
 
 @login_required
 def edit_proxy(request, proxy_id):
-    template_name = 'block/edit_form.html'
+    template_name = 'block/tabEdit.html'
     context = {}
     proxy = Proxy.objects.get(pk=proxy_id)
     if request.method == 'POST':
