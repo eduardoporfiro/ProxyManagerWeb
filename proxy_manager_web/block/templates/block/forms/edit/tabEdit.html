@@ -1,5 +1,15 @@
 {% extends "accounts/dashboard.html" %}
-
+{% block breadcrumb %}
+    {{ block.super }}
+    <li>/</li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% if broker %}
+            <a href="{% url 'block:edit_broker' broker.id %}">Editar Broker</a>
+        {% else %}
+            <a href="{% url 'block:edit_proxy' proxy.id %}">{{ proxy }}</a>
+        {% endif %}
+    </li>
+{% endblock %}
 {% block dashboard_content %}
   <ul class="nav nav-tabs">
     <li class="nav-item">
