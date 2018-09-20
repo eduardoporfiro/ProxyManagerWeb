@@ -8,6 +8,7 @@ from django_tables2 import RequestConfig
 from block.forms import ProxyForm, BrokerForm, MqttAdd, MqttEdit
 from block.models import Dado, Broker, Proxy,Mqtt
 from block.tables import MqttTable
+from block import task
 
 def index(request):
     testes = Dado.objects.filter(user=request.User).all()
@@ -100,6 +101,7 @@ def edit_proxy(request, proxy_id):
             proxy = form.save(commit=False)
             proxy.user = request.user
             proxy.save()
+            print(task.conect_proxy.delay(proxy.pk))
             messages.success(
                 request, 'Os dados da sua conta foram alterados com sucesso'
             )
