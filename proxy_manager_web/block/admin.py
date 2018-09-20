@@ -1,3 +1,6 @@
 from django.contrib import admin
-
-# Register your models here.
+from block.models import Broker, Mqtt, Dado, Proxy
+admin.site.register(Broker)
+admin.site.register(Mqtt)
+admin.site.register(Dado)
+admin.site.register(Proxy)

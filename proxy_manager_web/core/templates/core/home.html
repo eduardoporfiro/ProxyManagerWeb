@@ -1,0 +1,56 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="pure-g-r content-ribbon">
+    <div class="pure-u-2-3">
+        <div class="l-box">
+            <h4 class="content-subhead">Adicionar Proxy</h4>
+            <p>
+                Adiciona o proxy a ser gerenciado pela aplicação
+            </p>
+            <a href="{% url 'block:add_proxy' %}">ADD PROXY</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="pure-g-r content-ribbon">
+    <div class="pure-u-2-3">
+        <div class="l-box">
+            <h4 class="content-subhead">Adicionar Broker</h4>
+            <p>
+                Adiciona o Broker vínculado a um proxy
+            </p>
+            <a href="{% url 'block:add_broker' %}">ADD BROKER</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="pure-g-r content-ribbon">
+    <div class="pure-u-2-3">
+        <div class="l-box">
+            <h4 class="content-subhead">Adicionar Mqtt</h4>
+            <p>
+                Adiciona o Mqtt vinculado a um Broker
+            </p>
+            <a href="{% url 'block:add_mqtt' %}">ADD MQTT</a>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<div class="pure-g-r content-ribbon">
+    <div class="pure-u-2-3">
+        <div class="l-box">
+            <h4 class="content-subhead">Explicação</h4>
+            <h3>Proxy Manager</h3>
+            <p>
+                Plataforma de IoT
+            </p>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
