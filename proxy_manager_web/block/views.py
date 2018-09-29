@@ -158,7 +158,7 @@ def edit_mqtt(request, mqtt_id):
 def load_mqtt(request, broker_id):
     template_name = "block/mqtt_tab.html"
     mqtt = MqttTable(Mqtt.objects.filter(broker=broker_id).all())
-    RequestConfig(request).configure(mqtt)
+    RequestConfig(request, paginate={'per_page': 5}).configure(mqtt)
     return render(request, template_name,{'mqtts':mqtt})
 
 def load_broker(request):
