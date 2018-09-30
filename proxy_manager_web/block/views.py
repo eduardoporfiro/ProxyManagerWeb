@@ -1,5 +1,3 @@
-from django.http import HttpResponse
-from django.template import loader
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -9,14 +7,6 @@ from block.forms import ProxyForm, BrokerForm, MqttAdd, MqttEdit
 from block.models import Broker, Proxy,Mqtt
 from block.tables import MqttTable
 from block import task
-
-def index(request):
-
-    template = loader.get_template('block/index.html')
-    context = {
-
-    }
-    return HttpResponse(template.render(context, request))
 
 @login_required
 def tab_edit(request, proxy_id):

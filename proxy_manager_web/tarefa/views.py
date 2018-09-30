@@ -2,6 +2,8 @@ from django_tables2 import RequestConfig
 from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.template import loader
 
 from block.models import Mqtt, Proxy
 
@@ -100,3 +102,10 @@ def load_mqtt(request):
     proxy_id = request.GET.get('proxy')
     mqtts = Mqtt.objects.filter(proxy_id=proxy_id)
     return render(request, 'tarefa/dropdown_dispo.html', {'mqtts': mqtts})
+
+def index(request):
+    template = loader.get_template('tarefa/index.html')
+    context = {
+
+    }
+    return HttpResponse(template.render(context, request))
