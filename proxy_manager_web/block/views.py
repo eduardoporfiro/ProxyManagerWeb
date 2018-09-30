@@ -6,15 +6,15 @@ from django.contrib.auth.decorators import login_required
 from django_tables2 import RequestConfig
 
 from block.forms import ProxyForm, BrokerForm, MqttAdd, MqttEdit
-from block.models import Dado, Broker, Proxy,Mqtt
+from block.models import Broker, Proxy,Mqtt
 from block.tables import MqttTable
 from block import task
 
 def index(request):
-    testes = Dado.objects.filter(user=request.User).all()
+
     template = loader.get_template('block/index.html')
     context = {
-        'testes': testes,
+
     }
     return HttpResponse(template.render(context, request))
 

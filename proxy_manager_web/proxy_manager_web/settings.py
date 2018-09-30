@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'block',
     'accounts',
     'django_tables2',
+    'tarefa',
 ]
 
 MIDDLEWARE = [
