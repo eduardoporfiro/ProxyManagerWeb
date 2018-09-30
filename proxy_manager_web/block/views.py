@@ -6,15 +6,15 @@ from django.contrib.auth.decorators import login_required
 from django_tables2 import RequestConfig
 
 from block.forms import ProxyForm, BrokerForm, MqttAdd, MqttEdit
-from block.models import Dado, Broker, Proxy,Mqtt
+from block.models import Broker, Proxy,Mqtt
 from block.tables import MqttTable
 from block import task
 
 def index(request):
-    testes = Dado.objects.filter(user=request.User).all()
+
     template = loader.get_template('block/index.html')
     context = {
-        'testes': testes,
+
     }
     return HttpResponse(template.render(context, request))
 
@@ -158,7 +158,7 @@ def edit_mqtt(request, mqtt_id):
 def load_mqtt(request, broker_id):
     template_name = "block/mqtt_tab.html"
     mqtt = MqttTable(Mqtt.objects.filter(broker=broker_id).all())
-    RequestConfig(request, paginate={'per_page': 5}).configure(mqtt)
+    RequestConfig(request).configure(mqtt)
     return render(request, template_name,{'mqtts':mqtt})
 
 def load_broker(request):

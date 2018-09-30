@@ -1,0 +1,4 @@
+<option value="">---------</option>
+{% for mqtt in mqtts %}
+<option value="{{ mqtt.pk }}">{{ mqtt.topico }}</option>
+{% endfor %}

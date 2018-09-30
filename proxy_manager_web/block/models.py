@@ -33,6 +33,3 @@ class Mqtt(AbstractMqtt):
     def __str__(self):
         return self.topico
 
-class Dado(AbstractDado):
-    mqtt = models.ForeignKey(Mqtt, on_delete=models.CASCADE, editable=False, related_name='dado')
-
