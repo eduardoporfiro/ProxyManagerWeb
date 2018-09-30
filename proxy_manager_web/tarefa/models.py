@@ -1,17 +1,12 @@
 from django.db import models
 from block.models import Mqtt, Proxy
+from core.models import AbstractDispositivo, AbstractDado
 
-class Dispositivo(models.Model):
-    TIPO = (
-        (0, 'Atuador'),
-        (1, 'Sensor'),
-    )
-    nome = models.CharField(max_length=200)
+class Dispositivo(AbstractDispositivo):
     mqtt = models.OneToOneField(Mqtt, on_delete=models.CASCADE)
     proxy = models.ForeignKey(Proxy, on_delete=models.CASCADE, blank=True)
-    tipo = models.IntegerField(choices=TIPO, default=0)
 
-class Dado (models.Model):
+
+class Dado (AbstractDado):
      sensor = models.ForeignKey(Dispositivo, on_delete=models.CASCADE)
-     valor_char = models.CharField(max_length=500, blank=True)
-     valor_int = models.IntegerField(blank=True)
+

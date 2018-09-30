@@ -24,6 +24,7 @@ def add_proxy(request):
             proxy = form.save(commit=False)  # salva o usuário
             proxy.user = request.user
             proxy.save()
+            task.conect_proxy.delay(proxy.pk)
             messages.success(
                 request, 'Os dados do Proxy foram adicionados com sucesso'
             )
@@ -74,7 +75,7 @@ def add_broker(request):
             form.fields['proxy'].queryset = proxys
     else:
         form = BrokerForm()
-        form.fields['proxy'].queryset = proxys
+        form.fields['proxy'].queryset = Proxy.objects.filter(user=request.user, status=1)
     context = {
         'form': form
     }
@@ -91,7 +92,7 @@ def edit_proxy(request, proxy_id):
             proxy = form.save(commit=False)
             proxy.user = request.user
             proxy.save()
-            print(task.conect_proxy.delay(proxy.pk))
+            task.conect_proxy.delay(proxy.pk)
             messages.success(
                 request, 'Os dados da sua conta foram alterados com sucesso'
             )
@@ -115,6 +116,7 @@ def edit_broker(request, broker_id):
         form = BrokerForm(request.POST, instance=broker)
         if form.is_valid():
             broker = form.save()
+            task.update_broker.delay(broker.pk)
             messages.success(
                 request, 'Os dados da sua conta foram alterados com sucesso'
             )
@@ -153,5 +155,5 @@ def load_mqtt(request, broker_id):
 
 def load_broker(request):
     proxy_id = request.GET.get('proxy')
-    brokers = Broker.objects.filter(proxy_id=proxy_id)
-    return render(request, 'block/dropdown_mqtt.html', {'brokers': brokers})
+    brokers = Broker.objects.filter(proxy_id=proxy_id, proxy_status=1)
+    return render(request, 'block/dropdown.html', {'dados': brokers})
