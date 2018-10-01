@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+{% load socialaccount %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-6">
+            <h2 class="h2">Login</h2>
+        </div>
+        <div class="col-sm-6">
+            <form method="post" class="pure-form pure-form-stacked">
+                {% csrf_token %}
+                <fieldset>
+                    {{form.non_field_errors}}
+                    {% for field in form %}
+                    <div>
+                            {{field.label_tag}}
+                            {{field}}
+                            {{field.errors}}
+                    </div>
+                    {% endfor %}
+                    <button class="btn btn-dark" type="submit">Sign in</button>
+                <a class="btn btn-dark" href="{% provider_login_url 'google' %}">Log In with Gmail</a>
+                <a class="btn btn-dark" href="{% url 'accounts:signup' %}">SignUp</a>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+{% endblock %}

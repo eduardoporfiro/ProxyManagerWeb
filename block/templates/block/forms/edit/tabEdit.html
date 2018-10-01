@@ -1,0 +1,104 @@
+{% extends "accounts/dashboard.html" %}
+{% block breadcrumb %}
+    {{ block.super }}
+    <li> / </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {% if broker %}
+            <a href="{% url 'block:edit_broker' broker.id %}">Editar Broker</a>
+        {% else %}
+            <a href="{% url 'block:edit_proxy' proxy.id %}">{{ proxy }}</a>
+        {% endif %}
+    </li>
+{% endblock %}
+{% block dashboard_content %}
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" id="proxy-tab" href="#proxy" form-url="{% url 'block:edit_proxy' proxy.id %}">Proxy</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="broker-tab" href="#broker"
+           {% if proxy.broker %}
+                form-url="{% url 'block:edit_broker' proxy.broker.id %}">Broker</a>
+            {% else %}
+                form-url="{% url 'block:edit_broker' 0 %}">Broker</a>
+            {% endif %}
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="mqtt-tab"  href="#mqtt"
+           {% if proxy.broker %}
+                form-url="{% url 'block:load_mqtt' proxy.broker.id %}">Mqtt</a>
+           {% else %}
+                form-url="{% url 'block:load_mqtt' 0 %}">Mqtt</a>
+        {% endif %}
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="sensor-tab"  href="#sensor"
+           {% if proxy %}
+                form-url="{% url 'tarefa:load_dispositivo' proxy.id %}">Sensor</a>
+           {% else %}
+                form-url="{% url 'tarefa:load_dispositivo' 0 %}">Sensor</a>
+        {% endif %}
+    </li>
+  </ul>
+
+  <div class="tab-content" id="tabContent">
+    <div class="container tab-pane active" id="proxy-div">
+    </div>
+
+    <div id="broker-div" class="container tab-pane fade">
+    </div>
+
+    <div id="mqtt-div" class="container tab-pane fade">
+    </div>
+
+    <div id="sensor-div" class="container tab-pane fade">
+    </div>
+  </div>
+
+<script>
+$(document).ready(function(){
+    $.ajax({
+        url: '{% url 'block:edit_proxy' proxy.id %}',
+        data: {},
+        success: function (data) {
+            var div = document.getElementById("proxy-div");
+            div.innerHTML = data;
+        }
+    });
+    $(".nav-tabs a").click(function(){
+        var url = $(this).attr("form-url");  // get the url of the `load_cities` view
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                    // add the country id to the GET parameters
+            },
+            success: function (data) {// `data` is the return of the `load_cities` view functio
+              //$("#id_broker").html(data);  // replace the contents of the city input with the data that came from the serve$
+                if($(this).id = "proxy-tab") {
+                    var div = document.getElementById("proxy-div");
+                    div.innerHTML = data;
+                }
+                if($(this).id = "broker-tab") {
+                    var div = document.getElementById("broker-div");
+                    div.innerHTML = data;
+                }
+                if($(this).id = "mqtt-tab") {
+                    var div = document.getElementById("mqtt-div");
+                    div.innerHTML = data;
+                }
+
+                if($(this).id = "sensor-tab") {
+                    var div = document.getElementById("sensor-div");
+                    div.innerHTML = data;
+                }
+            },
+            error: function () {
+                var div = document.getElementById("broker-div");
+                div.innerHTML = '<p>TESTE</p>';
+            }
+        });
+        $(this).tab('show');
+    });
+});
+</script>
+{% endblock %}
