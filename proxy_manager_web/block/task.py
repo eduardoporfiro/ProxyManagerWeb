@@ -29,10 +29,12 @@ def conect_proxy(proxy):
     url+='/api/api-token-auth/'
     response = requests.post(url,json=data)
     if (response.status_code == 200):
+        print("Respondeu")
         proxy.status=1#conectado com token
         proxy.token = json.loads(response.text)['token']
         proxy.save()
     elif (response.status_code == 404):
+        print("Deu pau")
         proxy.status=4#não existe
         proxy.token=''
         proxy.save()
