@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import loader
 
-from block.models import Mqtt, Proxy
+from block.models import Mqtt, Proxy, Broker
 
 from .tables import DispositivoTable
 from .models import Dispositivo
@@ -19,7 +19,7 @@ def load_dispositivo(request, proxy_id):
     return render(request, template_name, {'dispositivos': dispositivo})
 
 @login_required
-def add_dispositivo(request, mqtt_id):
+def add_dispositivos(request, mqtt_id):
     template_name = 'tarefa/form_dispos.html'
     if request.method == 'POST':
         form = DispositivoForm(request.POST)
@@ -37,17 +37,19 @@ def add_dispositivo(request, mqtt_id):
         except Dispositivo.DoesNotExist:
             dispo = Dispositivo(mqtt=Mqtt.objects.get(pk=mqtt_id))
             form = DispositivoForm(instance=dispo)
+            form.fields['mqtt'].queryset = Mqtt.objects.filter(pk=mqtt_id).all()
             context = {
                 'form': form,
                 'existe': 'N'
             }
             return render(request, template_name, context)
         form = DispositivoForm(instance=dispo)
+        form.fields['mqtt'].queryset = Mqtt.objects.filter(pk=mqtt_id).all()
         context = {
             'form': form,
             'existe': 'S'
         }
-    return render(request, template_name, context)
+        return render(request, template_name, context)
 
 @login_required
 def add_dispositivo(request):
@@ -89,7 +91,6 @@ def edit_dispositivo(request, dispo_id):
     else:
         dispo = get_object_or_404(Dispositivo, pk=dispo_id)
         form = DispositivoForm(instance=dispo)
-        form.fields['proxy'].queryset = proxys
         form.fields['mqtt'].queryset = Mqtt.objects.filter(proxy_id=proxys.first().pk)
         context = {
             'form': form,
