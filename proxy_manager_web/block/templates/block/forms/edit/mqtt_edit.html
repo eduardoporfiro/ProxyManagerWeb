@@ -1,0 +1,47 @@
+{% extends "accounts/dashboard.html" %}
+
+{% block dashboard_content %}
+<div class="pure-g-r content-ribbon">
+    <div class="pure-u-1">
+        <form class="pure-form pure-form-stacked" method="post"
+              id="mqttForm" mqtt-url="{% url 'block:ajax_load_brokers' %}" novalidate>
+            {% csrf_token %}
+            <fieldset>
+                {{ form.non_field_errors }}
+
+                {% for field in form %}
+                <div class="pure-control-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+                {% endfor %}
+
+                <div class="pure-controls">
+                    <button type="submit" class="pure-button pure-button-primary">adicionar</button>
+                </div>
+            </fieldset>
+        </form>
+        {% block javascript %}
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#id_proxy").change(function () {
+      var url = $("#mqttForm").attr("mqtt-url");  // get the url of the `load_cities` view
+      var proxy_id = $(this).val();  // get the selected country ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'proxy': proxy_id       // add the country id to the GET parameters
+        },
+        success: function (data) {// `data` is the return of the `load_cities` view function
+          $("#id_broker").html(data);  // replace the contents of the city input with the data that came from the serve
+        }
+      });
+
+    });
+  </script>
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}

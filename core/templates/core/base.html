@@ -1,0 +1,65 @@
+<!doctype html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ProxyManager" />
+    <title>ProxyManagerWeb</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="{% static 'core/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'core/css/styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'core/bootstrap/css/bootstrap.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'core/bootstrap/js/bootstrap.min.js' %}"></script>
+    {% block core_head %}
+    {% endblock %}
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="{% url 'core:home' %}">ProxyManagerWeb</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse  my-2 my-lg-0" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-md-auto  d-md-flex">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'core:home' %}">Inicio <span class="sr-only">(current)</span></a>
+      </li>
+        {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:dashboard' %}">Painel</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:logout' %}">Sair</a>
+      </li>
+        {% else %}
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:login' %}">Entrar</a>
+      </li>
+        {% endif %}
+    </ul>
+  </div>
+</nav>
+
+<div>
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+    </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+</div>
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted">© 2018 Copyright:
+        <a href="{% url 'core:home' %}"> ProxyManagerWeb - Plataforma de Gerenciamento de IoT</a></span>
+      </div>
+</footer>
+<script src="http://yui.yahooapis.com/3.12.0/build/yui/yui-min.js"></script>
+</body>
+</html>
