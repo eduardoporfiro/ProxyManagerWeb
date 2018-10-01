@@ -1,1 +1,1 @@
-web: gunicorn ProxyManagerWeb/proxy_manager_web/proxy_manager_web.wsgi --log-file -
+web: gunicorn ProxyManagerWeb/proxy_manager_web.wsgi --log-file -
