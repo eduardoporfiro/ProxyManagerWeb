@@ -25,7 +25,7 @@ class MqttEdit(forms.ModelForm):
 class BrokerForm(forms.ModelForm):
     class Meta:
         model = Broker
-        fields = ['name','proxy','endereco', 'porta', 'username', 'password']
+        fields = ['name','endereco', 'porta', 'username', 'password']
         widgets = {
             'password': forms.PasswordInput(),
         }

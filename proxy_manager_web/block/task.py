@@ -8,14 +8,16 @@ logger = get_task_logger(__name__)
 @app.task
 def update_broker(broker_id):
     broker = Broker.objects.get(pk=broker_id)
-    if not broker.proxy.token:
+    if broker.proxy.token:
         url = get_url(broker.proxy.url)
-        url+='brokerUpdate/1/'
-        response = requests.post(url)
-
-@app.task
-def delete_broker(broker_id):
-    broker = Broker.objects.get(pk=broker_id)
+        url+='/api/brokerUpdate/1/'
+        data={}
+        data['endereco']=broker.endereco
+        data['porta'] = broker.porta
+        data['user'] = broker.username
+        data['password'] = broker.password
+        head= {'Authorization':'token {}'.format(broker.proxy.token)}
+        response = requests.put(url, json=data, headers=head)
 
 @app.task
 def conect_proxy(proxy):
@@ -27,10 +29,12 @@ def conect_proxy(proxy):
     url+='/api/api-token-auth/'
     response = requests.post(url,json=data)
     if (response.status_code == 200):
+        print("Respondeu")
         proxy.status=1#conectado com token
         proxy.token = json.loads(response.text)['token']
         proxy.save()
     elif (response.status_code == 404):
+        print("Deu pau")
         proxy.status=4#não existe
         proxy.token=''
         proxy.save()

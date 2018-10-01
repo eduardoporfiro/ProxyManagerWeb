@@ -39,9 +39,20 @@ class AbstractMqtt(models.Model):
     class Meta:
         abstract = True
 
+class AbstractDispositivo(models.Model):
+    TIPO = (
+        (0, 'Atuador'),
+        (1, 'Sensor'),
+    )
+    nome = models.CharField(max_length=200)
+    tipo = models.IntegerField(choices=TIPO, default=0)
+    class Meta:
+        abstract=True
+
 class AbstractDado(models.Model):
     QoS = models.IntegerField(default=0, choices=Qos, editable=False)
-    dado = models.CharField(max_length=200, editable=False)
+    valor_char = models.CharField(max_length=500, blank=True)
+    valor_int = models.IntegerField(blank=True)
     date = models.DateTimeField(default=timezone.now, editable=False)
     class Meta:
         abstract=True

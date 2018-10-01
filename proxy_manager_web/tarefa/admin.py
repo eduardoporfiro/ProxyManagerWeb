@@ -1,3 +1,4 @@
 from django.contrib import admin
-
-# Register your models here.
+from tarefa.models import Dispositivo,Dado
+admin.site.register(Dispositivo)
+admin.site.register(Dado)
