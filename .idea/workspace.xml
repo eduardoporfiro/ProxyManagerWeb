@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94c4ee01-fbd9-4313-8a96-4b04d2a2b5a9" name="Default Changelist" comment="Settings" />
+    <list default="true" id="94c4ee01-fbd9-4313-8a96-4b04d2a2b5a9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/proxy_manager_web/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_manager_web/celery.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_manager_web/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_manager_web/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proxy_manager_web/wsgi.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +57,7 @@
           <entry key="Procfile" value="3" />
           <entry key="git" value="1" />
           <entry key="html" value="20" />
-          <entry key="py" value="47" />
+          <entry key="py" value="48" />
           <entry key="txt" value="5" />
         </counts>
       </usages-collector>
@@ -59,7 +65,7 @@
         <counts>
           <entry key="HTML" value="20" />
           <entry key="PLAIN_TEXT" value="8" />
-          <entry key="Python" value="47" />
+          <entry key="Python" value="48" />
           <entry key="UNKNOWN" value="1" />
         </counts>
       </usages-collector>
@@ -68,14 +74,14 @@
           <entry key="Procfile" value="58" />
           <entry key="html" value="779" />
           <entry key="py" value="2378" />
-          <entry key="txt" value="128" />
+          <entry key="txt" value="134" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="DjangoUrlPath" value="1" />
           <entry key="HTML" value="779" />
-          <entry key="PLAIN_TEXT" value="186" />
+          <entry key="PLAIN_TEXT" value="192" />
           <entry key="Python" value="2377" />
         </counts>
       </usages-collector>
@@ -85,12 +91,8 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/proxy_manager_web/block/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="52" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/manage.py">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -152,8 +154,6 @@
   </component>
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths>
-      <path value="$PROJECT_DIR$/proxy_manager_web/static/block/blockly/package.json" />
-      <path value="$PROJECT_DIR$/proxy_manager_web/tarefa/static/tarefa/blockly/package.json" />
       <path value="$PROJECT_DIR$/static/block/blockly/package.json" />
       <path value="$PROJECT_DIR$/tarefa/static/tarefa/blockly/package.json" />
     </packageJsonPaths>
@@ -188,11 +188,14 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="OPEN_URL_DIALOG">
       <recent name="https://github.com/eduardoporfiro/ProxyManager.git" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -257,13 +260,20 @@
       <option name="project" value="LOCAL" />
       <updated>1538353479841</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="HEROKU">
+      <created>1538398255519</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1538398255519</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1299" height="743" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.32322428" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.32322428" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Messages" />
@@ -278,7 +288,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32952693" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.44045678" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.44045678" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -322,7 +332,8 @@
     <MESSAGE value="CELERY+REQUEST+MODELS_STATUS" />
     <MESSAGE value="Tarefas, Core Moduele" />
     <MESSAGE value="Settings" />
-    <option name="LAST_COMMIT_MESSAGE" value="Settings" />
+    <MESSAGE value="HEROKU" />
+    <option name="LAST_COMMIT_MESSAGE" value="HEROKU" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/proxy_manager_web/core/views.py">
@@ -383,14 +394,14 @@
     <entry file="file://$PROJECT_DIR$/proxy_manager_web/core/urls.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/proxy_manager_web/proxy_manager_web/__init__.py">
+    <entry file="file://$PROJECT_DIR$/proxy_manager_web/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proxy_manager_web/proxy_manager_web/celery.py">
+    <entry file="file://$PROJECT_DIR$/proxy_manager_web/celery.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="66" selection-start-line="3" selection-start-column="66" selection-end-line="3" selection-end-column="66" />
@@ -520,7 +531,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proxy_manager_web/proxy_manager_web/settings.py">
+    <entry file="file://$PROJECT_DIR$/proxy_manager_web/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
@@ -530,7 +541,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proxy_manager_web/proxy_manager_web/wsgi.py">
+    <entry file="file://$PROJECT_DIR$/proxy_manager_web/wsgi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="16" selection-start-line="16" selection-end-line="16" />
@@ -560,8 +571,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="52" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>
