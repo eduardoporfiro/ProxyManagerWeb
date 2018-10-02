@@ -29,3 +29,11 @@ class BrokerForm(forms.ModelForm):
         widgets = {
             'password': forms.PasswordInput(),
         }
+
+class BrokerFormAdd(forms.ModelForm):
+    class Meta:
+        model = Broker
+        fields = ['name', 'proxy','endereco', 'porta', 'username', 'password']
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
