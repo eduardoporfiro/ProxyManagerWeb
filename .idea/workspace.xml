@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="94c4ee01-fbd9-4313-8a96-4b04d2a2b5a9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/celerybeat-schedule" beforeDir="false" afterPath="$PROJECT_DIR$/celerybeat-schedule" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_manager_web/celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_manager_web/celery.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,7 +55,7 @@
           <entry key="Procfile" value="4" />
           <entry key="git" value="1" />
           <entry key="html" value="20" />
-          <entry key="py" value="51" />
+          <entry key="py" value="52" />
           <entry key="txt" value="7" />
         </counts>
       </usages-collector>
@@ -61,7 +63,7 @@
         <counts>
           <entry key="HTML" value="20" />
           <entry key="PLAIN_TEXT" value="11" />
-          <entry key="Python" value="51" />
+          <entry key="Python" value="52" />
           <entry key="UNKNOWN" value="1" />
         </counts>
       </usages-collector>
@@ -69,7 +71,7 @@
         <counts>
           <entry key="Procfile" value="78" />
           <entry key="html" value="779" />
-          <entry key="py" value="2388" />
+          <entry key="py" value="2403" />
           <entry key="txt" value="135" />
         </counts>
       </usages-collector>
@@ -78,7 +80,7 @@
           <entry key="DjangoUrlPath" value="1" />
           <entry key="HTML" value="779" />
           <entry key="PLAIN_TEXT" value="213" />
-          <entry key="Python" value="2387" />
+          <entry key="Python" value="2402" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
@@ -86,11 +88,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/proxy_manager_web/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-39">
-              <caret line="153" selection-start-line="153" selection-end-line="154" selection-end-column="49" />
+            <state relative-caret-position="6">
+              <caret line="153" selection-start-line="153" selection-end-line="153" />
               <folding>
                 <element signature="e#318#327#0" expanded="true" />
               </folding>
@@ -98,11 +100,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/proxy_manager_web/celery.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="5" column="31" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="31" />
+            <state relative-caret-position="135">
+              <caret line="9" column="107" selection-start-line="9" selection-start-column="107" selection-end-line="9" selection-end-column="107" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -129,7 +134,7 @@
         <entry file="file://$PROJECT_DIR$/Procfile">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
-              <caret line="1" column="45" selection-start-line="1" selection-start-column="45" selection-end-line="1" selection-end-column="45" />
+              <caret line="1" column="8" lean-forward="true" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -196,6 +201,7 @@
         <option value="$PROJECT_DIR$/runtime.txt" />
         <option value="$PROJECT_DIR$/Procfile" />
         <option value="$PROJECT_DIR$/proxy_manager_web/settings.py" />
+        <option value="$PROJECT_DIR$/proxy_manager_web/celery.py" />
       </list>
     </option>
   </component>
@@ -1585,7 +1591,21 @@
       <option name="project" value="LOCAL" />
       <updated>1538521393472</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="HEROKU">
+      <created>1538521730070</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1538521730070</updated>
+    </task>
+    <task id="LOCAL-00012" summary="HEROKU">
+      <created>1538521986014</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1538521986014</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1757,13 +1777,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proxy_manager_web/celery.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="31" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
@@ -1778,19 +1791,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Procfile">
+    <entry file="file:///usr/lib/python3.6/_collections_abc.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
-          <caret line="1" column="45" selection-start-line="1" selection-start-column="45" selection-end-line="1" selection-end-column="45" />
+          <caret line="656" column="8" selection-start-line="656" selection-start-column="8" selection-end-line="656" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/proxy_manager_web/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-39">
-          <caret line="153" selection-start-line="153" selection-end-line="154" selection-end-column="49" />
+        <state relative-caret-position="6">
+          <caret line="153" selection-start-line="153" selection-end-line="153" />
           <folding>
             <element signature="e#318#327#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Procfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="8" lean-forward="true" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proxy_manager_web/celery.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="107" selection-start-line="9" selection-start-column="107" selection-end-line="9" selection-end-column="107" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>

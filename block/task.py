@@ -27,7 +27,12 @@ def conect_proxy(proxy):
     data['password']=proxy.password
     url = get_url(proxy.url)
     url+='/api/api-token-auth/'
-    response = requests.post(url,json=data)
+    try:
+        response = requests.post(url,json=data)
+    except:
+        proxy.status = 2  # erro
+        proxy.token = ''
+        proxy.save()
     if (response.status_code == 200):
         print("Respondeu")
         proxy.status=1#conectado com token
