@@ -31,7 +31,8 @@ def register(request):
     else:
         form = RegisterForm()
     context = {
-        'form': form
+        'form': form,
+        'login':'N'
     }
     return render(request, template_name, context)
 

@@ -1,12 +1,12 @@
 {% extends 'core/base.html' %}
 {% load socialaccount %}
 
-{% block title %}Login{% endblock %}
+{% block title %} Login{% endblock %}
 
 {% block content %}
     <div class="row">
         <div class="col-sm-6">
-            <h2 class="h2">Login</h2>
+            <h2 class="h2">{% if login == 'N' %}Signup{% else %}Login{% endif %}</h2>
         </div>
         <div class="col-sm-6">
             <form method="post" class="pure-form pure-form-stacked">
@@ -21,8 +21,10 @@
                     </div>
                     {% endfor %}
                     <button class="btn btn-dark" type="submit">Sign in</button>
+                {% if login != 'N' %}
                 <a class="btn btn-dark" href="{% provider_login_url 'google' %}">Log In with Gmail</a>
                 <a class="btn btn-dark" href="{% url 'accounts:signup' %}">SignUp</a>
+                {% endif %}
                 </fieldset>
             </form>
         </div>
