@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django_tables2 import RequestConfig
 
-from block.forms import ProxyForm, BrokerForm, MqttAdd, MqttEdit
+from block.forms import ProxyForm, BrokerForm, MqttAdd, MqttEdit, BrokerFormAdd
 from block.models import Broker, Proxy,Mqtt
 from block.tables import MqttTable
 from block import task
@@ -64,7 +64,7 @@ def add_broker(request):
     template_name = 'block/forms/add/add_form.html'
     proxys = Proxy.objects.filter(user=request.user)
     if request.method == 'POST':
-        form = BrokerForm(request.POST)
+        form = BrokerFormAdd(request.POST)
         if form.is_valid():  # Vê se ta tudo okay
             broker = form.save()  # salva o usuário
             messages.success(
@@ -74,8 +74,8 @@ def add_broker(request):
         else:
             form.fields['proxy'].queryset = proxys
     else:
-        form = BrokerForm()
-        form.fields['proxy'].queryset = Proxy.objects.filter(user=request.user, status=1)
+        form = BrokerFormAdd()
+        form.fields['proxy'].queryset = Proxy.objects.filter(user=request.user).all()
     context = {
         'form': form
     }
