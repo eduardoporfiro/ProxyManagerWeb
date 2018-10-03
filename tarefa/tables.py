@@ -3,7 +3,14 @@ from .models import Dispositivo
 from django_tables2.utils import A
 
 class DispositivoTable(tables.Table):
-    editar = tables.LinkColumn('tarefa:edit_dispositivo', args=[A('pk')], empty_values=list(),text='Editar')
+    editar = tables.LinkColumn('tarefa:edit_dispositivo',
+                               args=[A('pk')],
+                               empty_values=list(),
+                               text='Editar')
+    deletar = tables.LinkColumn('tarefa:delete_dispositivo',
+                                args=[A('pk')],
+                                empty_values=list(),
+                                text='Excluir')
     class Meta:
         model = Dispositivo
         template_name = 'django_tables2/bootstrap-responsive.html'

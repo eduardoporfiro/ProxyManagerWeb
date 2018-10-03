@@ -1,9 +1,11 @@
 from django_tables2 import RequestConfig
 from django.contrib import messages
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404, reverse
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.http import HttpResponse
 from django.template import loader
+from django.views.generic import DeleteView
 
 from block.models import Mqtt, Proxy, Broker
 
@@ -97,6 +99,17 @@ def edit_dispositivo(request, dispo_id):
             'existe': 'S'
         }
     return render(request, template_name, context)
+
+@method_decorator(login_required, name='dispatch')
+class ViewDeleteDispo(DeleteView):
+    template_name = 'block/forms/delete/delete_form.html'
+    model = Dispositivo
+    # Notice get_success_url is defined here and not in the model, because the model will be deleted
+    def get_success_url(self):
+        messages.success(
+            self.request, 'Deletado com sucesso!'
+        )
+        return reverse('core:home')
 
 @login_required
 def load_mqtt(request):

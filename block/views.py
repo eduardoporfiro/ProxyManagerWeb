@@ -1,7 +1,9 @@
 from django.contrib import messages
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django_tables2 import RequestConfig
+from django.views.generic import DeleteView
 
 from block.forms import ProxyForm, BrokerForm, MqttAdd, MqttEdit, BrokerFormAdd
 from block.models import Broker, Proxy,Mqtt
@@ -155,5 +157,36 @@ def load_mqtt(request, broker_id):
 
 def load_broker(request):
     proxy_id = request.GET.get('proxy')
-    brokers = Broker.objects.filter(proxy_id=proxy_id, proxy_status=1)
+    brokers = Broker.objects.filter(proxy_id=proxy_id)
     return render(request, 'block/dropdown.html', {'dados': brokers})
+
+@method_decorator(login_required, name='dispatch')
+class ViewDeleteProxy(DeleteView):
+    template_name = 'block/forms/delete/delete_form.html'
+    model = Proxy
+    # Notice get_success_url is defined here and not in the model, because the model will be deleted
+    def get_success_url(self):
+        messages.success(
+            self.request, 'Deletado com sucesso!'
+        )
+        return reverse('core:home')
+
+@method_decorator(login_required, name='dispatch')
+class ViewDeleteBroker(DeleteView):
+    template_name = 'block/forms/delete/delete_form.html'
+    model = Broker
+    def get_success_url(self):
+        messages.success(
+            self.request, 'Deletado com sucesso!'
+        )
+        return reverse('core:home')
+
+@method_decorator(login_required, name='dispatch')
+class ViewDeleteMqtt(DeleteView):
+    template_name = 'block/forms/delete/delete_form.html'
+    model = Mqtt
+    def get_success_url(self):
+        messages.success(
+            self.request, 'Deletado com sucesso!'
+        )
+        return reverse('core:home')

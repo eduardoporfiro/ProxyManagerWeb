@@ -10,6 +10,8 @@ urlpatterns = [
     path('<int:dispo_id>/edit_dispositivo', views.edit_dispositivo, name='edit_dispositivo'),
     path('<int:proxy_id>/load_dispositivo', views.load_dispositivo, name='load_dispositivo'),
 
+    path('<int:pk>/delete_dispositivo', views.ViewDeleteDispo.as_view(), name='delete_dispositivo'),
+
     path('ajax/load-mqtts/', views.load_mqtt, name='ajax_load_mqtts'),
     path('', views.index, name='index'),
 ]

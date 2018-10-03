@@ -16,6 +16,11 @@
              {% endfor %}
         <div class="pure-controls">
             <button type="submit" class="pure-button pure-button-primary">Salvar</button>
+            <a {% if broker %}
+    href="{% url 'block:delete_broker' broker.id %}"
+    {% else %}
+    href="{% url 'block:delete_proxy' proxy.id %}"
+    {% endif %} class="pure-button pure-button-primary">Apagar</a>
         </div>
     </fieldset>
 </form>
