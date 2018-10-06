@@ -11,6 +11,10 @@ class DispositivoTable(tables.Table):
                                 args=[A('pk')],
                                 empty_values=list(),
                                 text='Excluir')
+    job = tables.LinkColumn('tarefa:job',
+                                args=[A('pk')],
+                                empty_values=list(),
+                                text='Job')
     class Meta:
         model = Dispositivo
         template_name = 'django_tables2/bootstrap-responsive.html'

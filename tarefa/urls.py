@@ -12,6 +12,8 @@ urlpatterns = [
 
     path('<int:pk>/delete_dispositivo', views.ViewDeleteDispo.as_view(), name='delete_dispositivo'),
 
+    path('<int:pk>/job', views.index, name='job'),
+
     path('ajax/load-mqtts/', views.load_mqtt, name='ajax_load_mqtts'),
     path('', views.index, name='index'),
 ]

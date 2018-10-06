@@ -34,9 +34,9 @@
     <li class="nav-item">
         <a class="nav-link" id="sensor-tab"  href="#sensor"
            {% if proxy %}
-                form-url="{% url 'tarefa:load_dispositivo' proxy.id %}">Sensor</a>
+                form-url="{% url 'tarefa:load_dispositivo' proxy.id %}">Dispositivo</a>
            {% else %}
-                form-url="{% url 'tarefa:load_dispositivo' 0 %}">Sensor</a>
+                form-url="{% url 'tarefa:load_dispositivo' 0 %}">Dispositivo</a>
         {% endif %}
     </li>
   </ul>

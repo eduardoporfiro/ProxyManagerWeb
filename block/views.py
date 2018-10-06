@@ -69,6 +69,7 @@ def add_broker(request):
         form = BrokerFormAdd(request.POST)
         if form.is_valid():  # Vê se ta tudo okay
             broker = form.save()  # salva o usuário
+            task.update_broker.delay(broker.pk)
             messages.success(
                 request, 'Os dados do Broker foram adicionados com sucesso'
             )
@@ -118,7 +119,7 @@ def edit_broker(request, broker_id):
         form = BrokerForm(request.POST, instance=broker)
         if form.is_valid():
             broker = form.save()
-            task.update_broker.delay(broker.pk)
+            task.create_broker.delay(broker.pk)
             messages.success(
                 request, 'Os dados da sua conta foram alterados com sucesso'
             )
