@@ -46,6 +46,7 @@ class AbstractDispositivo(models.Model):
     )
     nome = models.CharField(max_length=200)
     tipo = models.IntegerField(choices=TIPO, default=0)
+    is_int = models.BooleanField(default=False)
     class Meta:
         abstract=True
 

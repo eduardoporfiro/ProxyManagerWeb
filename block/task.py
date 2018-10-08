@@ -8,17 +8,19 @@ from requests.auth import HTTPBasicAuth
 
 logger = get_task_logger(__name__)
 
+
 def get_broker(proxy):
     url = get_url(proxy.url)
     url += '/api/broker/'
     head = {'Authorization': 'token {}'.format(proxy.token)}
     print(head)
     try:
-        response = requests.get(url, head=head)
+        response = requests.get(url, headers=head)
         if (response.status_code == 200):
-            print("Respondeu Broker")
             brokerjson = json.loads(response.text)[0]
-            #save_broker(broker, brokerjson)
+            proxy.broker = Broker()
+            proxy.save()
+            save_broker(proxy.broker, brokerjson)
             print(brokerjson)
         else:
             print("TESTE")
@@ -39,14 +41,8 @@ def conect_proxy(proxy):
             print("Respondeu")
             proxy.status = 1  # conectado com token
             proxy.token = json.loads(response.text)['token']
-            print(proxy.token)
-            print(json.loads(response.text)['token'])
-            if proxy.broker:
-                get_broker(proxy)
-            else:
-                proxy.broker = Broker()
-                proxy.save()
-                get_broker(proxy)
+            proxy.save()
+            get_broker(proxy)
         elif (response.status_code == 404):
             print("Deu pau")
             proxy.status = 4  # não existe
