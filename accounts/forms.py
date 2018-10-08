@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from .models import PasswordReset
 from core.utils import generate_hash_key
+from core import mail
 
 User = get_user_model()
 
@@ -52,6 +53,7 @@ class PasswordResetForm(forms.Form):
         context = {
             'reset': reset,
         }
+        mail.send_mail_template(subject, template_name, context, [user.email])
 
 
 class EditAccountForm(forms.ModelForm):

@@ -22,8 +22,14 @@
                     {% endfor %}
                     <button class="btn btn-dark" type="submit">Sign in</button>
                 {% if login != 'N' %}
-                <a class="btn btn-dark" href="{% provider_login_url 'google' %}">Log In with Gmail</a>
-                <a class="btn btn-dark" href="{% url 'accounts:signup' %}">SignUp</a>
+                    <a class="btn btn-dark" href="{% url 'accounts:password_reset' %}">Esqueci a senha</a>
+                    <p>
+                        <h1>Não tem conta?</h1>
+                        <p>
+                            <a class="btn btn-dark" href="{% provider_login_url 'google' %}">Log In with Gmail</a>
+                            <a class="btn btn-dark" href="{% url 'accounts:signup' %}">SignUp</a>
+                        </p>
+                    </p>
                 {% endif %}
                 </fieldset>
             </form>

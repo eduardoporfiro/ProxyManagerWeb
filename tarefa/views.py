@@ -56,7 +56,7 @@ def add_dispositivos(request, mqtt_id):
 @login_required
 def add_dispositivo(request):
     template_name = 'tarefa/add_dispositivo.html'
-    proxys = Proxy.objects.filter(user=request.user)
+    proxys = Proxy.objects.filter(user=request.user, status=1)
     if request.method == 'POST':
         form = DispositivoAddForm(request.POST)
         if form.is_valid():  # Vê se ta tudo okay
@@ -67,6 +67,7 @@ def add_dispositivo(request):
                 request, 'Os dados do Proxy foram adicionados com sucesso'
             )
             return redirect('core:home')  # loga ele na sessão e retorna para a página definida no redirect login
+        return render(request, template_name, {'form': form})
     else:
         form = DispositivoAddForm()
         form.fields['proxy'].queryset = proxys
@@ -117,7 +118,7 @@ def load_mqtt(request):
     mqtts = Mqtt.objects.filter(proxy_id=proxy_id)
     return render(request, 'tarefa/dropdown_dispo.html', {'mqtts': mqtts})
 
-def index(request):
+def index(request, pk):
     template = loader.get_template('tarefa/index.html')
     context = {
 
