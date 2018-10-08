@@ -41,15 +41,21 @@ def add_proxy(request):
 @login_required
 def add_mqtt(request):
     template_name = 'block/forms/add/mqtt_add.html'
-    proxys = Proxy.objects.filter(user=request.user)
+    proxys = Proxy.objects.filter(user=request.user, status=1)
     if request.method == 'POST':
         form = MqttAdd(request.POST)
         if form.is_valid():  # Vê se ta tudo okay
-            mqtt = form.save()  # salva o usuário
-            messages.success(
-                request, 'Os dados do MQTT foram adicionados com sucesso'
-            )
-            return redirect('core:home')  # loga ele na sessão e retorna para a página definida no redirect login
+            mqtt = form.save(commit=False)  # salva o usuário
+            mqtts = Mqtt.objects.filter(broker=mqtt.broker, topico=mqtt.topico).exists()
+            if mqtts == True:
+                messages.error(
+                    request, 'Já existe um Mqtt com este tópico para esse Proxy')
+            else:
+                messages.success(
+                    request, 'Os dados do MQTT foram adicionados com sucesso'
+                )
+                mqtt.save()
+                return redirect('core:home')  # loga ele na sessão e retorna para a página definida no redirect login
         else:
             form.fields['proxy'].queryset = proxys
     else:
@@ -139,11 +145,18 @@ def edit_mqtt(request, mqtt_id):
     if request.method == 'POST':
         form = MqttEdit(request.POST, instance=mqtt)
         if form.is_valid():
-            form.save()
-            messages.success(
-                request, 'Os dados da sua conta foram alterados com sucesso'
-            )
-            return redirect('block:tab_edit', mqtt.proxy.id)
+            form.save(commit=False)
+            mqtts = Mqtt.objects.filter(broker=mqtt.broker, topico=mqtt.topico).exists()
+            if mqtts == True:
+                messages.error(
+                    request, 'Já existe um Mqtt com este tópico para esse Proxy')
+                return redirect('block:tab_edit', mqtt.proxy.id)
+            else:
+                mqtt.save()
+                messages.success(
+                    request, 'Os dados do MQTT foram alterados com sucesso'
+                )
+                return redirect('block:tab_edit', mqtt.proxy.id)
     else:
         form = MqttEdit(instance=mqtt)
         context['form'] = form

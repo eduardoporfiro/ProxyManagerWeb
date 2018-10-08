@@ -56,7 +56,7 @@ def add_dispositivos(request, mqtt_id):
 @login_required
 def add_dispositivo(request):
     template_name = 'tarefa/add_dispositivo.html'
-    proxys = Proxy.objects.filter(user=request.user)
+    proxys = Proxy.objects.filter(user=request.user, status=1)
     if request.method == 'POST':
         form = DispositivoAddForm(request.POST)
         if form.is_valid():  # Vê se ta tudo okay
