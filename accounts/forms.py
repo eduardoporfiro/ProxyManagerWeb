@@ -49,7 +49,7 @@ class PasswordResetForm(forms.Form):
         reset = PasswordReset(key=key, user=user)
         reset.save()
         template_name = 'accounts/password_reset_mail.html'
-        subject = 'Criar nova senha no Simple MOOC'
+        subject = 'Criar nova senha ProxyManagerWeb'
         context = {
             'reset': reset,
         }

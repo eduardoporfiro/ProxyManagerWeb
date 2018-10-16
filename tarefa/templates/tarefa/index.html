@@ -1,149 +1,114 @@
 {% extends "core/base.html" %}
 {% load staticfiles %}
 {% block core_head %}
-  <script src="{% static 'tarefa/blockly/blockly_compressed.js' %}"></script>
-  <script src="{% static 'tarefa/blockly/blocks_compressed.js' %}"></script>
-  <script src="{% static 'tarefa/blockly/javascript_compressed.js' %}"></script>
-  <script src="{% static 'tarefa/blockly/msg/js/en.js' %}"></script>
+    <script src="{% static 'tarefa/blockly/blockly_compressed.js' %}"></script>
+    <script src="{% static 'tarefa/blockly/blocks_compressed.js' %}"></script>
+    <script src="{% static 'tarefa/blockly/javascript_compressed.js' %}"></script>
+    <script src="{% static 'tarefa/blockly/msg/js/en.js' %}"></script>
+    <script src="{% static 'tarefa/blocos.js' %}"></script>
+     {% block blocos %}
+    {% endblock %}
     <script>
-  Blockly.Blocks['execue'] = {
+        Blockly.Blocks['sen_se'] = {
+          init: function() {
+            this.jsonInit({
+          "type": "sen_se",
+          "message0": "se %1 %2 = %3 %4",
+          "args0": [
+            {
+              "type": "field_dropdown",
+              "name": "sensores",
+              "options": [
+                  {% if sensores %}
+                      {% for sensor in sensores %}
+                    [
+                      "{{ sensor.nome }}",
+                      "{{ sensor.pk }}"
+                    ],
+                      {% endfor %}
+                  {% else %}
+                    [
+                      "Sem_sensor",
+                      "Sem_sensor"
+                    ],
+                  {% endif %}
+            ]
+            },
+            {
+              "type": "field_dropdown",
+              "name": "condicao",
+              "options": [
+                [
+                  ">",
+                  ">"
+                ],
+                [
+                  "<",
+                  "<"
+                ],
+                [
+                  "=",
+                  "="
+                ]
+              ]
+            },
+            {
+              "type": "input_value",
+              "name": "Se"
+            },
+            {
+              "type": "input_statement",
+              "name": "Se_sta",
+              "align": "RIGHT"
+            }
+          ],
+          "colour": 230,
+          "tooltip": "",
+          "helpUrl": ""
+            });
+          }
+        };
+
+
+Blockly.Blocks['dispo_out'] = {
   init: function() {
     this.jsonInit({
-
-  "type": "execue",
-  "message0": "Atuadores %1 %2 %3 %4 %5 Executar quando %6 for %7",
+		"type": "dispo_out",
+  "message0": "Dispositivo %1 = %2",
   "args0": [
     {
       "type": "field_dropdown",
-      "name": "Atuadores",
+      "name": "dispo",
       "options": [
-          {% if testes %}
-          {% for teste in testes%}
+          {% if atuadores %}
+          {% for atua in atuadores %}
         [
-          "{{teste.sensor}}",
-          "{{teste.id}}"
+          "{{ atua.nome }}",
+          "{{ atua.pk }}"
         ],
-      {% endfor %}
-      {% else %}
-      [
-          "sem Sensor",
-          "0"
-      ]
-      {% endif %}
-      ]
-    },
-    {
-      "type": "field_input",
-      "name": "Teste",
-      "text": "Sensor"
-    },
-    {
-      "type": "field_dropdown",
-      "name": "Sensor",
-      "options": [
-        [
-          "Sensor 1",
-          "OPTIONNAME"
+          {% endfor %}
+          {% else %}
+       [
+          "Sem_atuador",
+          "sem_atuador"
         ],
-        [
-          "Sensor 2",
-          "OPTIONNAME"
-        ],
-        [
-          "Sensor 3",
-          "OPTIONNAME"
-        ]
+          {% endif %}
       ]
     },
     {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_statement",
-      "name": "NAME",
-      "check": "String"
-    },
-    {
-      "type": "field_dropdown",
-      "name": "When",
-      "options": [
-        [
-          "option",
-          "OPTIONNAME"
-        ],
-        [
-          "option",
-          "OPTIONNAME"
-        ],
-        [
-          "option",
-          "OPTIONNAME"
-        ]
-      ]
-    },
-    {
-      "type": "field_dropdown",
-      "name": "Option",
-      "options": [
-        [
-          "option",
-          "OPTIONNAME"
-        ],
-        [
-          "option",
-          "OPTIONNAME"
-        ],
-        [
-          "option",
-          "OPTIONNAME"
-        ]
-      ]
+      "type": "field_number",
+      "name": "var",
+      "value": 0
     }
   ],
-  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
   "colour": 230,
   "tooltip": "",
   "helpUrl": ""
-},
-{
-  "type": "s_dfnvsd",
-  "message0": "",
-  "colour": 230,
-  "tooltip": "",
-  "helpUrl": ""
-}
-    );
-  }
+	});
+	}
 };
-
-  Blockly.Blocks['s_dfnvsd'] = {
-  init: function() {
-    this.setColour(230);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-
-  Blockly.Blocks['string_length'] = {
-  init: function() {
-    this.jsonInit({
-      "message0": 'length of %1',
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "VALUE",
-          "check": "String"
-        }
-      ],
-      "output": "Number",
-      "colour": 160,
-      "tooltip": "Returns number of letters in the provided text.",
-      "helpUrl": "http://www.w3schools.com/jsref/jsref_length_string.asp"
-    });
-  }
-};
-
 </script>
   <style>
     body {
@@ -155,75 +120,23 @@
       font-size: 140%;
     }
   </style>
+
 {% endblock %}
+
 {% block content %}
     <center>
-  <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
-
-  <xml id="toolbox" style="display: none">
-    <category name="Logic" colour="%{BKY_LOGIC_HUE}">
-      <block type="controls_if"></block>
-      <block type="logic_compare"></block>
-      <block type="logic_operation"></block>
-      <block type="logic_negate"></block>
-      <block type="logic_boolean"></block>
-    </category>
-    <category name="Loops" colour="%{BKY_LOOPS_HUE}">
-      <block type="controls_repeat_ext">
-        <value name="TIMES">
-          <block type="math_number">
-            <field name="NUM">10</field>
-          </block>
-        </value>
-      </block>
-      <block type="controls_whileUntil"></block>
-    </category>
-    <category name="Math" colour="%{BKY_MATH_HUE}">
-      <block type="math_number">
-        <field name="NUM">123</field>
-      </block>
-      <block type="math_arithmetic"></block>
-      <block type="math_single"></block>
-    </category>
-    <category name="Text" colour="%{BKY_TEXTS_HUE}">
-      <block type="text"></block>
-      <block type="text_length"></block>
-      <block type="text_print"></block>
-    </category>
-  <category name="Category 1">
-    <block type="execue">
-      <field name="Atuadores">OPTIONNAME</field>
-      <field name="Teste">Sensor</field>
-      <field name="Sensor">OPTIONNAME</field>
-      <field name="When">OPTIONNAME</field>
-      <field name="Option">OPTIONNAME</field>
-    </block>
-    <block type="s_dfnvsd"></block>
-    <block type="logic_compare">
-      <field name="OP">EQ</field>
-    </block>
-    <block type="lists_create_with">
-      <mutation items="3"></mutation>
-    </block>
-    <block type="controls_if"></block>
-    <block type="math_arithmetic">
-      <field name="OP">ADD</field>
-      <value name="A">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-      <value name="B">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
+  <div id="blocklyDiv" style="height: 580px; width: 1000px;"></div>
+        {% block toolbox %}
+        {% endblock %}
+    <xml id="toolbox" style="display: none">
+  <category name="Sensores">
+        <block type="sen_se"></block>
+      <block type="dispo_out"></block>
   </category>
-  </xml>
+</xml>
   <script>
     var demoWorkspace = Blockly.inject('blocklyDiv',
-        {media: "{% static 'block/blockly/media/' %}",
+        {media: "{% static 'tarefa/blockly/media/' %}",
          toolbox: document.getElementById('toolbox')});
     Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
                                demoWorkspace);
