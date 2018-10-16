@@ -57,3 +57,10 @@ class AbstractDado(models.Model):
     date = models.DateTimeField(default=timezone.now, editable=False)
     class Meta:
         abstract=True
+
+class Celery(models.Model):
+    app = models.CharField(max_length=200)
+    desc = models.CharField(max_length=200)
+    exception = models.CharField(max_length=200)
+    task = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)

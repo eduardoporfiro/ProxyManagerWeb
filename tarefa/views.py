@@ -119,8 +119,13 @@ def load_mqtt(request):
     return render(request, 'tarefa/dropdown_dispo.html', {'mqtts': mqtts})
 
 def index(request, pk):
+    dispositivo = get_object_or_404(Dispositivo, pk=pk)
+    atuadores = Dispositivo.objects.filter(proxy=dispositivo.proxy, tipo=0)
+    sensores = Dispositivo.objects.filter(proxy=dispositivo.proxy, tipo=1)
     template = loader.get_template('tarefa/index.html')
     context = {
-
+        'dispositivo': dispositivo,
+        'atuadores': atuadores,
+        'sensores': sensores
     }
     return HttpResponse(template.render(context, request))
