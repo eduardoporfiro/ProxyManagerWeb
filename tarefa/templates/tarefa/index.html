@@ -6,12 +6,13 @@
     <script src="{% static 'tarefa/blockly/python_compressed.js' %}"></script>
     <script src="{% static 'tarefa/blockly/msg/js/en.js' %}"></script>
     <script src="{% static 'tarefa/blocos.js' %}"></script>
+     <script src="{% static 'tarefa/blockly/appengine/storage.js' %}"></script>
     {% block blocos %}
         {% include "tarefa/blocos/blocos.html" %}
     {% endblock blocos %}
   <style>
     body {
-      background-color: #fff;
+      background-color: #ffffff;
       font-family: sans-serif;
     }
     h1 {
@@ -24,6 +25,8 @@
 
 {% block content %}
     <button type="button" onclick="showCode()">TESTE</button>
+    <button type="button" onclick="showWork()">WORK</button>
+    <button type="button" onclick="change()">Change</button>
   <div id="blocklyDiv" style="height: 580px; width: 1000px;"></div>
         {% block toolbox %}
             {% include "tarefa/blocos/toolbox.html" %}
@@ -40,7 +43,29 @@
       Blockly.Python.INFINITE_LOOP_TRAP = null;
       var code = Blockly.Python.workspaceToCode(demoWorkspace);
       alert(code);
+      console.log(code);
     }
+    function showWork() {
+      var workspace = Blockly.getMainWorkspace();
+      var xml = Blockly.Xml.workspaceToDom(workspace, true);
+      // Remove x/y coordinates from XML if there's only one block stack.
+      // There's no reason to store this, removing it helps with anonymity.
+      if (workspace.getTopBlocks(false).length == 1 && xml.querySelector) {
+        var block = xml.querySelector('block');
+            if (block) {
+              block.removeAttribute('x');
+              block.removeAttribute('y');
+            }
+        }
+        var data = Blockly.Xml.domToText(xml);
+      console.log(data);
+      alert(data);
+         }
+         function change() {
+             var xmll = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="sen_se"><field name="sensores">Sem_sensor</field><field name="condicao">&gt;</field><statement name="Se_sta"><block type="dispo_out"><field name="dispo">1</field><field name="var">0</field><next><block type="controls_if"></block></next></block></statement></block></xml>'
+             xmll = Blockly.Xml.textToDom(xmll);
+             Blockly.Xml.domToWorkspace(xmll, demoWorkspace);
+         }
 
     function runCode() {
       // Generate JavaScript code and run it.

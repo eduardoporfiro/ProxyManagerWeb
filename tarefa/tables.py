@@ -3,6 +3,13 @@ from .models import Dispositivo
 from django_tables2.utils import A
 
 class DispositivoTable(tables.Table):
+    TEMPLATE = '''
+    {% if record.tipo == 0 %}
+        <strong>Sem Job</strong>
+    {% else %}
+        <a href="{% url 'tarefa:job' record.pk %}">Job</a>
+    {% endif %}
+    '''
     editar = tables.LinkColumn('tarefa:edit_dispositivo',
                                args=[A('pk')],
                                empty_values=list(),
@@ -11,10 +18,7 @@ class DispositivoTable(tables.Table):
                                 args=[A('pk')],
                                 empty_values=list(),
                                 text='Excluir')
-    job = tables.LinkColumn('tarefa:job',
-                                args=[A('pk')],
-                                empty_values=list(),
-                                text='Job')
+    Job = tables.TemplateColumn(TEMPLATE)
     class Meta:
         model = Dispositivo
         template_name = 'django_tables2/bootstrap-responsive.html'
