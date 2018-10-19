@@ -69,9 +69,9 @@ class Task(models.Model):
     comando = models.CharField(max_length=200)
     create = models.DateTimeField(auto_now_add=True)
     task_anterior = models.ForeignKey('self', on_delete=models.CASCADE,
-                                      related_name='anterior')
+                                      related_name='anterior', null=True)
     task_sucessor = models.ForeignKey('self', on_delete=models.CASCADE,
-                                      related_name='sucessor')
+                                      related_name='sucessor', null=True)
     json = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -90,3 +90,27 @@ class If_sensor_string(Task):
     ]
     condicao = models.IntegerField(choices=Condicao)
     valor = models.CharField(max_length=200)
+
+class If_sensor_numero(Task):
+    Condicao = [
+        (0, '='),
+        (1, '!='),
+        (2,'>'),
+        (3,'>='),
+        (4,'<'),
+        (5,'<=')
+    ]
+    condicao = models.IntegerField(choices=Condicao)
+    valor = models.IntegerField()
+
+class If_sensor_dadosensor(Task):
+    Condicao = [
+        (0, '='),
+        (1, '!='),
+        (2, '>'),
+        (3, '>='),
+        (4, '<'),
+        (5, '<=')
+    ]
+    condicao = models.IntegerField(choices=Condicao)
+    valor = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='If_sensor_dadosensor')

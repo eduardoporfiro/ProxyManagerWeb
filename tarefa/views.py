@@ -82,15 +82,19 @@ def add_dispositivo(request):
 def edit_dispositivo(request, dispo_id):
     template_name = 'tarefa/form_dispos.html'
     proxys = Proxy.objects.filter(user=request.user)
-    form = DispositivoForm(request.POST)
-    if form.is_valid():  # Vê se ta tudo okay
-        dispositivo = form.save(commit=False)  # salva o usuário
-        dispositivo.proxy = dispositivo.mqtt.broker.proxy
-        dispositivo.save()
-        messages.success(
-            request, 'Os dados do Proxy foram adicionados com sucesso'
-        )
-        return redirect('core:home')  # loga ele na sessão e retorna para a página definida no redirect logi
+    if request.method == 'POST':
+        form = DispositivoForm(request.POST)
+        if form.is_valid():  # Vê se ta tudo okay
+            dispositivo = form.save(commit=False)  # salva o usuário
+            dispo = Dispositivo.objects.filter(mqtt=dispositivo.mqtt)
+            dispo = dispositivo
+            dispositivo.proxy = dispositivo.mqtt.broker.proxy
+            dispositivo.save()
+            messages.success(
+                request, 'Os dados do Proxy foram alterados com sucesso'
+            )
+            return redirect('core:home')  # loga ele na sessão e retorna para a página definida no redirect logi
+        return render(request, template_name, {'form': form})
     else:
         dispo = get_object_or_404(Dispositivo, pk=dispo_id)
         form = DispositivoForm(instance=dispo)
@@ -99,7 +103,7 @@ def edit_dispositivo(request, dispo_id):
             'form': form,
             'existe': 'S'
         }
-    return render(request, template_name, context)
+        return render(request, template_name, context)
 
 @method_decorator(login_required, name='dispatch')
 class ViewDeleteDispo(DeleteView):
