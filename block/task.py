@@ -138,7 +138,7 @@ def conect_proxy(proxy):
     data['username']=proxy.username
     data['password']=proxy.password
     url = get_url(proxy.url)
-    url += '/api/api-token-auth/'
+    url += '/api-token-auth/'
     try:
         response = requests.post(url,json=data)
         if response.status_code == 200:

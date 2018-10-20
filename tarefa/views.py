@@ -6,11 +6,12 @@ from django.utils.decorators import method_decorator
 from django.http import HttpResponse
 from django.template import loader
 from django.views.generic import DeleteView
+from django.views.decorators.csrf import csrf_exempt
 
-from block.models import Mqtt, Proxy, Broker
+from block.models import Mqtt, Proxy
 
 from .tables import DispositivoTable
-from .models import Dispositivo
+from .models import Dispositivo, Job
 from .forms import DispositivoForm, DispositivoAddForm
 
 @login_required
@@ -133,3 +134,18 @@ def index(request, pk):
         'sensores': sensores
     }
     return HttpResponse(template.render(context, request))
+
+@csrf_exempt
+@login_required
+def post_task(request, dispo_id):
+    if request.method=='POST':
+        dispositivo = get_object_or_404(Dispositivo, pk=dispo_id)
+        try:
+            job = dispositivo.job
+        except:
+            job = Job(dispositivo=dispositivo)
+        task = request.POST['code']
+        work = request.POST['work']
+        job.workspace=work
+        job.save()
+    return HttpResponse(request, 'OKAY')
