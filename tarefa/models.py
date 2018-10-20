@@ -13,7 +13,7 @@ class Dado (AbstractDado):
      sensor = models.ForeignKey(Dispositivo, on_delete=models.CASCADE)
 
 class Job(models.Model):
-    dispositivo = models.ForeignKey(Dispositivo, on_delete=models.CASCADE)
+    dispositivo = models.OneToOneField(Dispositivo, on_delete=models.CASCADE, related_name='job')
     workspace = models.TextField()
     last_update = models.DateTimeField(auto_now=True)
     firs_task = models.ForeignKey(Task, on_delete=models.CASCADE)

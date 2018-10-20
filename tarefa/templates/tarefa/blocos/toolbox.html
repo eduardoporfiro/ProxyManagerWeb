@@ -1,18 +1,5 @@
 <xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
-  <category name="Sensor">
-    <block type="save_db"></block>
-    <block type="dado_sensor_numero"></block>
-    <block type="dado_sensor_string"></block>
-    <block type="dados_sensor_media"></block>
-    <block type="dado_sensor_min"></block>
-  </category>
-  <category name="Atuador">
-    <block type="atuador_troca_estado">
-      <field name="dispositivo">1</field>
-    </block>
-    <block type="atuador_boolean"></block>
-  </category>
-  <category name="If">
+    <category name="Condições">
     <block type="if_sensor_dadosensornumero">
       <field name="condicao">&gt;</field>
     </block>
@@ -28,6 +15,19 @@
     <block type="if_sensor_number">
       <field name="condicao">=</field>
     </block>
+  </category>
+  <category name="Sensor">
+    <block type="save_db"></block>
+    <block type="dado_sensor_numero"></block>
+    <block type="dado_sensor_string"></block>
+    <block type="dados_sensor_media"></block>
+    <block type="dado_sensor_min"></block>
+  </category>
+  <category name="Atuador">
+    <block type="atuador_troca_estado">
+      <field name="dispositivo">1</field>
+    </block>
+    <block type="atuador_boolean"></block>
   </category>
   <category name="Var">
     <block type="text">

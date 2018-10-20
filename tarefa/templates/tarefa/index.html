@@ -24,61 +24,64 @@
 {% endblock core_head %}
 
 {% block content %}
-    <button type="button" onclick="showCode()">TESTE</button>
-    <button type="button" onclick="showWork()">WORK</button>
-    <button type="button" onclick="change()">Change</button>
-  <div id="blocklyDiv" style="height: 580px; width: 1000px;"></div>
+    <div class="row">
+        <div id="blocklyDiv" style="height: 580px; width: 1000px;"></div>
+        <div id="Botao">
+            <button type="button" onclick="showCode()">TESTE</button>
+            <button type="button" onclick="showWork()">WORK</button>
+            <button type="button" onclick="change()">Change</button>
+        </div>
+    </div>
         {% block toolbox %}
             {% include "tarefa/blocos/toolbox.html" %}
         {% endblock toolbox %}
   <script>
-    var demoWorkspace = Blockly.inject('blocklyDiv',
-        {media: "{% static 'tarefa/blockly/media/' %}",
-         toolbox: document.getElementById('toolbox')});
-    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
-                               demoWorkspace);
+    var demoWorkspace = Blockly.inject('blocklyDiv', {media: "{% static 'tarefa/blockly/media/' %}",
+        toolbox: document.getElementById('toolbox')});
+    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), demoWorkspace);
 
     function showCode() {
-      // Generate JavaScript code and display it.
       Blockly.Python.INFINITE_LOOP_TRAP = null;
       var code = Blockly.Python.workspaceToCode(demoWorkspace);
-      alert(code);
       console.log(code);
-    }
-    function showWork() {
-      var workspace = Blockly.getMainWorkspace();
-      var xml = Blockly.Xml.workspaceToDom(workspace, true);
-      // Remove x/y coordinates from XML if there's only one block stack.
-      // There's no reason to store this, removing it helps with anonymity.
-      if (workspace.getTopBlocks(false).length == 1 && xml.querySelector) {
-        var block = xml.querySelector('block');
-            if (block) {
-              block.removeAttribute('x');
-              block.removeAttribute('y');
+    $(function () {
+            $.ajaxSetup({
+                headers: { "X-CSRFToken": getCookie("csrftoken") }
+            });
+        });
+    function getCookie(c_name)
+    {
+        if (document.cookie.length > 0)
+        {
+            c_start = document.cookie.indexOf(c_name + "=");
+            if (c_start != -1)
+            {
+                c_start = c_start + c_name.length + 1;
+                c_end = document.cookie.indexOf(";", c_start);
+                if (c_end == -1) c_end = document.cookie.length;
+                return unescape(document.cookie.substring(c_start,c_end));
             }
         }
-        var data = Blockly.Xml.domToText(xml);
-      console.log(data);
-      alert(data);
-         }
-         function change() {
-             var xmll = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="sen_se"><field name="sensores">Sem_sensor</field><field name="condicao">&gt;</field><statement name="Se_sta"><block type="dispo_out"><field name="dispo">1</field><field name="var">0</field><next><block type="controls_if"></block></next></block></statement></block></xml>'
-             xmll = Blockly.Xml.textToDom(xmll);
-             Blockly.Xml.domToWorkspace(xmll, demoWorkspace);
-         }
-
-    function runCode() {
-      // Generate JavaScript code and run it.
-      window.LoopTrap = 1000;
-      Blockly.JavaScript.INFINITE_LOOP_TRAP =
-          'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-      var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
-      Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-      try {
-        eval(code);
-      } catch (e) {
-        alert(e);
+        return "";
+     }
+      var workspace = Blockly.getMainWorkspace();
+      var xml = Blockly.Xml.workspaceToDom(workspace, true);
+      if (workspace.getTopBlocks(false).length == 1 && xml.querySelector) {
+        var block = xml.querySelector('block');
+        if (block) {
+            block.removeAttribute('x');
+            block.removeAttribute('y');
+        }
       }
+      var work = Blockly.Xml.domToText(xml);
+        $.ajax({
+        type: "POST",
+        url: '{% url 'tarefa:ajax_post_task' dispositivo.pk %}',
+        data: {'code' : code,
+                'work': work},
+        success: function (data) {
+    },
+      });
     }
   </script>
 {% endblock content %}

@@ -122,18 +122,19 @@ Blockly.Blocks['atuador_troca_estado']={
               "type": "field_dropdown",
               "name": "dispositivo",
               "options": [
-                [
-                  "dispo1",
-                  "1"
-                ],
-                [
-                  "dispo2",
-                  "2"
-                ],
-                [
-                  "dispo3",
-                  "3"
-                ]
+                {% if atuadores %}
+                  {% for atua in atuadores %}
+                    [
+                      "{{ atua.nome }}",
+                      "{{ atua.pk }}"
+                    ],
+                  {% endfor %}
+                {% else %}
+                   [
+                      "Sem_atuador",
+                      "sem_atuador"
+                    ],
+                {% endif %}
               ]
             }
           ],
@@ -150,13 +151,32 @@ Blockly.Blocks['atuador_boolean']={
   init:function () {
       this.jsonInit({
             "type": "atuador_boolean",
-              "message0": "Trocar estado para: %1",
+              "message0": "Trocar atuador %2 estado para: %1",
               "args0": [
                 {
                   "type": "input_value",
                   "name": "estado",
                   "check": "Boolean"
-                }
+                },
+                  {
+              "type": "field_dropdown",
+              "name": "dispositivo",
+              "options": [
+                {% if atuadores %}
+                  {% for atua in atuadores %}
+                    [
+                      "{{ atua.nome }}",
+                      "{{ atua.pk }}"
+                    ],
+                  {% endfor %}
+                {% else %}
+                   [
+                      "Sem_atuador",
+                      "sem_atuador"
+                    ],
+                {% endif %}
+              ]
+            }
               ],
               "previousStatement": null,
               "nextStatement": null,

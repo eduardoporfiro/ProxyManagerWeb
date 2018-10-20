@@ -15,4 +15,5 @@ urlpatterns = [
     path('<int:pk>/job', views.index, name='job'),
 
     path('ajax/load-mqtts/', views.load_mqtt, name='ajax_load_mqtts'),
+    path('ajax/<int:dispo_id>/post_task', views.post_task, name='ajax_post_task'),
 ]

@@ -16,20 +16,20 @@ Blockly.Python['sen_se'] = function(block) {
 };
 
 Blockly.Python['save_db'] = function(block) {
-  var code = 'save_database;\n';
+  var code ='save_database;'
   return code;
 };
 
 Blockly.Python['atuador_troca_estado'] = function(block) {
   var dropdown_dispositivo = block.getFieldValue('dispositivo');
-  var code = 'troca:'+dropdown_dispositivo+';\n';
+  var code ='dispo_troca:'+dropdown_dispositivo+';'
   return code;
 };
 
 Blockly.Python['atuador_boolean'] = function(block) {
   var value_estado = Blockly.Python.valueToCode(block, 'estado', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
-  var code = 'atua_booelan'+value_estado+';\n';
+  var dropdown_dispositivo = block.getFieldValue('dispositivo');
+  var code ='dispo_troca_boolean'+':'+dropdown_dispositivo+':'+value_estado+';'
   return code;
 };
 
@@ -37,7 +37,7 @@ Blockly.Python['if_sensor_string'] = function(block) {
   var dropdown_condicao = block.getFieldValue('condicao');
   var value_dado = Blockly.Python.valueToCode(block, 'dado', Blockly.Python.ORDER_ATOMIC);
   var statements_if = Blockly.Python.statementToCode(block, 'if');
-  var code = 'if_sensor_string:'+dropdown_condicao+':'+value_dado+':'+statements_if+';\n';
+  var code ='if_sensor_string:'+dropdown_condicao+':'+value_dado+';'+statements_if;
   return code;
 };
 
@@ -45,17 +45,17 @@ Blockly.Python['if_sensor_number'] = function(block) {
   var dropdown_condicao = block.getFieldValue('condicao');
   var value_valor = Blockly.Python.valueToCode(block, 'valor', Blockly.Python.ORDER_ATOMIC);
   var statements_if = Blockly.Python.statementToCode(block, 'if');
-  var code = 'if_sensor_number:'+dropdown_condicao+':'+value_valor+':'+statements_if+';\n';
+  var code = 'if_sensor_number:'+dropdown_condicao+':'+value_valor+';'+statements_if;
   return code;
 };
 
 Blockly.Python['dado_sensor_numero'] = function(block) {
-  var code = '(SENSOR_NUMERO)';
+  var code ='dado_sensor_numero;'
   return [code, Blockly.Python.ORDER_NONE];
 };
 
 Blockly.Python['dado_sensor_string'] = function(block) {
-  var code = '(SENSOR_STRING)';
+  var code ='dado_sensor_string;'
   return [code, Blockly.Python.ORDER_NONE];
 };
 
@@ -63,7 +63,7 @@ Blockly.Python['if_sensor_dadosensornumero'] = function(block) {
   var dropdown_condicao = block.getFieldValue('condicao');
   var value_dados = Blockly.Python.valueToCode(block, 'dados', Blockly.Python.ORDER_ATOMIC);
   var statements_if = Blockly.Python.statementToCode(block, 'if');
-  var code = 'if_sensor_dadosensornumero:'+dropdown_condicao+':'+value_dados+':'+statements_if+';\n';
+  var code = 'if_sensor_dadosensornumero:'+dropdown_condicao+':'+value_dados+';'+statements_if;
   return code;
 };
 
@@ -71,22 +71,22 @@ Blockly.Python['if_sensor_boolena'] = function(block) {
   var dropdown_condicao = block.getFieldValue('condicao');
   var value_dado = Blockly.Python.valueToCode(block, 'dado', Blockly.Python.ORDER_ATOMIC);
   var statements_if = Blockly.Python.statementToCode(block, 'if');
-  var code = 'if_sensor_boolena:'+dropdown_condicao+':'+value_dado+':'+statements_if+';\n';
+  var code = 'if_sensor_boolena:'+dropdown_condicao+':'+value_dado+';'+statements_if;
   return code;
 };
 
 Blockly.Python['dados_sensor_media'] = function(block) {
-  var code = 'dados_sensor_media';
+  var code ='dados_sensor_media;'
   return [code, Blockly.Python.ORDER_NONE];
 };
 
 Blockly.Python['dado_sensor_min'] = function(block) {
-  var code = 'dado_sensor_min';
+  var code ='dado_sensor_min;'
   return [code, Blockly.Python.ORDER_NONE];
 };
 
 Blockly.Python['dado_sensor_max'] = function(block) {
-  var code = 'dado_sensor_max';
+  var code ='dado_sensor_max;'
   return [code, Blockly.Python.ORDER_NONE];
 };
 
@@ -94,6 +94,6 @@ Blockly.Python['if_sensor_dadosensorstring'] = function(block) {
   var dropdown_condicao = block.getFieldValue('condicao');
   var value_dados = Blockly.Python.valueToCode(block, 'dados', Blockly.Python.ORDER_ATOMIC);
   var statements_if = Blockly.Python.statementToCode(block, 'if');
-  var code = 'if_sensor_boolena:'+dropdown_condicao+':'+value_dados+':'+statements_if+';\n';
+  var code = 'if_sensor_dadosensorstring:'+dropdown_condicao+':'+value_dados+';'+statements_if;
   return code;
 };
