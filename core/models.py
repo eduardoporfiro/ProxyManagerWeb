@@ -66,22 +66,23 @@ class Celery(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Task(models.Model):
+    Tipos = [
+        (0, 'save_database'),
+        (1, 'dado_sensor_numero'),
+        (2, 'dado_sensor_string'),
+        (3, 'dados_sensor_media'),
+        (4, 'dado_sensor_min'),
+        (5, 'dado_sensor_max'),
+    ]
+    tipo = models.IntegerField(choices=Tipos, null=True)
     comando = models.CharField(max_length=200)
-    create = models.DateTimeField(auto_now_add=True)
     task_anterior = models.ForeignKey('self', on_delete=models.CASCADE,
                                       related_name='anterior', null=True)
     task_sucessor = models.ForeignKey('self', on_delete=models.CASCADE,
                                       related_name='sucessor', null=True)
-    json = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-
-class Atuador_troca_estado(Task):
-    estado_anterior = models.NullBooleanField()
-    estado_atual = models.NullBooleanField()
-
-class Atuador_boolean(Task):
-    estado_anterior = models.NullBooleanField()
-    estado_atual = models.NullBooleanField()
+    def __str__(self):
+        return self.comando
 
 class If_sensor_string(Task):
     Condicao = [
@@ -89,7 +90,7 @@ class If_sensor_string(Task):
         (1,'!=')
     ]
     condicao = models.IntegerField(choices=Condicao)
-    valor = models.CharField(max_length=200)
+    valor = models.CharField(max_length=200, null=True)
 
 class If_sensor_numero(Task):
     Condicao = [
@@ -101,7 +102,15 @@ class If_sensor_numero(Task):
         (5,'<=')
     ]
     condicao = models.IntegerField(choices=Condicao)
-    valor = models.IntegerField()
+    valor = models.IntegerField(null=True)
+
+class If_sensor_boolean(Task):
+    Condicao = [
+        (0, '='),
+        (1, '!=')
+    ]
+    condicao = models.IntegerField(choices=Condicao)
+    valor = models.NullBooleanField()
 
 class If_sensor_dadosensor(Task):
     Condicao = [

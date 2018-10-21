@@ -14,6 +14,8 @@ from .tables import DispositivoTable
 from .models import Dispositivo, Job
 from .forms import DispositivoForm, DispositivoAddForm
 
+from .utils import tarefas
+
 @login_required
 def load_dispositivo(request, proxy_id):
     template_name = "tarefa/dispositivo_tab.html"
@@ -131,7 +133,7 @@ def index(request, pk):
     context = {
         'dispositivo': dispositivo,
         'atuadores': atuadores,
-        'sensores': sensores
+        'sensores': sensores,
     }
     return HttpResponse(template.render(context, request))
 
@@ -142,10 +144,22 @@ def post_task(request, dispo_id):
         dispositivo = get_object_or_404(Dispositivo, pk=dispo_id)
         try:
             job = dispositivo.job
+            job.firs_task.delete()
         except:
             job = Job(dispositivo=dispositivo)
-        task = request.POST['code']
+        tarefa = request.POST['code']
         work = request.POST['work']
+        tasks = tarefas(tarefa)
         job.workspace=work
+        job.firs_task = tasks[0]
         job.save()
     return HttpResponse(request, 'OKAY')
+
+def get_xml(request, pk):
+    dispo = Dispositivo.objects.get(pk=pk)
+    try:
+        job = dispo.job
+    except:
+        job = Job()
+    return HttpResponse(job.workspace, content_type = 'text')
+
