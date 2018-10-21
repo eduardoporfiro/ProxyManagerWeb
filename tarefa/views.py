@@ -13,8 +13,10 @@ from block.models import Mqtt, Proxy
 from .tables import DispositivoTable
 from .models import Dispositivo, Job
 from .forms import DispositivoForm, DispositivoAddForm
+import tarefa.task as celery
 
 from .utils import tarefas
+
 
 @login_required
 def load_dispositivo(request, proxy_id):
@@ -22,6 +24,7 @@ def load_dispositivo(request, proxy_id):
     dispositivo = DispositivoTable(Dispositivo.objects.filter(proxy=proxy_id).all())
     RequestConfig(request).configure(dispositivo)
     return render(request, template_name, {'dispositivos': dispositivo})
+
 
 @login_required
 def add_dispositivos(request, mqtt_id):
@@ -32,6 +35,7 @@ def add_dispositivos(request, mqtt_id):
             dispositivo = form.save(commit=False)  # salva o usuário
             dispositivo.proxy= dispositivo.mqtt.broker.proxy
             dispositivo.save()
+            celery.create_dispo.delay(dispositivo.pk)
             messages.success(
                 request, 'Os dados do Proxy foram adicionados com sucesso'
             )
@@ -56,6 +60,7 @@ def add_dispositivos(request, mqtt_id):
         }
         return render(request, template_name, context)
 
+
 @login_required
 def add_dispositivo(request):
     template_name = 'tarefa/add_dispositivo.html'
@@ -66,6 +71,7 @@ def add_dispositivo(request):
             dispositivo = form.save(commit=False)  # salva o usuário
             dispositivo.proxy= dispositivo.mqtt.broker.proxy
             dispositivo.save()
+            celery.create_dispo.delay(dispositivo.pk)
             messages.success(
                 request, 'Os dados do Proxy foram adicionados com sucesso'
             )
@@ -81,6 +87,7 @@ def add_dispositivo(request):
         }
         return render(request, template_name, context)
 
+
 @login_required
 def edit_dispositivo(request, dispo_id):
     template_name = 'tarefa/form_dispos.html'
@@ -93,6 +100,7 @@ def edit_dispositivo(request, dispo_id):
             dispo = dispositivo
             dispositivo.proxy = dispositivo.mqtt.broker.proxy
             dispositivo.save()
+            celery.edit_dispo.delay(dispositivo.pk)
             messages.success(
                 request, 'Os dados do Proxy foram alterados com sucesso'
             )
@@ -108,6 +116,7 @@ def edit_dispositivo(request, dispo_id):
         }
         return render(request, template_name, context)
 
+
 @method_decorator(login_required, name='dispatch')
 class ViewDeleteDispo(DeleteView):
     template_name = 'block/forms/delete/delete_form.html'
@@ -119,11 +128,13 @@ class ViewDeleteDispo(DeleteView):
         )
         return reverse('core:home')
 
+
 @login_required
 def load_mqtt(request):
     proxy_id = request.GET.get('proxy')
     mqtts = Mqtt.objects.filter(proxy_id=proxy_id)
     return render(request, 'tarefa/dropdown_dispo.html', {'mqtts': mqtts})
+
 
 def index(request, pk):
     dispositivo = get_object_or_404(Dispositivo, pk=pk)
@@ -136,6 +147,7 @@ def index(request, pk):
         'sensores': sensores,
     }
     return HttpResponse(template.render(context, request))
+
 
 @csrf_exempt
 @login_required
@@ -154,6 +166,7 @@ def post_task(request, dispo_id):
         job.firs_task = tasks[0]
         job.save()
     return HttpResponse(request, 'OKAY')
+
 
 def get_xml(request, pk):
     dispo = Dispositivo.objects.get(pk=pk)

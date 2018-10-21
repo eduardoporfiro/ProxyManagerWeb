@@ -55,6 +55,7 @@ def add_mqtt(request):
                     request, 'Os dados do MQTT foram adicionados com sucesso'
                 )
                 mqtt.save()
+                task.create_mqtt.delay(mqtt.pk)
                 return redirect('core:home')  # loga ele na sessão e retorna para a página definida no redirect login
         else:
             form.fields['proxy'].queryset = proxys
@@ -137,31 +138,36 @@ def edit_broker(request, broker_id):
         context['broker'] = broker
     return render(request, template_name, context)
 
+
 @login_required
 def edit_mqtt(request, mqtt_id):
     template_name = 'block/forms/edit/mqtt_edit.html'
     context = {}
-    mqtt = get_object_or_404(Mqtt, pk=mqtt_id)
+    mqttold = get_object_or_404(Mqtt, pk=mqtt_id)
     if request.method == 'POST':
-        form = MqttEdit(request.POST, instance=mqtt)
+        form = MqttEdit(request.POST)
         if form.is_valid():
-            form.save(commit=False)
-            mqtts = Mqtt.objects.filter(broker=mqtt.broker, topico=mqtt.topico).exists()
+            mqttnew = form.save(commit=False)
+            mqtts = Mqtt.objects.filter(broker=mqttnew.broker, topico=mqttnew.topico).exists()
             if mqtts == True:
                 messages.error(
                     request, 'Já existe um Mqtt com este tópico para esse Proxy')
-                return redirect('block:tab_edit', mqtt.proxy.id)
+                return redirect('block:tab_edit', mqttold.proxy.id)
             else:
-                mqtt.save()
+                print(mqttold.topico)
+                mqttnew.pk = mqttold.pk
+                mqttnew.save()
+                task.update_mqtt.delay(mqttnew.pk)
                 messages.success(
                     request, 'Os dados do MQTT foram alterados com sucesso'
                 )
-                return redirect('block:tab_edit', mqtt.proxy.id)
+                return redirect('block:tab_edit', mqttnew.proxy.id)
     else:
-        form = MqttEdit(instance=mqtt)
+        form = MqttEdit(instance=mqttold)
         context['form'] = form
-        context['proxy'] = mqtt.proxy
+        context['proxy'] = mqttold.proxy
     return render(request, template_name, context)
+
 
 def load_mqtt(request, broker_id):
     template_name = "block/mqtt_tab.html"
@@ -169,10 +175,12 @@ def load_mqtt(request, broker_id):
     RequestConfig(request).configure(mqtt)
     return render(request, template_name,{'mqtts':mqtt})
 
+
 def load_broker(request):
     proxy_id = request.GET.get('proxy')
     brokers = Broker.objects.filter(proxy_id=proxy_id)
     return render(request, 'block/dropdown.html', {'dados': brokers})
+
 
 @method_decorator(login_required, name='dispatch')
 class ViewDeleteProxy(DeleteView):
@@ -185,6 +193,7 @@ class ViewDeleteProxy(DeleteView):
         )
         return reverse('core:home')
 
+
 @method_decorator(login_required, name='dispatch')
 class ViewDeleteBroker(DeleteView):
     template_name = 'block/forms/delete/delete_form.html'
@@ -194,6 +203,7 @@ class ViewDeleteBroker(DeleteView):
             self.request, 'Deletado com sucesso!'
         )
         return reverse('core:home')
+
 
 @method_decorator(login_required, name='dispatch')
 class ViewDeleteMqtt(DeleteView):
