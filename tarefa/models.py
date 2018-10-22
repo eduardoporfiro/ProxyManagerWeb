@@ -17,6 +17,7 @@ class Job(models.Model):
     workspace = models.TextField()
     last_update = models.DateTimeField(auto_now=True)
     firs_task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    proxy_alt_id = models.IntegerField(null=True)
 
     def delete(self, using=None, keep_parents=False):
         self.firs_task.delete()

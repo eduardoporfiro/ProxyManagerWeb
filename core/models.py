@@ -21,6 +21,7 @@ class AbstractBroker(models.Model):
     username = models.CharField(max_length=200, blank=True)
     password = models.CharField(max_length=200, blank=True)
     estado = models.IntegerField(choices=ESTADO_BROKER, default=0)
+    proxy_alt_id = models.IntegerField(null=True)
     class Meta:
         abstract=True
 
@@ -36,6 +37,7 @@ class AbstractMqtt(models.Model):
     topico = models.CharField(max_length=250)
     QoS = models.IntegerField(choices=Qos, default=0)
     RC = models.IntegerField(choices=RC, default=0)
+    proxy_alt_id = models.IntegerField(null=True)
     class Meta:
         abstract = True
 
@@ -47,6 +49,7 @@ class AbstractDispositivo(models.Model):
     nome = models.CharField(max_length=200)
     tipo = models.IntegerField(choices=TIPO, default=0)
     is_int = models.BooleanField(default=False)
+    proxy_alt_id=models.IntegerField(null=True)
     class Meta:
         abstract=True
 
@@ -55,6 +58,7 @@ class AbstractDado(models.Model):
     valor_char = models.CharField(max_length=500, blank=True)
     valor_int = models.IntegerField(blank=True)
     date = models.DateTimeField(default=timezone.now, editable=False)
+    proxy_alt_id = models.IntegerField(null=True)
     class Meta:
         abstract=True
 
@@ -81,6 +85,7 @@ class Task(models.Model):
     task_sucessor = models.ForeignKey('self', on_delete=models.CASCADE,
                                       related_name='sucessor', null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    proxy_alt_id = models.IntegerField(null=True)
     def __str__(self):
         return self.comando
 
