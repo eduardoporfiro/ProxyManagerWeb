@@ -156,7 +156,7 @@ def post_task(request, dispo_id):
         dispositivo = get_object_or_404(Dispositivo, pk=dispo_id)
         try:
             job = dispositivo.job
-            celery.delete_task(job.firs_task.proxy_alt_id, dispositivo.proxy.pk)
+            celery.delete_task.delay(job.firs_task.proxy_alt_id, dispositivo.proxy.pk)
             job.firs_task.delete()
         except:
             job = Job(dispositivo=dispositivo)
@@ -164,9 +164,16 @@ def post_task(request, dispo_id):
         work = request.POST['work']
         tasks = tarefas(tarefa, dispositivo.proxy.pk)
         job.workspace=work
-        job.firs_task = tasks[0]
-        job.save()
-        celery.create_job.delay(job.pk)
+        try:
+            job.firs_task = tasks[0]
+        except IndexError:
+            pass
+        if job.pk is None:
+            job.save()
+            celery.create_job.delay(job.pk)
+        else:
+            job.save()
+            celery.edit_job.delay(job.pk)
     return HttpResponse(request, 'OKAY')
 
 
