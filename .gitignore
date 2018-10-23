@@ -1,1 +1,7 @@
 *.env
+
+comandos:
+restart supervisor:
+sudo supervisor -c /etc/supervisor/supervisord.cof
+sudo supervisorctl -c /etc/supervisor/supervisord.cof reload
+sudo supervisorctl -c /etc/supervisor/supervisord.cof upgrade
