@@ -1,5 +1,4 @@
-from core.models import *
-from tarefa.models import Dispositivo, Atuador_troca_estado, Atuador_boolean
+from tarefa.models import *
 from tarefa import task as celery
 
 def tarefas(task, proxy_pk):
@@ -16,6 +15,7 @@ def tarefas(task, proxy_pk):
             t.comando = subtarefa
             if 'if_sensor_string' in tarefa[0]:
                 tipo=1
+                t.tipo = 6
                 t = If_sensor_string()
                 t.comando = subtarefa
                 t.condicao=tarefa[1]
@@ -26,6 +26,7 @@ def tarefas(task, proxy_pk):
 
             elif 'if_sensor_numero' in tarefa[0]:
                 tipo = 2
+                t.tipo=7
                 t = If_sensor_numero()
                 t.comando = subtarefa
                 t.condicao = tarefa[1]
@@ -36,6 +37,7 @@ def tarefas(task, proxy_pk):
 
             elif 'atuador_troca_estado' in tarefa[0]:
                 tipo = 3
+                t.tipo=10
                 t = Atuador_troca_estado()
                 t.comando = subtarefa
                 dis = Dispositivo.objects.filter(pk=tarefa[1]).get()
@@ -43,6 +45,7 @@ def tarefas(task, proxy_pk):
 
             elif 'atuador_boolean' in tarefa[0]:
                 tipo = 4
+                t.tipo=11
                 t = Atuador_boolean()
                 dis = Dispositivo.objects.filter(pk=tarefa[1]).get()
                 t.comando = subtarefa
@@ -54,6 +57,7 @@ def tarefas(task, proxy_pk):
 
             elif 'if_sensor_boolena' in tarefa[0]:
                 tipo = 5
+                t.tipo=8
                 t = If_sensor_boolean()
                 t.comando = subtarefa
                 t.condicao = tarefa[1]
@@ -63,6 +67,7 @@ def tarefas(task, proxy_pk):
                     t.valor = None
             elif 'if_sensor_dadosensor' in tarefa[0]:
                 tipo = 6
+                t.tipo=9
                 t = If_sensor_dadosensor()
                 t.comando = subtarefa
                 t.condicao = tarefa[1]

@@ -1,7 +1,7 @@
 from celery.utils.log import get_task_logger
 from proxy_manager_web.celery import app
-from block.models import Proxy,If_sensor_string, If_sensor_boolean,If_sensor_numero,If_sensor_dadosensor
-from tarefa.models import Dispositivo, Job, Task, Atuador_boolean, Atuador_troca_estado
+from block.models import Proxy
+from tarefa.models import *
 from core.models import Celery
 import requests, json
 
