@@ -15,8 +15,8 @@ def tarefas(task, proxy_pk):
             t.comando = subtarefa
             if 'if_sensor_string' in tarefa[0]:
                 tipo=1
-                t.tipo = 6
                 t = If_sensor_string()
+                t.tipo = Settings.objects.get(task_tipo=6)
                 t.comando = subtarefa
                 t.condicao=tarefa[1]
                 try:
@@ -26,8 +26,8 @@ def tarefas(task, proxy_pk):
 
             elif 'if_sensor_numero' in tarefa[0]:
                 tipo = 2
-                t.tipo=7
                 t = If_sensor_numero()
+                t.tipo = Settings.objects.get(task_tipo=7)
                 t.comando = subtarefa
                 t.condicao = tarefa[1]
                 try:
@@ -37,16 +37,16 @@ def tarefas(task, proxy_pk):
 
             elif 'atuador_troca_estado' in tarefa[0]:
                 tipo = 3
-                t.tipo=10
                 t = Atuador_troca_estado()
+                t.tipo = Settings.objects.get(task_tipo=10)
                 t.comando = subtarefa
                 dis = Dispositivo.objects.filter(pk=tarefa[1]).get()
                 t.atuador = dis
 
             elif 'atuador_boolean' in tarefa[0]:
                 tipo = 4
-                t.tipo=11
                 t = Atuador_boolean()
+                t.tipo = Settings.objects.get(task_tipo=11)
                 dis = Dispositivo.objects.filter(pk=tarefa[1]).get()
                 t.comando = subtarefa
                 t.atuador = dis
@@ -57,8 +57,8 @@ def tarefas(task, proxy_pk):
 
             elif 'if_sensor_boolena' in tarefa[0]:
                 tipo = 5
-                t.tipo=8
                 t = If_sensor_boolean()
+                t.tipo = Settings.objects.get(task_tipo=8)
                 t.comando = subtarefa
                 t.condicao = tarefa[1]
                 try:
@@ -67,28 +67,28 @@ def tarefas(task, proxy_pk):
                     t.valor = None
             elif 'if_sensor_dadosensor' in tarefa[0]:
                 tipo = 6
-                t.tipo=9
                 t = If_sensor_dadosensor()
+                t.tipo = Settings.objects.get(task_tipo=9)
                 t.comando = subtarefa
                 t.condicao = tarefa[1]
 
             elif 'save_database' in tarefa[0]:
-                t.tipo = 0
+                t.tipo = Settings.objects.get(task_tipo=0)
 
             elif 'dado_sensor_numero' in tarefa[0]:
-                t.tipo = 1
+                t.tipo = Settings.objects.get(task_tipo=1)
 
             elif 'dado_sensor_string' in tarefa[0]:
-                t.tipo = 2
+                t.tipo = Settings.objects.get(task_tipo=2)
 
             elif 'dados_sensor_media' in tarefa[0]:
-                t.tipo = 3
+                t.tipo = Settings.objects.get(task_tipo=3)
 
             elif 'dado_sensor_min' in tarefa[0]:
-                t.tipo = 4
+                t.tipo = Settings.objects.get(task_tipo=4)
 
             elif 'dado_sensor_max' in tarefa[0]:
-                t.tipo = 5
+                t.tipo = Settings.objects.get(task_tipo=5)
 
             if count != 0:
                 anterior = tasks.pop()
