@@ -1,9 +1,10 @@
 from celery.utils.log import get_task_logger
 from proxy_manager_web.celery import app
-from block.models import Proxy,If_sensor_string, If_sensor_boolean,If_sensor_numero,If_sensor_dadosensor
-from tarefa.models import Dispositivo, Job, Task, Atuador_boolean, Atuador_troca_estado
+from block.models import Proxy
+from tarefa.models import *
 from core.models import Celery
 import requests, json
+
 
 @app.task
 def create_dispo(dispo_pk):
@@ -171,7 +172,7 @@ def create_task(task_pk, proxy_pk):
     proxy = Proxy.objects.get(pk=proxy_pk)
     celery = Celery(app='ProxyManagerWeb:tarefa:create_task', task='')
     url = get_url(proxy.url)
-    url += '/api/task/'
+    url += task.tipo.url_create
     head = {'Authorization': 'token {}'.format(proxy.token)}
 
     data = {}
@@ -210,7 +211,7 @@ def edit_task(task_pk, proxy_pk):
     url = get_url(proxy.url)
     while task.proxy_alt_id == None:
         task.refresh_from_db()
-    url += '/api/{}/taskUpdate/'.format(task.proxy_alt_id)
+    url += task.tipo.url_update.format(task.proxy_alt_id)
     head = {'Authorization': 'token {}'.format(proxy.token)}
 
     data = {}
@@ -279,7 +280,7 @@ def create_if_sensor_string(task_pk, proxy_pk):
     proxy = Proxy.objects.get(pk=proxy_pk)
     celery = Celery(app='ProxyManagerWeb:tarefa:create_if_sensor_string', task='')
     url = get_url(proxy.url)
-    url += '/api/if_sensor_string/'
+    url += task.tipo.url_create
     head = {'Authorization': 'token {}'.format(proxy.token)}
 
     data = {}
@@ -318,7 +319,7 @@ def edit_if_sensor_string(task_pk, proxy_pk):
     url = get_url(proxy.url)
     while task.proxy_alt_id == None:
         task.refresh_from_db()
-    url += '/api/{}/if_sensor_stringUpdate/'.format(task.proxy_alt_id)
+    url += task.tipo.url_update.format(task.proxy_alt_id)
     head = {'Authorization': 'token {}'.format(proxy.token)}
 
     data = {}
@@ -360,7 +361,7 @@ def create_if_sensor_boolean(task_pk, proxy_pk):
     proxy = Proxy.objects.get(pk=proxy_pk)
     celery = Celery(app='ProxyManagerWeb:tarefa:create_if_sensor_boolean', task='')
     url = get_url(proxy.url)
-    url += '/api/if_sensor_boolean/'
+    url += task.tipo.url_create
     head = {'Authorization': 'token {}'.format(proxy.token)}
 
     data = {}
@@ -399,7 +400,7 @@ def edit_if_sensor_boolean(task_pk, proxy_pk):
     url = get_url(proxy.url)
     while task.proxy_alt_id == None:
         task.refresh_from_db()
-    url += '/api/{}/if_sensor_booleanUpdate/'.format(task.proxy_alt_id)
+    url += task.tipo.url_update.format(task.proxy_alt_id)
     head = {'Authorization': 'token {}'.format(proxy.token)}
 
     data = {}
@@ -441,7 +442,7 @@ def create_if_sensor_numero(task_pk, proxy_pk):
     proxy = Proxy.objects.get(pk=proxy_pk)
     celery = Celery(app='ProxyManagerWeb:tarefa:create_if_sensor_numero', task='')
     url = get_url(proxy.url)
-    url += '/api/if_sensor_numero/'
+    url += task.tipo.url_create
     head = {'Authorization': 'token {}'.format(proxy.token)}
 
     data = {}
@@ -480,7 +481,7 @@ def edit_if_sensor_numero(task_pk, proxy_pk):
     url = get_url(proxy.url)
     while task.proxy_alt_id == None:
         task.refresh_from_db()
-    url += '/api/{}/if_sensor_numeroUpdate/'.format(task.proxy_alt_id)
+    url += task.tipo.url_update.format(task.proxy_alt_id)
     head = {'Authorization': 'token {}'.format(proxy.token)}
 
     data = {}
@@ -522,7 +523,7 @@ def create_if_sensor_dadosensor(task_pk, proxy_pk):
     proxy = Proxy.objects.get(pk=proxy_pk)
     celery = Celery(app='ProxyManagerWeb:tarefa:create_if_sensor_dadosensor', task='')
     url = get_url(proxy.url)
-    url += '/api/if_sensor_dadosensor/'
+    url += task.tipo.url_create
     head = {'Authorization': 'token {}'.format(proxy.token)}
 
     data = {}
@@ -561,7 +562,7 @@ def edit_if_sensor_dadosensor(task_pk, proxy_pk):
     url = get_url(proxy.url)
     while task.proxy_alt_id == None:
         task.refresh_from_db()
-    url += '/api/{}/if_sensor_dadosensorUpdate/'.format(task.proxy_alt_id)
+    url += task.tipo.url_update.format(task.proxy_alt_id)
     head = {'Authorization': 'token {}'.format(proxy.token)}
 
     data = {}
@@ -599,7 +600,7 @@ def create_atuador_boolean(task_pk, proxy_pk):
     proxy = Proxy.objects.get(pk=proxy_pk)
     celery = Celery(app='ProxyManagerWeb:tarefa:create_atuador_boolean', task='')
     url = get_url(proxy.url)
-    url += '/api/atuador_boolean/'
+    url += task.tipo.url_create
     head = {'Authorization': 'token {}'.format(proxy.token)}
 
     data = {}
@@ -638,7 +639,7 @@ def edit_atuador_boolean(task_pk, proxy_pk):
     url = get_url(proxy.url)
     while task.proxy_alt_id == None:
         task.refresh_from_db()
-    url += '/api/{}/atuador_booleanUpdate/'.format(task.proxy_alt_id)
+    url += task.tipo.url_update.format(task.proxy_alt_id)
     head = {'Authorization': 'token {}'.format(proxy.token)}
 
     data = {}
@@ -683,7 +684,7 @@ def create_atuador_troca_estado(task_pk, proxy_pk):
     proxy = Proxy.objects.get(pk=proxy_pk)
     celery = Celery(app='ProxyManagerWeb:tarefa:create_atuador_troca_estado', task='')
     url = get_url(proxy.url)
-    url += '/api/atuador_troca_estado/'
+    url += task.tipo.url_create
     head = {'Authorization': 'token {}'.format(proxy.token)}
 
     data = {}
@@ -724,7 +725,7 @@ def edit_atuador_troca_estado(task_pk, proxy_pk):
     url = get_url(proxy.url)
     while task.proxy_alt_id == None:
         task.refresh_from_db()
-    url += '/api/{}/atuador_troca_estadoUpdate/'.format(task.proxy_alt_id)
+    url += task.tipo.url_update.format(task.proxy_alt_id)
     head = {'Authorization': 'token {}'.format(proxy.token)}
 
     data = {}

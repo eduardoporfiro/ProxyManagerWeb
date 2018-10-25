@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
+
 Qos = [
     (0, 'QoS - 0'),
     (1, 'QoS - 1'),
@@ -62,69 +63,10 @@ class AbstractDado(models.Model):
     class Meta:
         abstract=True
 
+
 class Celery(models.Model):
     app = models.CharField(max_length=200)
     desc = models.CharField(max_length=200)
     exception = models.CharField(max_length=200)
     task = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
-
-class Task(models.Model):
-    Tipos = [
-        (0, 'save_database'),
-        (1, 'dado_sensor_numero'),
-        (2, 'dado_sensor_string'),
-        (3, 'dados_sensor_media'),
-        (4, 'dado_sensor_min'),
-        (5, 'dado_sensor_max'),
-    ]
-    tipo = models.IntegerField(choices=Tipos, null=True)
-    comando = models.CharField(max_length=200)
-    task_anterior = models.ForeignKey('self', on_delete=models.CASCADE,
-                                      related_name='anterior', null=True)
-    task_sucessor = models.ForeignKey('self', on_delete=models.CASCADE,
-                                      related_name='sucessor', null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    proxy_alt_id = models.IntegerField(null=True)
-    def __str__(self):
-        return self.comando
-
-class If_sensor_string(Task):
-    Condicao = [
-        (0,'='),
-        (1,'!=')
-    ]
-    condicao = models.IntegerField(choices=Condicao)
-    valor = models.CharField(max_length=200, null=True)
-
-class If_sensor_numero(Task):
-    Condicao = [
-        (0, '='),
-        (1, '!='),
-        (2,'>'),
-        (3,'>='),
-        (4,'<'),
-        (5,'<=')
-    ]
-    condicao = models.IntegerField(choices=Condicao)
-    valor = models.IntegerField(null=True)
-
-class If_sensor_boolean(Task):
-    Condicao = [
-        (0, '='),
-        (1, '!=')
-    ]
-    condicao = models.IntegerField(choices=Condicao)
-    valor = models.NullBooleanField()
-
-class If_sensor_dadosensor(Task):
-    Condicao = [
-        (0, '='),
-        (1, '!='),
-        (2, '>'),
-        (3, '>='),
-        (4, '<'),
-        (5, '<=')
-    ]
-    condicao = models.IntegerField(choices=Condicao)
-    valor = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='If_sensor_dadosensor')

@@ -134,6 +134,7 @@ def conect_proxy(proxy):
             celery.save()
             proxy.status = 1  # conectado com token
             proxy.token = json.loads(response.text)['token']
+            proxy.valido=True
             proxy.save()
             get_broker(proxy)
             get_mqtt(proxy)
