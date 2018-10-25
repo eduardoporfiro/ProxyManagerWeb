@@ -45,7 +45,7 @@ class Task(models.Model):
                                       related_name='sucessor', null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     proxy_alt_id = models.IntegerField(null=True)
-    #job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    proxy = models.ForeignKey(Proxy, on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self.comando
 

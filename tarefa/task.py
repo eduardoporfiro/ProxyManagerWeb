@@ -5,6 +5,7 @@ from tarefa.models import *
 from core.models import Celery
 import requests, json
 
+
 @app.task
 def create_dispo(dispo_pk):
     dispo = Dispositivo.objects.get(pk=dispo_pk)

@@ -25,8 +25,10 @@ class Proxy(models.Model):
     status = models.IntegerField(choices=status, default=3)
     valido = models.NullBooleanField()
     proxy_dado = models.IntegerField(choices=espelho, default=0)
+
     def __str__(self):
         return self.name
+
 
 
 class Broker(AbstractBroker):

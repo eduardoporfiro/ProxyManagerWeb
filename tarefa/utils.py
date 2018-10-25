@@ -1,7 +1,9 @@
 from tarefa.models import *
+from block.models import Proxy
 from tarefa import task as celery
 
 def tarefas(task, proxy_pk):
+    proxy = Proxy.objects.get(pk=proxy_pk)
     tasks = []
     celery=[]
     tarefas = task.split(';')
@@ -93,6 +95,7 @@ def tarefas(task, proxy_pk):
             if count != 0:
                 anterior = tasks.pop()
                 t.task_anterior = anterior
+                t.proxy=proxy
                 t.save()
                 anterior.task_sucessor = t
                 anterior.save()
@@ -100,6 +103,7 @@ def tarefas(task, proxy_pk):
                 tasks.insert(count,t)
             else:
                 tasks.insert(count, t)
+                t.proxy=proxy
                 t.save()
             celery.insert(count, {tipo: t})
             count=count+1
