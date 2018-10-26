@@ -91,7 +91,7 @@ class If_sensor_dadosensor(Task):
         (5, '<=')
     ]
     condicao = models.IntegerField(choices=Condicao)
-    valor = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='If_sensor_dadosensor')
+    valor = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='If_sensor_dadosensor', null=True)
 
 
 class Job(models.Model):
@@ -112,10 +112,10 @@ class Job(models.Model):
 class Atuador_troca_estado(Task):
     estado_anterior = models.NullBooleanField()
     estado_atual = models.NullBooleanField()
-    atuador = models.ForeignKey(Dispositivo, on_delete=models.CASCADE)
+    atuador = models.ForeignKey(Dispositivo, on_delete=models.CASCADE,  null=True)
 
 
 class Atuador_boolean(Task):
     estado = models.NullBooleanField()
-    atuador = models.ForeignKey(Dispositivo, on_delete=models.CASCADE)
+    atuador = models.ForeignKey(Dispositivo, on_delete=models.CASCADE, null=True)
 
