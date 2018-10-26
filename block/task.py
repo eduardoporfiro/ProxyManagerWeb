@@ -1,10 +1,12 @@
 from celery.utils.log import get_task_logger
 from proxy_manager_web.celery import app
-
+from core import tasks as coretask
+from tarefa import task as tarefatask
 from block.models import Broker, Proxy, Mqtt
 from tarefa.models import Dispositivo
 from core.models import Celery
-import requests, json
+import requests
+import json
 
 logger = get_task_logger(__name__)
 
@@ -128,7 +130,7 @@ def conect_proxy(proxy):
     url = get_url(proxy.url)
     url += '/api-token-auth/'
     try:
-        response = requests.post(url,json=data)
+        response = requests.post(url,json=data, timeout=10)
         if response.status_code == 200:
             celery.desc='Proxy Respondeu'
             celery.save()
@@ -139,9 +141,10 @@ def conect_proxy(proxy):
             get_broker(proxy)
             get_mqtt(proxy)
             get_dispositivo(proxy)
+            coretask.diff_task(proxy)
+            tarefatask.get_job(proxy.pk)
         elif response.status_code == 404:
             celery.desc = 'Proxy não respondeu Respondeu'
-            #celery.exception = response.text
             celery.save()
             proxy.status = 4  # não existe
             proxy.token = ''
@@ -154,13 +157,19 @@ def conect_proxy(proxy):
             proxy.token = ''
             proxy.save()
 
+    except requests.exceptions.ConnectTimeout as timeout:
+        proxy.status = 2  # erro
+        proxy.token = ''
+        celery = Celery(app='ProxyManagerWeb:block', desc='Criar conexão Proxy',
+                        exception='', task='conect_proxy')
+        celery.save()
+        proxy.save()
     except Exception as e:
         proxy.status = 2  # erro
         proxy.token = ''
         celery = Celery(app='ProxyManagerWeb:block', desc='Criar conexão Proxy',
-                        exception=e, task='conect_proxy')
+                        exception='', task='conect_proxy')
         celery.save()
-        print(e)
         proxy.save()
 
 
