@@ -158,8 +158,11 @@ def post_task(request, dispo_id):
             job = dispositivo.job
             celery.delete_task.delay(job.firs_task.proxy_alt_id, dispositivo.proxy.pk)
             job.firs_task.delete()
+            celery.delete_job.delay(job.pk)
+            job.delete()
         except:
-            job = Job(dispositivo=dispositivo)
+            pass
+        job = Job(dispositivo=dispositivo)
         tarefa = request.POST['code']
         work = request.POST['work']
         tasks = tarefas(tarefa, dispositivo.proxy.pk)

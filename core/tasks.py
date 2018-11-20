@@ -68,18 +68,18 @@ def atualiza_referencia(proxy, datatask):
             if task.tipo.task_tipo in (0, 1, 2, 3, 4, 5, 6, 7, 8):
                 dados = datatask[task.pk]
                 if dados['sucessor'] is not None:
-                    task.task_sucessor = Task.objects.filter(proxy_alt_id=dados['sucessor']).get()
+                    task.task_sucessor = Task.objects.filter(proxy_alt_id=dados['sucessor'], proxy=proxy).get()
                 if dados['anterior'] is not None:
-                    task.task_anterior = Task.objects.filter(proxy_alt_id=dados['anterior']).get()
+                    task.task_anterior = Task.objects.filter(proxy_alt_id=dados['anterior'], proxy=proxy).get()
                 task.save()
 
             elif task.tipo.task_tipo == 9:
                 dados = datatask[task.pk]
                 task = If_sensor_dadosensor.objects.get(pk=task.pk)
                 if dados['sucessor'] is not None:
-                    task.task_sucessor = Task.objects.filter(proxy_alt_id=dados['sucessor']).get()
+                    task.task_sucessor = Task.objects.filter(proxy_alt_id=dados['sucessor'], proxy=proxy).get()
                 if dados['anterior'] is not None:
-                    task.task_anterior = Task.objects.filter(proxy_alt_id=dados['anterior']).get()
+                    task.task_anterior = Task.objects.filter(proxy_alt_id=dados['anterior'], proxy=proxy).get()
                 if dados['task'] is not None:
                     task.valor = Task.objects.get(proxy_alt_id=dados['task'])
                 task.save()
@@ -88,21 +88,21 @@ def atualiza_referencia(proxy, datatask):
                 dados = datatask[task.pk]
                 task = Atuador_troca_estado.objects.get(pk=task.pk)
                 if dados['sucessor'] is not None:
-                    task.task_sucessor = Task.objects.filter(proxy_alt_id=dados['sucessor']).get()
+                    task.task_sucessor = Task.objects.filter(proxy_alt_id=dados['sucessor'], proxy=proxy).get()
                 if dados['anterior'] is not None:
-                    task.task_anterior = Task.objects.filter(proxy_alt_id=dados['anterior']).get()
+                    task.task_anterior = Task.objects.filter(proxy_alt_id=dados['anterior'], proxy=proxy).get()
                 if dados['atuador'] is not None:
-                    task.atuador = Dispositivo.objects.get(proxy_alt_id=dados['atuador'])
+                    task.atuador = Dispositivo.objects.get(proxy_alt_id=dados['atuador'], proxy=proxy)
                 task.save()
             elif task.tipo.task_tipo == 11:
                 dados = datatask[task.pk]
                 task = Atuador_boolean.objects.get(pk=task.pk)
                 if dados['sucessor'] is not None:
-                    task.task_sucessor = Task.objects.filter(proxy_alt_id=dados['sucessor']).get()
+                    task.task_sucessor = Task.objects.filter(proxy_alt_id=dados['sucessor'], proxy=proxy).get()
                 if dados['anterior'] is not None:
-                    task.task_anterior = Task.objects.filter(proxy_alt_id=dados['anterior']).get()
+                    task.task_anterior = Task.objects.filter(proxy_alt_id=dados['anterior'], proxy=proxy).get()
                 if dados['atuador'] is not None:
-                    task.atuador = Dispositivo.objects.get(proxy_alt_id=dados['atuador'])
+                    task.atuador = Dispositivo.objects.get(proxy_alt_id=dados['atuador'], proxy=proxy)
                 task.save()
 
     except Exception as e:
