@@ -44,8 +44,12 @@
     <div class="col-sm-6">
         {% if broker %}
             <h2>Dados do Broker: {{ broker }}</h2>
+                Estado: {{ broker.estado }}
         {% else %}
             <h2>Dados do Proxy: {{ proxy }}</h2>
+            <h4 style="color:gray">Estado:</h4> <h4 style="color: cornflowerblue;"> {{ proxy.status }}</h4>
+            <h4 style="color:gray">Válido:</h4> <h4 style="color: cornflowerblue;">
+            {% if proxy.valido %}Sim{% else %}Não{% endif %}</h4>
         {% endif %}
         <div>
         </div>
