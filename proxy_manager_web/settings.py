@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'accounts',
     'django_tables2',
     'tarefa',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [

@@ -100,6 +100,7 @@ class Job(models.Model):
     last_update = models.DateTimeField(auto_now=True)
     firs_task = models.ForeignKey(Task, on_delete=models.CASCADE)
     proxy_alt_id = models.IntegerField(null=True)
+    proxy = models.ForeignKey(Proxy, on_delete=models.CASCADE, null=True)
 
     def delete(self, using=None, keep_parents=False):
         self.firs_task.delete()
