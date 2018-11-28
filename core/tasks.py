@@ -16,6 +16,7 @@ def update_data():
                     diff_mqtt(proxy)
                     diff_dispo(proxy)
                     diff_task(proxy)
+                    diff_job(proxy)
                 else:
                     print('sem espelho')
             else:
@@ -302,10 +303,52 @@ def diff_dispo(proxy):
         print(e)
 
 
+def diff_job(proxy):
+    jobs = Job.objects.filter(proxy=proxy).all()
+    head = {'Authorization': 'token {}'.format(proxy.token)}
+    # verifica os existentes
+    for job in jobs:
+        url = get_url(proxy.url)
+        url += '/api/job/?id={}'.format(job.proxy_alt_id)
+        try:
+            response = requests.get(url=url, headers=head)
+            if response.status_code == 200:
+                jobJson = json.loads(response.text)
+                if jobJson.__len__() > 0:
+                    jobJson = jobJson[0]
+                    job.workspace = jobJson['workspace']
+                    job.last_update = jobJson['last_update']
+                    job.dispositivo = Dispositivo.objects.filter(proxy_alt_id=jobJson['dispositivo']).get()
+                    job.firs_task = Task.objects.filter(proxy_alt_id=jobJson['firs_task']).get()
+                    job.save()
+        except:
+            pass
+
+    url = get_url(proxy.url)
+    url += '/api/job/'
+    # atualiza com novos valores
+    try:
+        response = requests.get(url=url, headers=head)
+        if response.status_code == 200:
+            jobJson = json.loads(response.text)
+            if jobJson.__len__() != 0:
+                for jobson in jobJson:
+                    if Job.objects.filter(proxy_alt_id=jobson['id'], proxy=proxy).exists() == False:
+                        job = Job(workspace=jobson['workspace'],
+                                  last_update=jobson['last_update'],
+                                  firs_task=Task.objects.filter(proxy_alt_id=jobson['firs_task'], proxy=proxy).get(),
+                                  dispositivo=Dispositivo.objects.filter(proxy_alt_id=jobson['dispositivo'], proxy=proxy).get(),
+                                  proxy_alt_id=jobson['id'],
+                                  proxy=proxy)
+                        job.save()
+    except Exception as e:
+        print(e)
+
+
 def diff_broker(proxy):
     broker = Broker.objects.filter(proxy=proxy).get()
     url=get_url(proxy.url)
-    url+= 'api/broker/'
+    url+= '/api/broker/'
     head = {'Authorization': 'token {}'.format(broker.proxy.token)}
     try:
         response = requests.get(url=url, headers=head)
@@ -317,6 +360,7 @@ def diff_broker(proxy):
             broker.endereco = brokerJson['endereco']
             broker.estado = brokerJson['estado']
             broker.porta = brokerJson['porta']
+            broker.RC = brokerJson['RC']
             broker.save()
         else:
             proxy_valido(proxy, False)

@@ -210,7 +210,8 @@ def get_job(proxy_pk):
                     joob = Job(workspace=job['workspace'],
                                firs_task=Task.objects.filter(proxy_alt_id=job['firs_task']).get(),
                                proxy_alt_id=job['id'],
-                               dispositivo=Dispositivo.objects.filter(proxy_alt_id=job['dispositivo']).get())
+                               dispositivo=Dispositivo.objects.filter(proxy_alt_id=job['dispositivo']).get(),
+                               proxy=proxy)
                     joob.save()
             celery.desc = 'Respondeu'
             celery.save()

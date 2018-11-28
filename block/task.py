@@ -214,6 +214,7 @@ def save_broker(broker, brokerjson):
         broker.porta = brokerjson["porta"]
         broker.endereco = brokerjson["endereco"]
         broker.proxy_alt_id = brokerjson["id"]
+        broker.RC = brokerjson["RC"]
         return broker
 
 
