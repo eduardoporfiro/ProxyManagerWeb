@@ -62,7 +62,8 @@ def add_mqtt(request):
     else:
         form = MqttAdd()
         form.fields['proxy'].queryset = proxys
-        form.fields['broker'].queryset = Broker.objects.filter(proxy_id=proxys.first().pk)
+        if proxys.exists():
+            form.fields['broker'].queryset = Broker.objects.filter(proxy_id=proxys.first().pk)
     context = {
         'form': form
     }

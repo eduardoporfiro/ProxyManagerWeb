@@ -3,17 +3,18 @@ from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404, reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.views.generic import DeleteView
 from django.views.decorators.csrf import csrf_exempt
 
 from block.models import Mqtt, Proxy
 
-from .tables import DispositivoTable
-from .models import Dispositivo, Job
+from .tables import DispositivoTable, DadoTable
+from .models import Dispositivo, Job, Dado
 from .forms import DispositivoForm, DispositivoAddForm
 import tarefa.task as celery
+import json
 
 from .utils import tarefas
 
@@ -24,6 +25,29 @@ def load_dispositivo(request, proxy_id):
     dispositivo = DispositivoTable(Dispositivo.objects.filter(proxy=proxy_id).all())
     RequestConfig(request).configure(dispositivo)
     return render(request, template_name, {'dispositivos': dispositivo})
+
+
+@login_required
+def load_dado_graph(request, dispo_id):
+    template_name = "tarefa/dado_tab.html"
+    dispo = Dispositivo.objects.filter(pk=dispo_id).get()
+    dado = Dado.objects.filter(sensor=dispo_id).all()
+    if dispo.is_int:
+        valor = [int(obj.valor_int) for obj in dado]
+    else:
+        valor =[obj.valor_char for obj in dado]
+    id = [obj.id for obj in dado]
+    dados = {'dado': valor, 'id': id}
+    return HttpResponse(json.dumps(dados))
+
+
+@login_required
+def load_dado(request, dispo_id):
+    template_name = "tarefa/dado_tab.html"
+    dispo = Dispositivo.objects.filter(pk=dispo_id).get()
+    dado = DadoTable(Dado.objects.filter(sensor=dispo_id).all())
+    RequestConfig(request).configure(dado)
+    return render(request, template_name, {'dado': dado, 'dispo': dispo})
 
 
 @login_required
@@ -80,7 +104,8 @@ def add_dispositivo(request):
     else:
         form = DispositivoAddForm()
         form.fields['proxy'].queryset = proxys
-        form.fields['mqtt'].queryset = Mqtt.objects.filter(proxy_id=proxys.first().pk)
+        if proxys.exists():
+            form.fields['mqtt'].queryset = Mqtt.objects.filter(proxy_id=proxys.first().pk)
         context = {
             'form': form,
             'existe': 'N'
