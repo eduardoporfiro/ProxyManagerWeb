@@ -5,7 +5,10 @@ from tarefa.tables import DadoTable
 
 def home(request):
     dispo = Dispositivo.objects.all()
-    proxys = Proxy.objects.filter(user=request.user).all()
+    if request.user.is_authenticated:
+        proxys = Proxy.objects.filter(user=request.user).all()
+    else:
+        proxys=Proxy()
     mqtts = Mqtt.objects.all()
     context = {
         'dispos': dispo,
