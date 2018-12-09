@@ -3,12 +3,39 @@ from proxy_manager_web.celery import app
 from core import tasks as coretask
 from tarefa import task as tarefatask
 from block.models import Broker, Proxy, Mqtt
-from tarefa.models import Dispositivo
+from tarefa.models import Dispositivo, Dado
 from core.models import Celery
 import requests
 import json
 
 logger = get_task_logger(__name__)
+
+def get_dado(proxy):
+    celery = Celery(app='ProxyManagerWeb:block:conect_proxy', task='get_dado')
+    url = get_url(proxy.url)
+    url += '/api/dado/'
+    head = {'Authorization': 'token {}'.format(proxy.token)}
+    try:
+        response = requests.get(url, headers=head)
+        if response.status_code == 200:
+            jsondado = json.loads(response.text)
+            for jsons in jsondado:
+                dado = Dado(QoS=jsons['QoS'], valor_char=jsons['valor_char'], valor_int=jsons['valor_int'],
+                            date=jsons['date'],
+                            sensor=Dispositivo.objects.filter(proxy_alt_id=jsons['sensor'], proxy=proxy).get())
+                dado.save()
+        elif response.status_code == 404:
+            celery.desc = 'Proxy não respondeu'
+            celery.exception = response.text
+            celery.save()
+        elif response.status_code == 400:
+            celery.desc = 'Proxy não respondeu'
+            celery.exception = response.text
+            celery.save()
+    except Exception as e:
+        celery = Celery(app='ProxyManagerWeb:block:conect_proxy', desc='get_dado',
+                        exception=e, task='get_dado')
+        celery.save()
 
 
 def get_dispositivo(proxy):
@@ -141,6 +168,7 @@ def conect_proxy(proxy):
             get_broker(proxy)
             get_mqtt(proxy)
             get_dispositivo(proxy)
+            get_dado(proxy)
             coretask.diff_task(proxy)
             tarefatask.get_job(proxy.pk)
         elif response.status_code == 404:

@@ -17,4 +17,6 @@ urlpatterns = [
     path('ajax/load-mqtts/', views.load_mqtt, name='ajax_load_mqtts'),
     path('ajax/<int:dispo_id>/post_task', views.post_task, name='ajax_post_task'),
     path('ajax/<int:pk>/get_xml', views.get_xml, name='ajax_get_xml'),
+    path('ajax/<int:dispo_id>/load_dado', views.load_dado, name='load_dado'),
+    path('ajax/<int:dispo_id>/load_dado_graph', views.load_dado_graph, name='load_dado_graph')
 ]

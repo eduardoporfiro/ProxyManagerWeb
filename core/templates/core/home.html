@@ -1,60 +1,79 @@
 {% extends "core/base.html" %}
+{%  block core_head %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script>
+{% endblock %}
+{% load staticfiles %}
+
 {% block content %}
 {% if user.is_authenticated %}
-    <div class="row">
-       <div class="col-sm-3">
-          <div class="card" >
-             <div class="card-body">
-                <div class="l-box">
-                   <h4 class="card-title">Adicionar Proxy</h4>
-                   <p class="card-text">
-                      Adiciona o proxy a ser gerenciado pela aplicação
-                   </p>
-                   <a class="btn btn-dark" href="{% url 'block:add_proxy' %}">ADD PROXY</a>
+{% if proxys %}
+    {%  for proxy in proxys %}
+    <div class="container" id="{{ proxy.id }}" style="border-style: groove;">
+            <h3 class="text-center">Proxy: {{ proxy.name }}</h3>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="pure-menu pure-menu-open">
+                            <ul class="list-group">
+                               <li class="list-group-item active">
+                                   Tópicos MQTT
+                               </li>
+                                {% if mqtts %}
+                                    {% for mqtt in mqtts %}
+                                        {% if mqtt.proxy == proxy %}
+                                            <li class="list-group-item">
+                                                {{ mqtt.topico }}
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <li>Não há tópicos cadastrados!</li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="pure-menu pure-menu-open">
+                            <ul class="list-group" id="dispo">
+                               <li class="list-group-item active">
+                                   Dispositivos
+                               </li>
+                                {% if dispos %}
+                                    {% for dispo in dispos %}
+                                        {% if dispo.proxy == proxy %}
+                                            <li class="list-group-item">
+                                                {% if dispo.tipo == 1 %}
+                                                    <a onclick="alterDATA('{% url 'tarefa:load_dado' dispo.id %}',
+                                                            '{{ proxy.id }}',
+                                                            '{% url 'tarefa:load_dado_graph' dispo.id %}')"
+                                                    class="teste">
+                                                        {{ dispo.nome}} - {{ dispo.get_tipo_display }}</a>
+                                                {% else %}
+                                                    {{ dispo.nome}} - {{ dispo.get_tipo_display }}
+                                                {% endif %}
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <li>Não há dispositivos cadastrados!</li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                         <div class="pure-menu pure-menu-open">
+                             <canvas id="graph-{{ proxy.id }}" width="300" height="300"></canvas>
+                         </div>
+                    </div>
+                 </div>
+                <div class="row">
+                    <div class="pure-menu pure-menu-open" id="tabela-{{ proxy.id }}">
+                    </div>
                 </div>
-             </div>
-          </div>
-       </div>
-       <div class="col-sm-3" hidden="true">
-          <div class="card" >
-             <div class="card-body">
-                <div class="l-box">
-                   <h4 class="card-title">Adicionar Broker</h4>
-                   <p class="card-text">
-                      Adiciona o Broker vínculado a um proxy
-                   </p>
-                   <a class="btn btn-dark" href="{% url 'block:add_broker' %}">ADD BROKER</a>
-                </div>
-             </div>
-          </div>
-       </div>
-       <div class="col-sm-3">
-          <div class="card" >
-             <div class="card-body">
-                <div class="l-box">
-                   <h4 class="card-title">Adicionar Mqtt</h4>
-                   <p class="card-text">
-                      Adiciona o Mqtt vinculado a um Broker
-                   </p>
-                   <a class="btn btn-dark" href="{% url 'block:add_mqtt' %}">ADD MQTT</a>
-                </div>
-             </div>
-          </div>
-       </div>
-       <div class="col-sm-3">
-          <div class="card" >
-             <div class="card-body">
-                <div class="l-box">
-                   <h4 class="card-title">Adicionar Dispositivo</h4>
-                   <p class="card-text">
-                      Adicionar um Dispositivo vinculado a um MQTT
-                   </p>
-                   <a class="btn btn-dark" href="{% url 'tarefa:add_dispositivo' %}">ADD DISPOSITIVO</a>
-                </div>
-             </div>
-          </div>
-       </div>
-    </div>
+         </div>
+        {% endfor %}
+    {% else %}
+        <h3>Não existe Proxys Cadastrados</h3>
+    {% endif %}
 {% else %}
     <div class="pure-g-r content-ribbon">
         <div class="pure-u-2-3">
@@ -68,4 +87,8 @@
         </div>
     </div>
 {% endif %}
+{% endblock %}
+
+{% block scripts %}
+     <script src="{% static 'tarefa/tarefa_dados.js' %}"></script>
 {% endblock %}

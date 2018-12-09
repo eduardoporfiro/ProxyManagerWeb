@@ -208,9 +208,9 @@ def get_job(proxy_pk):
             if jsonjo.__len__()>0:
                 for job in jsonjo:
                     joob = Job(workspace=job['workspace'],
-                               firs_task=Task.objects.filter(proxy_alt_id=job['firs_task']).get(),
+                               firs_task=Task.objects.filter(proxy_alt_id=job['firs_task'], proxy=proxy).get(),
                                proxy_alt_id=job['id'],
-                               dispositivo=Dispositivo.objects.filter(proxy_alt_id=job['dispositivo']).get(),
+                               dispositivo=Dispositivo.objects.filter(proxy_alt_id=job['dispositivo'], proxy=proxy).get(),
                                proxy=proxy)
                     joob.save()
             celery.desc = 'Respondeu'
