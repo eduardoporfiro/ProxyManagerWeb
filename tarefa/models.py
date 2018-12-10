@@ -5,7 +5,7 @@ from core.models import AbstractDispositivo, AbstractDado
 
 class Dispositivo(AbstractDispositivo):
     mqtt = models.OneToOneField(Mqtt, on_delete=models.CASCADE)
-    proxy = models.ForeignKey(Proxy, on_delete=models.CASCADE, blank=True)
+    proxy = models.ForeignKey(Proxy, on_delete=models.CASCADE, blank=True, related_name='dispositivo')
     def __str__(self):
         return self.nome
 

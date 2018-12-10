@@ -23,7 +23,7 @@ from .utils import tarefas
 def load_dispositivo(request, proxy_id):
     template_name = "tarefa/dispositivo_tab.html"
     dispositivo = DispositivoTable(Dispositivo.objects.filter(proxy=proxy_id).all())
-    RequestConfig(request).configure(dispositivo)
+    RequestConfig(request, paginate={'per_page': 5}).configure(dispositivo)
     return render(request, template_name, {'dispositivos': dispositivo})
 
 
@@ -46,7 +46,7 @@ def load_dado(request, dispo_id):
     template_name = "tarefa/dado_tab.html"
     dispo = Dispositivo.objects.filter(pk=dispo_id).get()
     dado = DadoTable(Dado.objects.filter(sensor=dispo_id).all())
-    RequestConfig(request).configure(dado)
+    RequestConfig(request, paginate={'per_page': 5}).configure(dado)
     return render(request, template_name, {'dado': dado, 'dispo': dispo})
 
 
