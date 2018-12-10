@@ -119,6 +119,7 @@ def edit_dispositivo(request, dispo_id):
     proxys = Proxy.objects.filter(user=request.user)
     if request.method == 'POST':
         form = DispositivoForm(request.POST)
+        
         if form.is_valid():  # Vê se ta tudo okay
             dispositivo = form.save(commit=False)  # salva o usuário
             dispo = Dispositivo.objects.filter(mqtt=dispositivo.mqtt)
@@ -157,7 +158,7 @@ class ViewDeleteDispo(DeleteView):
 @login_required
 def load_mqtt(request):
     proxy_id = request.GET.get('proxy')
-    mqtts = Mqtt.objects.filter(proxy_id=proxy_id)
+    mqtts = Mqtt.objects.filter(proxy_id=proxy_id, dispositivo__isnull=True)
     return render(request, 'tarefa/dropdown_dispo.html', {'mqtts': mqtts})
 
 
