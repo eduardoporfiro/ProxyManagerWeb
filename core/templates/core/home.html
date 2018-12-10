@@ -25,6 +25,11 @@
                                             </li>
                                         {% endif %}
                                     {% endfor %}
+                                    <li class="list-group-item">
+                                    </li>
+                                     <li class="list-group-item">
+                                        <h4>Total: {{ proxy.mqtt.count }}</h4>
+                                    </li>
                                 {% else %}
                                     <li>Não há tópicos cadastrados!</li>
                                 {% endif %}
@@ -53,6 +58,11 @@
                                             </li>
                                         {% endif %}
                                     {% endfor %}
+                                    <li class="list-group-item">
+                                    </li>
+                                     <li class="list-group-item">
+                                        <h4>Total: {{ proxy.dispositivo.count }}</h4>
+                                    </li>
                                 {% else %}
                                     <li>Não há dispositivos cadastrados!</li>
                                 {% endif %}
@@ -66,7 +76,7 @@
                     </div>
                  </div>
                 <div class="row">
-                    <div class="pure-menu pure-menu-open" id="tabela-{{ proxy.id }}">
+                    <div class="col-sm-12" id="tabela-{{ proxy.id }}">
                     </div>
                 </div>
          </div>

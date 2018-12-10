@@ -23,7 +23,7 @@ from .utils import tarefas
 def load_dispositivo(request, proxy_id):
     template_name = "tarefa/dispositivo_tab.html"
     dispositivo = DispositivoTable(Dispositivo.objects.filter(proxy=proxy_id).all())
-    RequestConfig(request).configure(dispositivo)
+    RequestConfig(request, paginate={'per_page': 5}).configure(dispositivo)
     return render(request, template_name, {'dispositivos': dispositivo})
 
 
@@ -46,7 +46,7 @@ def load_dado(request, dispo_id):
     template_name = "tarefa/dado_tab.html"
     dispo = Dispositivo.objects.filter(pk=dispo_id).get()
     dado = DadoTable(Dado.objects.filter(sensor=dispo_id).all())
-    RequestConfig(request).configure(dado)
+    RequestConfig(request, paginate={'per_page': 5}).configure(dado)
     return render(request, template_name, {'dado': dado, 'dispo': dispo})
 
 
@@ -119,6 +119,7 @@ def edit_dispositivo(request, dispo_id):
     proxys = Proxy.objects.filter(user=request.user)
     if request.method == 'POST':
         form = DispositivoForm(request.POST)
+        
         if form.is_valid():  # Vê se ta tudo okay
             dispositivo = form.save(commit=False)  # salva o usuário
             dispo = Dispositivo.objects.filter(mqtt=dispositivo.mqtt)
@@ -157,7 +158,7 @@ class ViewDeleteDispo(DeleteView):
 @login_required
 def load_mqtt(request):
     proxy_id = request.GET.get('proxy')
-    mqtts = Mqtt.objects.filter(proxy_id=proxy_id)
+    mqtts = Mqtt.objects.filter(proxy_id=proxy_id, dispositivo__isnull=True)
     return render(request, 'tarefa/dropdown_dispo.html', {'mqtts': mqtts})
 
 
