@@ -24,6 +24,7 @@ function alterDATA(url, id, graphUrl) {
         success: function (data) {
             var div = document.getElementById(id);
             div.innerHTML = data;
+            //Pagination
             var ul = document.getElementsByClassName("pagination");
             if(ul != null){
                 for (var i=0;ul.length > i;i++){
@@ -49,6 +50,30 @@ function alterDATA(url, id, graphUrl) {
                                     a.setAttribute('dados','true');
                                 }
                             }
+                        }
+                    }
+                }
+            }
+
+            //sort
+            var ths = document.getElementsByClassName("orderable");
+            if(ths != null){
+                for (var i=0;ths.length > i;i++){
+                    var th = ths[i];
+                    var a = th.getElementsByTagName('a')[0];
+                    if (! a.href.includes('ajax')) {
+                        if(a.getAttribute('dados') == null ){
+                            var texto = a.href.split('?');
+                            if(url.includes('?sort=') || url.includes('ajax')){
+                                url = url.split('?sort=')[0];
+                                texto = url + '?' + texto[1];
+                            }else{
+                                texto[0] = texto[0].slice(0, -1) + url;
+                                texto = texto[0] + '?' + texto[1];
+                            }
+                            var dados = "'"+texto + "','" + id + "','" + graphUrl+"'";
+                            a.setAttribute("onClick", 'alterDATA('+dados+')');
+                            a.setAttribute('dados','true');
                         }
                     }
                 }
