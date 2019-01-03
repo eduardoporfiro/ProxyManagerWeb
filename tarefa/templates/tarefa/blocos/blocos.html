@@ -469,6 +469,244 @@ Blockly.Blocks['dado_sensor_max']={
   }
 };
 
+Blockly.Blocks['if_else_sensor_string']={
+    init:function () {
+        this.jsonInit(
+            {
+              "type": "if_else_sensor_string",
+              "message0": "if sensor: %1 (String) %2 %3 else: %4",
+              "args0": [
+                {
+                  "type": "field_dropdown",
+                  "name": "condicao",
+                  "options": [
+                    [
+                      "=",
+                      "="
+                    ],
+                    [
+                      "!=",
+                      "!="
+                    ]
+                  ]
+                },
+                {
+                  "type": "input_value",
+                  "name": "dado",
+                  "check": "String"
+                },
+                {
+                  "type": "input_statement",
+                  "name": "if"
+                },
+                {
+                  "type": "input_statement",
+                  "name": "else"
+                }
+              ],
+              "colour": 230,
+              "tooltip": "Somente aceita String",
+              "helpUrl": ""
+            }
+        )
+    }
+}
+
+Blockly.Blocks['if_else_sensor_number']={
+  init:function () {
+      this.jsonInit({
+            "type": "if_else_sensor_number",
+              "message0": "if sensor: %1 (Número) %2 %3 else: %4",
+              "args0": [
+                {
+                  "type": "field_dropdown",
+                  "name": "condicao",
+                  "options": [
+                    [
+                      "=",
+                      "0"
+                    ],
+                    [
+                      ">",
+                      "2"
+                    ],
+                    [
+                      "<",
+                      "4"
+                    ],
+                    [
+                      ">=",
+                      "3"
+                    ],
+                    [
+                      "<=",
+                      "5"
+                    ],
+                    [
+                      "!=",
+                      "1"
+                    ]
+                  ]
+                },
+                {
+                  "type": "input_value",
+                  "name": "valor",
+                  "check": "Number"
+                },
+                {
+                  "type": "input_statement",
+                  "name": "if"
+                },
+                  {
+                  "type": "input_statement",
+                  "name": "else"
+                }
+              ],
+              "colour": 230,
+              "tooltip": "somente número",
+              "helpUrl": ""
+      })
+  }
+};
+
+Blockly.Blocks['if_else_sensor_dadosensornumero']={
+  init:function () {
+      this.jsonInit({
+          "type": "if_else_sensor_dadosensornumero",
+          "message0": "if sensor: %1 (Dado Sensor) %2 %3 else: %4",
+          "args0": [
+            {
+              "type": "field_dropdown",
+              "name": "condicao",
+              "options": [
+                [
+                      "=",
+                      "0"
+                    ],
+                    [
+                      ">",
+                      "2"
+                    ],
+                    [
+                      "<",
+                      "4"
+                    ],
+                    [
+                      ">=",
+                      "3"
+                    ],
+                    [
+                      "<=",
+                      "5"
+                    ],
+                    [
+                      "!=",
+                      "1"
+                    ]
+              ]
+            },
+            {
+              "type": "input_value",
+              "name": "dados",
+              "check": "dado_sensor_numero"
+            },
+            {
+              "type": "input_statement",
+              "name": "if"
+            },
+              {
+                  "type": "input_statement",
+                  "name": "else"
+              }
+          ],
+          "colour": 230,
+          "tooltip": "",
+          "helpUrl": ""
+      })
+  }
+};
+
+Blockly.Blocks['if_else_sensor_dadosensorstring']={
+  init:function () {
+      this.jsonInit({
+          "type": "if_else_sensor_dadosensorstring",
+          "message0": "if sensor: %1 (Dado Sensor) %2 %3 else: %4",
+          "args0": [
+            {
+              "type": "field_dropdown",
+              "name": "condicao",
+              "options": [
+                [
+                  "=",
+                  "0"
+                ],
+                [
+                  "!=",
+                  "1"
+                ]
+              ]
+            },
+            {
+              "type": "input_value",
+              "name": "dados",
+              "check": "dado_sensor_string"
+            },
+            {
+              "type": "input_statement",
+              "name": "if"
+            },{
+                  "type": "input_statement",
+                  "name": "else"
+                }
+          ],
+          "colour": 230,
+          "tooltip": "Somente String",
+          "helpUrl": ""
+      })
+  }
+};
+
+Blockly.Blocks['if_else_sensor_boolena']={
+  init:function () {
+      this.jsonInit({
+          "type": "if_else_sensor_boolena",
+          "message0": "if sensor: %1 (Boolean) %2 %3 else: %4",
+          "args0": [
+            {
+              "type": "field_dropdown",
+              "name": "condicao",
+              "options": [
+                [
+                  "!=",
+                  "0"
+                ],
+                  [
+                  "=",
+                  "1"
+                ]
+              ]
+            },
+            {
+              "type": "input_value",
+              "name": "dado",
+              "check": "Boolean"
+            },
+            {
+              "type": "input_statement",
+              "name": "if"
+            },
+              {
+                  "type": "input_statement",
+                  "name": "else"
+                }
+          ],
+          "colour": 230,
+          "tooltip": "Somente aceita boolean",
+          "helpUrl": ""
+    })
+  }
+};
+
 </script>
 
 

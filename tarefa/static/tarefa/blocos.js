@@ -97,3 +97,52 @@ Blockly.Python['if_sensor_dadosensorstring'] = function(block) {
   var code = 'if_sensor_dadosensor:'+dropdown_condicao+':'+value_dados+';'+statements_if;
   return code;
 };
+
+Blockly.Python['if_else_sensor_boolena'] = function(block) {
+  var dropdown_condicao = block.getFieldValue('condicao');
+  var value_dados = Blockly.Python.valueToCode(block, 'dados', Blockly.Python.ORDER_ATOMIC);
+  var statements_if = Blockly.Python.statementToCode(block, 'if');
+  var statements_else = Blockly.Python.statementToCode(block, 'else');
+  var code = 'if_else_sensor_boolena:'+dropdown_condicao+':'+value_dados+';'+statements_if+'else;'+statements_else;
+  return code;
+};
+
+Blockly.Python['if_else_sensor_dadosensorstring'] = function(block) {
+  var dropdown_condicao = block.getFieldValue('condicao');
+  var value_dados = Blockly.Python.valueToCode(block, 'dados', Blockly.Python.ORDER_ATOMIC);
+  var statements_if = Blockly.Python.statementToCode(block, 'if');
+  var statements_else = Blockly.Python.statementToCode(block, 'else');
+  var code = 'if_else_sensor_dadosensorstring:'+
+      dropdown_condicao+':'+value_dados+';'+statements_if+'else;'+statements_else;
+  return code;
+};
+
+Blockly.Python['if_else_sensor_dadosensornumero'] = function(block) {
+  var dropdown_condicao = block.getFieldValue('condicao');
+  var value_dados = Blockly.Python.valueToCode(block, 'dados', Blockly.Python.ORDER_ATOMIC);
+  var statements_if = Blockly.Python.statementToCode(block, 'if');
+  var statements_else = Blockly.Python.statementToCode(block, 'else');
+  var code = 'if_else_sensor_dadosensornumero:'+
+      dropdown_condicao+':'+value_dados+';'+statements_if+'else;'+statements_else;
+  return code;
+};
+
+Blockly.Python['if_else_sensor_number'] = function(block) {
+  var dropdown_condicao = block.getFieldValue('condicao');
+  var value_dados = Blockly.Python.valueToCode(block, 'dados', Blockly.Python.ORDER_ATOMIC);
+  var statements_if = Blockly.Python.statementToCode(block, 'if');
+  var statements_else = Blockly.Python.statementToCode(block, 'else');
+  var code = 'if_else_sensor_number:'+
+      dropdown_condicao+':'+value_dados+';'+statements_if+'else;'+statements_else;
+  return code;
+};
+
+Blockly.Python['if_else_sensor_string'] = function(block) {
+  var dropdown_condicao = block.getFieldValue('condicao');
+  var value_dados = Blockly.Python.valueToCode(block, 'dados', Blockly.Python.ORDER_ATOMIC);
+  var statements_if = Blockly.Python.statementToCode(block, 'if');
+  var statements_else = Blockly.Python.statementToCode(block, 'else');
+  var code = 'if_else_sensor_string:'+
+      dropdown_condicao+':'+value_dados+';'+statements_if+'else;'+statements_else;
+  return code;
+};
