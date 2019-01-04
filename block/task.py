@@ -260,7 +260,7 @@ def create_mqtt(mqtt_id):
     data['broker'] = '1'
     try:
         response = requests.post(url, json=data, headers=head)
-        if response.status_code == 200:
+        if response.status_code == 201:
             mqttjson = json.loads(response.text)
             mqtt.proxy_alt_id=mqttjson['id']
             mqtt.save()
@@ -268,7 +268,13 @@ def create_mqtt(mqtt_id):
             celery.save()
 
         elif response.status_code == 404:
-            celery.desc = 'Respondeu'
+            celery.desc = 'Não Respondeu 404'
+            celery.save()
+
+        else:
+            print('Não Respondeu: {}'.format(str(response.status_code)))
+            print(str(response.text))
+            celery.desc = 'Não Respondeu: {}'.format(str(response.status_code))
             celery.save()
 
     except Exception as e:
@@ -295,8 +301,14 @@ def update_mqtt(mqtt_pk):
         if response.status_code == 200:
             celery.desc='Respondeu e Update'
             celery.save()
+        elif response.status_code == 404:
+            celery.desc = 'Não Respondeu 404'
+            celery.save()
+
         else:
-            celery.desc = 'Update não foi completo'
+            print('Não Respondeu: {}'.format(str(response.status_code)))
+            print(str(response.text))
+            celery.desc = 'Não Respondeu: {}'.format(str(response.status_code))
             celery.save()
     except Exception as e:
         celery = Celery(app='ProxyManagerWeb:block:conect_proxy', desc='get_mqtt',

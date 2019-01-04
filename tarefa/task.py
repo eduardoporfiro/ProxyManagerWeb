@@ -33,6 +33,7 @@ def create_dispo(dispo_pk):
             celery.save()
         else:
             print('Não Respondeu: {}'.format(str(response.status_code)))
+            print(str(response.text))
             celery.desc = 'Não Respondeu: {}'.format(str(response.status_code))
             celery.save()
 
@@ -80,7 +81,7 @@ def delete_dispo(dispo_pk):
 
     try:
         response = requests.delete(url, headers=head)
-        if response.status_code == 200:
+        if response.status_code == 204:
             celery.desc = 'Respondeu e delete'
             celery.save()
         else:
@@ -122,8 +123,10 @@ def create_job(job_pk):
             celery.save()
         else:
             print('Não Respondeu: {}'.format(str(response.status_code)))
+            print(str(response.text))
             celery.desc = 'Não Respondeu: {}'.format(str(response.status_code))
             celery.save()
+            create_job(job_pk)
 
     except Exception as e:
         celery = Celery(app='ProxyManagerWeb:tarefa:create_job', desc='erro',
@@ -167,16 +170,15 @@ def edit_job(job_pk):
 
 
 @app.task
-def delete_job(job_pk):
-    job = Job.objects.get(pk=job_pk)
+def delete_job(proxyId, url, token):
     celery = Celery(app='ProxyManagerWeb:tarefa:edit_job', task='')
-    url = get_url(job.dispositivo.mqtt.proxy.url)
-    url += '/api/{}/jobUpdate/'.format(job.proxy_alt_id)
-    head = {'Authorization': 'token {}'.format(job.dispositivo.mqtt.proxy.token)}
+    url = get_url(url)
+    url += '/api/{}/jobUpdate/'.format(proxyId)
+    head = {'Authorization': 'token {}'.format(token)}
 
     try:
         response = requests.delete(url, headers=head)
-        if response.status_code == 200:
+        if response.status_code == 204:
             celery.desc = 'Respondeu'
             celery.save()
 
@@ -185,6 +187,7 @@ def delete_job(job_pk):
             celery.save()
         else:
             print('Não Respondeu: {}'.format(str(response.status_code)))
+            print(str(response.text))
             celery.desc = 'Não Respondeu: {}'.format(str(response.status_code))
             celery.save()
 
@@ -238,7 +241,6 @@ def create_task(task_pk, proxy_pk):
     celery = Celery(app='ProxyManagerWeb:tarefa:create_task', task='')
     url = get_url(proxy.url)
     url += task.tipo.url_create
-    print(url)
     head = {'Authorization': 'token {}'.format(proxy.token)}
 
     data = {}
@@ -278,7 +280,6 @@ def edit_task(task_pk, proxy_pk):
     while task.proxy_alt_id == None:
         task.refresh_from_db()
     url += task.tipo.url_update.format(task.proxy_alt_id)
-    print(url)
     head = {'Authorization': 'token {}'.format(proxy.token)}
 
     data = {}
@@ -323,7 +324,7 @@ def delete_task(task_pk, proxy_pk):
 
     try:
         response = requests.delete(url, headers=head)
-        if response.status_code == 200:
+        if response.status_code == 204:
             celery.desc = 'Respondeu'
             celery.save()
 
@@ -348,7 +349,6 @@ def create_if_sensor_string(task_pk, proxy_pk):
     celery = Celery(app='ProxyManagerWeb:tarefa:create_if_sensor_string', task='')
     url = get_url(proxy.url)
     url += task.tipo.url_create
-    print(url)
     head = {'Authorization': 'token {}'.format(proxy.token)}
 
     data = {}
@@ -390,7 +390,6 @@ def edit_if_sensor_string(task_pk, proxy_pk):
         task.refresh_from_db()
     url += task.tipo.url_update.format(task.proxy_alt_id)
     head = {'Authorization': 'token {}'.format(proxy.token)}
-    print(url)
     data = {}
     data['comando'] = task.comando
     if task.task_anterior != None:
@@ -789,6 +788,7 @@ def create_atuador_troca_estado(task_pk, proxy_pk):
             celery.save()
         else:
             print('Não Respondeu: {}'.format(str(response.status_code)))
+            print(str(response.text))
             celery.desc = 'Não Respondeu: {}'.format(str(response.status_code))
             celery.save()
 
@@ -837,6 +837,7 @@ def edit_atuador_troca_estado(task_pk, proxy_pk):
             celery.save()
         else:
             print('Não Respondeu: {}'.format(str(response.status_code)))
+            print(str(response.text))
             celery.desc = 'Não Respondeu: {}'.format(str(response.status_code))
             celery.save()
 

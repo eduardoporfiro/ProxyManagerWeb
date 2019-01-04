@@ -199,7 +199,7 @@ def tarefas(task, proxy_pk):
         for key in task.keys():
             update_celery_task(task.get(key).pk, key, proxy_pk)
 
-    return celery
+    return tasks
 
 
 def create_celery_task(task_pk, tipo, proxy_pk):

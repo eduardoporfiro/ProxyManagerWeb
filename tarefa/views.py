@@ -178,13 +178,13 @@ def index(request, pk):
 @csrf_exempt
 @login_required
 def post_task(request, dispo_id):
-    if request.method=='POST':
+    if request.method == 'POST':
         dispositivo = get_object_or_404(Dispositivo, pk=dispo_id)
         try:
             job = dispositivo.job
             celery.delete_task.delay(job.firs_task.proxy_alt_id, dispositivo.proxy.pk)
             job.firs_task.delete()
-            celery.delete_job.delay(job.pk)
+            celery.delete_job.delay(job.proxy_alt_id, dispositivo.proxy.url, dispositivo.proxy.token)
             job.delete()
         except:
             pass
@@ -193,6 +193,7 @@ def post_task(request, dispo_id):
         work = request.POST['work']
         tasks = tarefas(tarefa, dispositivo.proxy.pk)
         job.workspace=work
+        job.proxy = dispositivo.proxy
         try:
             job.firs_task = tasks[0]
         except IndexError:
