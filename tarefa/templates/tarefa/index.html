@@ -84,19 +84,7 @@
             }
         }
         var work = Blockly.Xml.domToText(xml);
-        $.ajax({
-            type: "POST",
-            url: '{% url 'tarefa:ajax_post_task' dispositivo.pk %}',
-            data: {'code' : code,
-                'work': work},
-            success: function (data) {
-                var div = document.getElementById("message-salvar");
-                div.innerHTML = '<strong>Salvo com sucesso</strong>';
-                setTimeout(function () {
-                    div.innerHTML = '';
-                }, 2500);
-                        },
-        });
+        console.log(code);
     }
   </script>
 {% endblock content %}
