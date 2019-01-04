@@ -10,6 +10,7 @@ def tarefas(task, proxy_pk):
     var_else = False
     count_else = 0
     object_else = 0
+    elsecount = 0
     tarefas = task.split(';')
     print(tarefas)
     count = 0
@@ -134,8 +135,10 @@ def tarefas(task, proxy_pk):
                 except:
                     t.valor = None
             elif 'else' in tarefa[0]:
+                tipo = 22
                 var_else = True
                 count_else = count
+                elsecount = elsecount + 1
 
             elif 'save_database' in tarefa[0]:
                 t.tipo = Settings.objects.get(task_tipo=0)
@@ -174,7 +177,7 @@ def tarefas(task, proxy_pk):
                 t.save()
                 taskelse.elsetask = t
                 taskelse.save()
-                celery[object_else] = taskelse
+                tasks[object_else] = taskelse
                 tasks.insert(count, t)
                 var_else = False
                 celery.insert(count, {tipo: t})
@@ -188,13 +191,15 @@ def tarefas(task, proxy_pk):
                 count = count + 1
             else:
                 count = count + 1
+
     for task in celery:
         for key in task.keys():
             create_celery_task(task.get(key).pk, key, proxy_pk)
 
         for key in task.keys():
             update_celery_task(task.get(key).pk, key, proxy_pk)
-    return tasks
+
+    return celery
 
 
 def create_celery_task(task_pk, tipo, proxy_pk):
