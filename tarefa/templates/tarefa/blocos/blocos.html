@@ -58,6 +58,7 @@ Blockly.Blocks['sen_se'] = {
             });
           }
         };
+
 Blockly.Blocks['dispo_out'] = {
   init: function() {
     this.jsonInit({
@@ -98,7 +99,7 @@ Blockly.Blocks['dispo_out'] = {
 	}
 };
 
-    Blockly.Blocks['save_db']={
+Blockly.Blocks['save_db']={
   init:function () {
       this.jsonInit({
           "type": "save_db",
@@ -550,7 +551,7 @@ Blockly.Blocks['if_else_sensor_number']={
                 },
                 {
                   "type": "input_value",
-                  "name": "valor",
+                  "name": "dado",
                   "check": "Number"
                 },
                 {
@@ -607,7 +608,7 @@ Blockly.Blocks['if_else_sensor_dadosensornumero']={
             },
             {
               "type": "input_value",
-              "name": "dados",
+              "name": "dado",
               "check": "dado_sensor_numero"
             },
             {
@@ -648,7 +649,7 @@ Blockly.Blocks['if_else_sensor_dadosensorstring']={
             },
             {
               "type": "input_value",
-              "name": "dados",
+              "name": "dado",
               "check": "dado_sensor_string"
             },
             {
