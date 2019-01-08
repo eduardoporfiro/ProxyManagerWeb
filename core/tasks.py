@@ -39,6 +39,10 @@ def diff_task(proxy):
     diff_If_sensor_numero(proxy, datatask)
     diff_If_sensor_boolean(proxy, datatask)
     diff_If_sensor_dadosensor(proxy, datatask)
+    diff_If_else_sensor_boolean(proxy, datatask)
+    diff_If_else_sensor_dadosensor(proxy, datatask)
+    diff_If_else_sensor_numero(proxy, datatask)
+    diff_If_else_sensor_string(proxy, datatask)
     diff_Atuador_troca_estado(proxy, datatask)
     diff_Atuador_boolean(proxy, datatask)
 
@@ -57,8 +61,9 @@ def diff_task(proxy):
                         task.save()
                         datatask[task.pk] = {'sucessor': data['task_sucessor'], 'anterior': data['task_anterior']}
 
-    except:
-        pass
+    except Exception as e:
+        print('diff_task')
+        print(e)
     atualiza_referencia(proxy, datatask)
 
 
@@ -105,6 +110,46 @@ def atualiza_referencia(proxy, datatask):
                 if dados['atuador'] is not None:
                     task.atuador = Dispositivo.objects.get(proxy_alt_id=dados['atuador'], proxy=proxy)
                 task.save()
+            elif task.tipo.task_tipo == 12:
+                dados = datatask[task.pk]
+                task = If_else_sensor_string.objects.get(pk=task.pk)
+                if dados['sucessor'] is not None:
+                    task.task_sucessor = Task.objects.filter(proxy_alt_id=dados['sucessor'], proxy=proxy).get()
+                if dados['anterior'] is not None:
+                    task.task_anterior = Task.objects.filter(proxy_alt_id=dados['anterior'], proxy=proxy).get()
+                if dados['task'] is not None:
+                    task.elsetask = Task.objects.get(proxy_alt_id=dados['task'], proxy=proxy)
+                task.save()
+            elif task.tipo.task_tipo == 13:
+                dados = datatask[task.pk]
+                task = If_else_sensor_boolean.objects.get(pk=task.pk)
+                if dados['sucessor'] is not None:
+                    task.task_sucessor = Task.objects.filter(proxy_alt_id=dados['sucessor'], proxy=proxy).get()
+                if dados['anterior'] is not None:
+                    task.task_anterior = Task.objects.filter(proxy_alt_id=dados['anterior'], proxy=proxy).get()
+                if dados['task'] is not None:
+                    task.elsetask = Task.objects.get(proxy_alt_id=dados['task'], proxy=proxy)
+                task.save()
+            elif task.tipo.task_tipo == 14:
+                dados = datatask[task.pk]
+                task = If_else_sensor_dadosensor.objects.get(pk=task.pk)
+                if dados['sucessor'] is not None:
+                    task.task_sucessor = Task.objects.filter(proxy_alt_id=dados['sucessor'], proxy=proxy).get()
+                if dados['anterior'] is not None:
+                    task.task_anterior = Task.objects.filter(proxy_alt_id=dados['anterior'], proxy=proxy).get()
+                if dados['task'] is not None:
+                    task.elsetask = Task.objects.get(proxy_alt_id=dados['task'], proxy=proxy)
+                task.save()
+            elif task.tipo.task_tipo == 15:
+                dados = datatask[task.pk]
+                task = If_else_sensor_numero.objects.get(pk=task.pk)
+                if dados['sucessor'] is not None:
+                    task.task_sucessor = Task.objects.filter(proxy_alt_id=dados['sucessor'], proxy=proxy).get()
+                if dados['anterior'] is not None:
+                    task.task_anterior = Task.objects.filter(proxy_alt_id=dados['anterior'], proxy=proxy).get()
+                if dados['task'] is not None:
+                    task.elsetask = Task.objects.get(proxy_alt_id=dados['task'], proxy=proxy)
+                task.save()
 
     except Exception as e:
         print('REFERENCIA')
@@ -131,8 +176,9 @@ def diff_If_sensor_string(proxy, datatask):
                     task.tipo = setting
                     task.save()
                     datatask[task.pk] = {'sucessor' : data['task_sucessor'], 'anterior': data['task_anterior']}
-    except:
-        pass
+    except Exception as e:
+        print('diff_If_sensor_string')
+        print(e)
 
 
 def diff_If_sensor_numero(proxy, datatask):
@@ -156,8 +202,9 @@ def diff_If_sensor_numero(proxy, datatask):
                     task.save()
                     datatask[task.pk] = {'sucessor': data['task_sucessor'], 'anterior': data['task_anterior']}
 
-    except:
-        pass
+    except Exception as e:
+        print('diff_If_sensor_numero')
+        print(e)
 
 
 def diff_If_sensor_boolean(proxy, datatask):
@@ -181,8 +228,9 @@ def diff_If_sensor_boolean(proxy, datatask):
                     task.save()
                     datatask[task.pk] = {'sucessor': data['task_sucessor'], 'anterior': data['task_anterior']}
 
-    except:
-        pass
+    except Exception as e:
+        print('diff_If_sensor_boolean')
+        print(e)
 
 
 def diff_If_sensor_dadosensor(proxy, datatask):
@@ -207,8 +255,9 @@ def diff_If_sensor_dadosensor(proxy, datatask):
                                          'task' : data['valor']}
                     print(datatask)
 
-    except:
-        pass
+    except Exception as e:
+        print('diff_If_sensor_dadosensor')
+        print(e)
 
 
 def diff_Atuador_troca_estado(proxy, datatask):
@@ -233,8 +282,117 @@ def diff_Atuador_troca_estado(proxy, datatask):
                     datatask[task.pk] = {'sucessor': data['task_sucessor'], 'anterior': data['task_anterior'],
                                          'atuador': data['atuador']}
 
-    except:
-        pass
+    except Exception as e:
+        print('diff_Atuador_troca_estado')
+        print(e)
+
+
+def diff_If_else_sensor_numero(proxy, datatask):
+    head = {'Authorization': 'token {}'.format(proxy.token)}
+    setting = Settings.objects.get(task_tipo=15)
+    url = get_url(proxy.url)
+    url += setting.url_create
+    try:
+        response = requests.get(url=url, headers=head)
+        if response.status_code == 200:
+            jsoon = json.loads(response.text)
+            if jsoon.__len__() > 0:
+                for data in jsoon:
+                    task = If_else_sensor_numero()
+                    task.comando = data['comando']
+                    task.condicao = data['condicao']
+                    task.valor = data['valor']
+                    task.proxy_alt_id = data['id']
+                    task.proxy = proxy
+                    task.tipo = setting
+                    task.save()
+                    datatask[task.pk] = {'sucessor': data['task_sucessor'], 'anterior': data['task_anterior'],
+                                         'task': data['elsetask']}
+
+    except Exception as e:
+        print('diff_If_else_sensor_numero')
+        print(e)
+
+
+def diff_If_else_sensor_dadosensor(proxy, datatask):
+    head = {'Authorization': 'token {}'.format(proxy.token)}
+    setting = Settings.objects.get(task_tipo=14)
+    url = get_url(proxy.url)
+    url += setting.url_create
+    try:
+        response = requests.get(url=url, headers=head)
+        if response.status_code == 200:
+            jsoon = json.loads(response.text)
+            if jsoon.__len__() > 0:
+                for data in jsoon:
+                    task = If_else_sensor_numero()
+                    task.comando = data['comando']
+                    task.condicao = data['condicao']
+                    task.valor = data['valor']
+                    task.proxy_alt_id = data['id']
+                    task.proxy = proxy
+                    task.tipo = setting
+                    task.save()
+                    datatask[task.pk] = {'sucessor': data['task_sucessor'], 'anterior': data['task_anterior'],
+                                         'task': data['elsetask']}
+
+    except Exception as e:
+        print('diff_If_else_sensor_dadosensor')
+        print(e)
+
+
+def diff_If_else_sensor_boolean(proxy, datatask):
+    head = {'Authorization': 'token {}'.format(proxy.token)}
+    setting = Settings.objects.get(task_tipo=13)
+    url = get_url(proxy.url)
+    url += setting.url_create
+    try:
+        response = requests.get(url=url, headers=head)
+        if response.status_code == 200:
+            jsoon = json.loads(response.text)
+            if jsoon.__len__() > 0:
+                for data in jsoon:
+                    task = If_else_sensor_numero()
+                    task.comando = data['comando']
+                    task.condicao = data['condicao']
+                    task.valor = data['valor']
+                    task.proxy_alt_id = data['id']
+                    task.proxy = proxy
+                    task.tipo = setting
+                    task.save()
+                    datatask[task.pk] = {'sucessor': data['task_sucessor'], 'anterior': data['task_anterior'],
+                                         'task': data['elsetask']}
+
+    except Exception as e:
+        print('diff_If_else_sensor_boolean')
+        print(e)
+
+
+def diff_If_else_sensor_string(proxy, datatask):
+    head = {'Authorization': 'token {}'.format(proxy.token)}
+    setting = Settings.objects.get(task_tipo=12)
+    url = get_url(proxy.url)
+    url += setting.url_create
+    try:
+        response = requests.get(url=url, headers=head)
+        if response.status_code == 200:
+            jsoon = json.loads(response.text)
+            if jsoon.__len__() > 0:
+                for data in jsoon:
+                    task = If_else_sensor_numero()
+                    task.comando = data['comando']
+                    task.condicao = data['condicao']
+                    task.valor = data['valor']
+                    task.proxy_alt_id = data['id']
+                    task.proxy = proxy
+                    task.tipo = setting
+                    task.save()
+                    datatask[task.pk] = {'sucessor': data['task_sucessor'], 'anterior': data['task_anterior'],
+                                         'task': data['elsetask']}
+
+    except Exception as e:
+        print('diff_If_else_sensor_string')
+        print(e)
 
 
 def diff_Atuador_boolean(proxy, datatask):
@@ -258,8 +416,9 @@ def diff_Atuador_boolean(proxy, datatask):
                     datatask[task.pk] = {'sucessor': data['task_sucessor'], 'anterior': data['task_anterior'],
                                          'atuador': data['atuador']}
 
-    except:
-        pass
+    except Exception as e:
+        print('diff_Atuador_boolean')
+        print(e)
 
 
 def diff_dispo(proxy):
@@ -267,8 +426,8 @@ def diff_dispo(proxy):
     head = {'Authorization': 'token {}'.format(proxy.token)}
     #verifica os existentes
     for dispo in dispos:
-        url=get_url(proxy.url)
-        url+='/api/dispositivo/?id={}'.format(dispo.proxy_alt_id)
+        url = get_url(proxy.url)
+        url += '/api/dispositivo/?id={}'.format(dispo.proxy_alt_id)
         try:
             response = requests.get(url=url, headers=head)
             if response.status_code == 200:
@@ -278,10 +437,12 @@ def diff_dispo(proxy):
                     dispo.nome = dispoJson['nome']
                     dispo.tipo = dispoJson['tipo']
                     dispo.is_int = dispoJson['is_int']
-                    dispo.mqtt = Mqtt.objects.filter(proxy_alt_id=dispoJson['mqtt']).get()
+                    if dispo.mqtt.proxy_alt_id != int(dispoJson['mqtt']):
+                        dispo.mqtt = Mqtt.objects.filter(proxy_alt_id=dispoJson['mqtt']).get()
                     dispo.save()
-        except:
-            pass
+        except Exception as e:
+            print('diff_dispo')
+            print(e)
     url = get_url(proxy.url)
     url += '/api/dispositivo/'
     # atualiza com novos valores
@@ -300,6 +461,7 @@ def diff_dispo(proxy):
                                             proxy_alt_id=disposon['id'])
                         dispo.save()
     except Exception as e:
+        print('diff_dispo 2')
         print(e)
 
 
@@ -321,8 +483,9 @@ def diff_job(proxy):
                     job.dispositivo = Dispositivo.objects.filter(proxy_alt_id=jobJson['dispositivo']).get()
                     job.firs_task = Task.objects.filter(proxy_alt_id=jobJson['firs_task']).get()
                     job.save()
-        except:
-            pass
+        except Exception as e:
+            print('diff_job')
+            print(e)
 
     url = get_url(proxy.url)
     url += '/api/job/'
@@ -342,6 +505,7 @@ def diff_job(proxy):
                                   proxy=proxy)
                         job.save()
     except Exception as e:
+        print('diff_job 2')
         print(e)
 
 
@@ -385,8 +549,9 @@ def diff_mqtt(proxy):
                     mqtt.topico = mqttJson['topico']
                     mqtt.QoS = mqttJson['QoS']
                     mqtt.save()
-        except:
-            pass
+        except Exception as e:
+            print('diff_mqtt')
+            print(e)
     url = get_url(proxy.url)
     url += '/api/mqtt/'
     try:#atualiza com novos valores
@@ -402,8 +567,9 @@ def diff_mqtt(proxy):
                                     broker=proxy.broker,
                                     proxy_alt_id=mqttson['id'])
                         mqtt.save()
-    except:
-        pass
+    except Exception as e:
+        print('diff_mqtt 2')
+        print(e)
 
 
 def tenta_conectar(proxy):

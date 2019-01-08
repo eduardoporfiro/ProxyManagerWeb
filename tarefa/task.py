@@ -114,6 +114,7 @@ def create_job(job_pk):
         if response.status_code == 201:
             jsondis = json.loads(response.text)
             job.proxy_alt_id = jsondis['id']
+
             job.save()
             celery.desc = 'Respondeu'
             celery.save()

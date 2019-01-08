@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="27149796-7f3e-4138-9034-8cd3310cea3d" name="Default Changelist" comment="">
+    <list default="true" id="27149796-7f3e-4138-9034-8cd3310cea3d" name="Default Changelist" comment="ELSE">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/block/task.py" beforeDir="false" afterPath="$PROJECT_DIR$/block/task.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/celerybeat-schedule" beforeDir="false" afterPath="$PROJECT_DIR$/celerybeat-schedule" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tarefa/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/tarefa/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_manager_web/celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_manager_web/celery.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tarefa/task.py" beforeDir="false" afterPath="$PROJECT_DIR$/tarefa/task.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tarefa/templates/tarefa/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/tarefa/templates/tarefa/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tarefa/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/tarefa/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tarefa/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/tarefa/views.py" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/venv/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,8 +26,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tarefa/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="201" column="16" lean-forward="true" selection-start-line="201" selection-start-column="16" selection-end-line="201" selection-end-column="16" />
+            <state relative-caret-position="2985">
+              <caret line="201" column="16" selection-start-line="201" selection-start-column="16" selection-end-line="201" selection-end-column="16" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
               </folding>
@@ -42,7 +38,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tarefa/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
+            <state relative-caret-position="331">
               <caret line="186" column="100" selection-start-line="186" selection-start-column="100" selection-end-line="186" selection-end-column="100" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
@@ -52,10 +48,25 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tarefa/task.py">
+        <entry file="file://$PROJECT_DIR$/proxy_manager_web/celery.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="316">
-              <caret line="127" column="25" lean-forward="true" selection-start-line="127" selection-start-column="25" selection-end-line="127" selection-end-column="25" />
+            <state relative-caret-position="135">
+              <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/tasks.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="434" column="42" lean-forward="true" selection-start-line="434" selection-start-column="42" selection-end-line="434" selection-end-column="42" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -63,8 +74,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tarefa/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="129" column="37" lean-forward="true" selection-start-line="129" selection-start-column="37" selection-end-line="129" selection-end-column="37" />
+            <state relative-caret-position="435">
+              <caret line="31" column="38" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -80,13 +91,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/core/tasks.py" />
         <option value="$PROJECT_DIR$/block/task.py" />
         <option value="$PROJECT_DIR$/tarefa/templates/tarefa/index.html" />
         <option value="$PROJECT_DIR$/tarefa/utils.py" />
         <option value="$PROJECT_DIR$/tarefa/models.py" />
         <option value="$PROJECT_DIR$/tarefa/views.py" />
         <option value="$PROJECT_DIR$/tarefa/task.py" />
+        <option value="$PROJECT_DIR$/core/tasks.py" />
+        <option value="$PROJECT_DIR$/proxy_manager_web/celery.py" />
       </list>
     </option>
   </component>
@@ -101,7 +113,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -112,25 +123,23 @@
             <path>
               <item name="ProxyManagerWeb" type="b2602c69:ProjectViewProjectNode" />
               <item name="ProxyManagerWeb" type="462c0819:PsiDirectoryNode" />
-              <item name="tarefa" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ProxyManagerWeb" type="b2602c69:ProjectViewProjectNode" />
               <item name="ProxyManagerWeb" type="462c0819:PsiDirectoryNode" />
-              <item name="tarefa" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="proxy_manager_web" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ProxyManagerWeb" type="b2602c69:ProjectViewProjectNode" />
               <item name="ProxyManagerWeb" type="462c0819:PsiDirectoryNode" />
-              <item name="tarefa" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="tarefa" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -216,7 +225,9 @@
       <option name="presentableId" value="Default" />
       <updated>1546639258221</updated>
       <workItem from="1546639264890" duration="1804000" />
-      <workItem from="1546641179309" duration="4972000" />
+      <workItem from="1546641179309" duration="5703000" />
+      <workItem from="1546980711854" duration="4672000" />
+      <workItem from="1546987593503" duration="281000" />
     </task>
     <task id="LOCAL-00001" summary="ELSE">
       <created>1546641047629</created>
@@ -225,27 +236,35 @@
       <option name="project" value="LOCAL" />
       <updated>1546641047629</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="ELSE">
+      <created>1546646384842</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1546646384842</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6776000" />
+    <option name="totallyTimeSpent" value="12460000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1299" height="743" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25379092" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26177174" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32899022" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32899022" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39739415" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32899022" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32736155" />
@@ -297,30 +316,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
           <caret line="3625" column="8" selection-start-line="3625" selection-start-column="8" selection-end-line="3625" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/tasks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="434" selection-start-line="434" selection-end-line="434" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-            <element signature="e#206#809#0" />
-            <element signature="e#838#2126#0" />
-            <element signature="e#2175#4733#0" />
-            <element signature="e#4784#5664#0" />
-            <element signature="e#5715#6595#0" />
-            <element signature="e#6647#7528#0" />
-            <element signature="e#7583#8521#0" />
-            <element signature="e#8576#9558#0" />
-            <element signature="e#9608#10506#0" />
-            <element signature="e#10536#12351#0" />
-            <element signature="e#12379#14248#0" />
-            <element signature="e#14279#15079#0" />
-            <element signature="e#15108#16553#0" />
-            <element signature="e#16587#16967#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -492,8 +487,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tarefa/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="201" column="16" lean-forward="true" selection-start-line="201" selection-start-column="16" selection-end-line="201" selection-end-column="16" />
+        <state relative-caret-position="2985">
+          <caret line="201" column="16" selection-start-line="201" selection-start-column="16" selection-end-line="201" selection-end-column="16" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
           </folding>
@@ -502,17 +497,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tarefa/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="129" column="37" lean-forward="true" selection-start-line="129" selection-start-column="37" selection-end-line="129" selection-end-column="37" />
+        <state relative-caret-position="435">
+          <caret line="31" column="38" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tarefa/task.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-570">
+          <caret line="97" column="23" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
+          <folding>
+            <element signature="e#203#1424#0" />
+            <element signature="e#1467#2326#0" />
+            <element signature="e#2371#3075#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tarefa/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
+        <state relative-caret-position="331">
           <caret line="186" column="100" selection-start-line="186" selection-start-column="100" selection-end-line="186" selection-end-column="100" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
@@ -520,10 +527,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tarefa/task.py">
+    <entry file="file://$PROJECT_DIR$/core/tasks.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="127" column="25" lean-forward="true" selection-start-line="127" selection-start-column="25" selection-end-line="127" selection-end-column="25" />
+        <state relative-caret-position="180">
+          <caret line="434" column="42" lean-forward="true" selection-start-line="434" selection-start-column="42" selection-end-line="434" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proxy_manager_web/celery.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
