@@ -7,6 +7,7 @@ from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.views.generic import DeleteView
 from django.views.decorators.csrf import csrf_exempt
+import datetime
 
 from block.models import Mqtt, Proxy
 
@@ -17,6 +18,7 @@ import tarefa.task as celery
 import json
 
 from .utils import tarefas
+from.resources import DadoResource
 
 
 @login_required
@@ -46,7 +48,7 @@ def load_dado(request, dispo_id):
     template_name = "tarefa/dado_tab.html"
     dispo = Dispositivo.objects.filter(pk=dispo_id).get()
     dado = DadoTable(Dado.objects.filter(sensor=dispo_id).all())
-    RequestConfig(request, paginate={'per_page': 5}).configure(dado)
+    RequestConfig(request, paginate={'per_page': 10}).configure(dado)
     return render(request, template_name, {'dado': dado, 'dispo': dispo})
 
 
@@ -215,3 +217,12 @@ def get_xml(request, pk):
         job = Job()
     return HttpResponse(job.workspace, content_type = 'text')
 
+
+@login_required
+def export_dado_excel(request, id_sensor):
+    dado_resource = DadoResource()
+    queryset = Dado.objects.filter(sensor=id_sensor)
+    dataset = dado_resource.export(queryset)
+    response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="dados_{}.xls"'.format(datetime.datetime.now().strftime('%H:%M:%S_%d_%m_%Y'))
+    return response

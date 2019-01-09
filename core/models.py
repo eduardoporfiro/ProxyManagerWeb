@@ -58,8 +58,8 @@ class AbstractDispositivo(models.Model):
 
 class AbstractDado(models.Model):
     QoS = models.IntegerField(default=0, choices=Qos, editable=False)
-    valor_char = models.CharField(max_length=500, blank=True)
-    valor_int = models.IntegerField(blank=True)
+    valor_char = models.CharField(max_length=500, blank=True, null=True)
+    valor_int = models.IntegerField(blank=True, null=True)
     date = models.DateTimeField(default=timezone.now, editable=False)
     proxy_alt_id = models.IntegerField(null=True)
     class Meta:
