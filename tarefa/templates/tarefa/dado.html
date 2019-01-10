@@ -1,0 +1,66 @@
+{% extends "core/base.html" %}
+{% load render_table from django_tables2 %}
+{% load bootstrap3 %}
+{% block content %}
+        <div class="col-sm-12" style="border-style: groove;">
+            <h3>Dispositivo: {{ dispo.nome }}</h3>
+            {% if filter %}
+                <div class="row">
+                    <div class="col-sm-9 align-self-center" >
+                        <form action="" method="get" class="form form-inline">
+                            {% bootstrap_form filter.form layout='inline' %}
+                            {% bootstrap_button 'Filtrar' button_class="btn-dark" %}
+                        </form>
+                    </div>
+
+                    <div class="col-sm-3" style="border-style: groove;">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <select class="form-control" id="select_export">
+                                    <option>XLS</option>
+                                    <option>CSV</option>
+                                    <option>JSON</option>
+                                </select>
+                            </div>
+
+                            <div class="col">
+                                <button class="btn btn-dark" id="btn_exportar">Exportar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% render_table table 'django_tables2/bootstrap.html' %}
+        </div>
+<script>
+$(document).ready(function(){
+        alterdata();
+});
+document.getElementById("btn_exportar").addEventListener("click", function(){
+    var element = document.createElement('a');
+    var url = window.location.href;
+    url = url + '&_export=' + $('#select_export').val().toString().toLowerCase();
+    element.setAttribute('href', url);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}, false);
+function alterdata(){
+    var ul = document.getElementsByClassName("pagination");
+    if(ul != null) {
+        for (var i = 0; ul.length > i; i++) {
+            var li = ul[i];
+            li = li.getElementsByTagName('li');
+            if (li != null) {
+                for (var j = 0; li.length > j; j++) {
+                    var valor = li[j];
+                    var a = valor.getElementsByTagName('a')[0];
+                    a.setAttribute("class", 'btn btn-dark');
+                }
+            }
+        }
+    }
+}
+</script>
+{% endblock %}

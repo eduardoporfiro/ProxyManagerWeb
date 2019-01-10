@@ -14,7 +14,7 @@ class DispositivoTable(tables.Table):
     {% if record.tipo == 0 %}
         <strong>Sem Dado</strong>
     {% else %}
-        <a href="{% url 'tarefa:load_dado' record.pk %}">Dado</a>
+        <a href="{% url 'tarefa:load_dado_tab' record.pk %}">Dado</a>
     {% endif %}
     '''
     editar = tables.LinkColumn('tarefa:edit_dispositivo',

@@ -56,6 +56,9 @@ INSTALLED_APPS = [
     'django_tables2',
     'tarefa',
     'django_celery_beat',
+    'import_export',
+    'bootstrap3',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -95,7 +98,7 @@ WSGI_APPLICATION = 'proxy_manager_web.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': config('ENGINE'),
         'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
@@ -159,13 +162,8 @@ BROKER_URL = 'amqp://guest:guest@localhost:5672//'
 BROKER_POOL_LIMIT = 1
 BROKER_HEARTBEAT = None
 BROKER_CONNECTION_TIMEOUT = 30
-
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-#  Add configuration for static files storage using whitenoise
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-# Activate Django-Heroku.
-prod_db  =  dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(prod_db)
-django_heroku.settings(locals())
+

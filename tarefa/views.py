@@ -7,6 +7,9 @@ from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.views.generic import DeleteView
 from django.views.decorators.csrf import csrf_exempt
+from django_tables2.export.views import ExportMixin
+from django_filters.views import FilterView
+from django_tables2.views import SingleTableMixin
 import datetime
 
 from block.models import Mqtt, Proxy
@@ -18,7 +21,7 @@ import tarefa.task as celery
 import json
 
 from .utils import tarefas
-from.resources import DadoResource
+from .filters import DadoFilter
 
 
 @login_required
@@ -46,6 +49,23 @@ def load_dado_graph(request, dispo_id):
 @login_required
 def load_dado(request, dispo_id):
     template_name = "tarefa/dado_tab.html"
+    dispo = Dispositivo.objects.filter(pk=dispo_id).get()
+    dado = DadoTable(Dado.objects.filter(sensor=dispo_id).all())
+    RequestConfig(request, paginate={'per_page': 10}).configure(dado)
+    return render(request, template_name, {'dado': dado, 'dispo': dispo})
+
+
+class TesteTabela(ExportMixin, SingleTableMixin, FilterView):
+    table_class = DadoTable
+    model = Dado
+    template_name = "tarefa/dado.html"
+    filterset_class = DadoFilter
+    table_pagination = {'per_page': 5}
+    export_name = 'dado_{}'.format(datetime.datetime.now().strftime('%d_%m_%y_%H:%M:%S'))
+
+@login_required
+def load_dado_tab(request, dispo_id):
+    template_name = "tarefa/dado.html"
     dispo = Dispositivo.objects.filter(pk=dispo_id).get()
     dado = DadoTable(Dado.objects.filter(sensor=dispo_id).all())
     RequestConfig(request, paginate={'per_page': 10}).configure(dado)
@@ -216,13 +236,3 @@ def get_xml(request, pk):
     except:
         job = Job()
     return HttpResponse(job.workspace, content_type = 'text')
-
-
-@login_required
-def export_dado_excel(request, id_sensor):
-    dado_resource = DadoResource()
-    queryset = Dado.objects.filter(sensor=id_sensor)
-    dataset = dado_resource.export(queryset)
-    response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
-    response['Content-Disposition'] = 'attachment; filename="dados_{}.xls"'.format(datetime.datetime.now().strftime('%H:%M:%S_%d_%m_%Y'))
-    return response
