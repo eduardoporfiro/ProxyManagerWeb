@@ -7,11 +7,9 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
-  rabbit:
-    hostname: rabbit
-    image: rabbitmq:latest
-    ports:
-      - "5673:5672"
+  redis:
+    hostname: redis
+    image: redis:latest
   web:
     build: .
     command: bash -c "python manage.py migrate && python manage.py loaddata tarefa.json && python manage.py runserver 0.0.0.0:8000"
@@ -21,7 +19,7 @@ services:
       - "8000:8000"
     depends_on:
       - db
-      - rabbit
+      - redis
   celery:
     build: .
     command: celery -A proxy_manager_web worker -l info
@@ -29,6 +27,6 @@ services:
       - .:/code
     depends_on:
       - db
-      - rabbit
+      - redis
 volumes:
   postgre_data:
