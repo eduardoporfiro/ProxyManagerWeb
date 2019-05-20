@@ -108,12 +108,8 @@ function grafico(url, graph_id) {
                     datasets: [{
                         label: 'Dados',
                         data: prices,
-                        backgroundColor: [
-                            'rgba(51,51,51, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(51,51,51,1)'
-                        ],
+                        backgroundColor: 'rgba(51,51,51, 0.2)',
+                        borderColor: 'rgba(51,51,51,1)',
                         borderWidth: 1
                     }]
                 },
