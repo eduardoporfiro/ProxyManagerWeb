@@ -33,25 +33,29 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.sites',
-    'solo',
+     'django.contrib.admin',
+     'django.contrib.auth',
+     'django.contrib.contenttypes',
+     'django.contrib.sessions',
+     'django.contrib.messages',
+     'django.contrib.staticfiles',
+     'django.contrib.sites',
+     'solo',
 
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
+     'allauth',
+     'allauth.account',
+     'allauth.socialaccount',
+     'allauth.socialaccount.providers.google',
 
-    'core',
-    'block',
-    'accounts',
-    'django_tables2',
-    'tarefa',
+     'core',
+     'block',
+     'accounts',
+     'django_tables2',
+     'tarefa',
+     'django_celery_beat',
+     'import_export',
+     'bootstrap3',
+     'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -64,7 +68,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 ROOT_URLCONF = 'proxy_manager_web.urls'
 
 TEMPLATES = [
@@ -134,8 +137,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
 LANGUAGE_CODE = 'pt-br'
-
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -162,6 +164,6 @@ CELERY_RESULT_SERIALIZER = 'json'
 #  Add configuration for static files storage using whitenoise
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # Activate Django-Heroku.
-prod_db  =  dj_database_url.config(conn_max_age=500)
+prod_db = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(prod_db)
 django_heroku.settings(locals())
