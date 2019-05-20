@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="27149796-7f3e-4138-9034-8cd3310cea3d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/core/static/core/css/pure-yahoo.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/templates/core/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/templates/core/base.html" afterDir="false" />
     </list>
     <ignored path="venv/Lib/site-packages/allauth/account/management/commands/__init__.py" />
     <ignored path="venv/Lib/site-packages/allauth/account/management/commands/account_unsetmultipleprimaryemails.py" />
@@ -9656,19 +9657,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/requirements.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/templates/core/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="81" selection-start-line="7" selection-start-column="81" selection-end-line="7" selection-end-column="81" />
+            <state relative-caret-position="332">
+              <caret line="76" column="46" selection-start-line="76" selection-start-column="46" selection-end-line="76" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -9744,8 +9736,9 @@
         <option value="$PROJECT_DIR$/proxy_manager_web/settings.py" />
         <option value="$PROJECT_DIR$/proxy_manager_web/celery.py" />
         <option value="$PROJECT_DIR$/core/static/core/css/pure-yahoo.css" />
-        <option value="$PROJECT_DIR$/core/templates/core/base.html" />
         <option value="$PROJECT_DIR$/requirements.txt" />
+        <option value="$PROJECT_DIR$/core/static/core/css/pure-yahoo.js" />
+        <option value="$PROJECT_DIR$/core/templates/core/base.html" />
       </list>
     </option>
   </component>
@@ -9793,6 +9786,45 @@
               <item name="static" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ProxyManagerWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ProxyManagerWeb" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ProxyManagerWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ProxyManagerWeb" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ProxyManagerWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ProxyManagerWeb" type="462c0819:PsiDirectoryNode" />
+              <item name="tarefa" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ProxyManagerWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ProxyManagerWeb" type="462c0819:PsiDirectoryNode" />
+              <item name="tarefa" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ProxyManagerWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ProxyManagerWeb" type="462c0819:PsiDirectoryNode" />
+              <item name="tarefa" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="tarefa" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ProxyManagerWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ProxyManagerWeb" type="462c0819:PsiDirectoryNode" />
+              <item name="tarefa" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="tarefa" type="462c0819:PsiDirectoryNode" />
+              <item name="blocos" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -9963,11 +9995,18 @@
       <option name="project" value="LOCAL" />
       <updated>1558392045204</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="HEROKU - 5">
+      <created>1558392278882</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1558392278882</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3516000" />
+    <option name="totallyTimeSpent" value="3898000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -10074,13 +10113,10 @@
     <MESSAGE value="HEROKU - 2" />
     <MESSAGE value="HEROKU - 3" />
     <MESSAGE value="HEROKU - 4" />
-    <option name="LAST_COMMIT_MESSAGE" value="HEROKU - 4" />
+    <MESSAGE value="HEROKU - 5" />
+    <option name="LAST_COMMIT_MESSAGE" value="HEROKU - 5" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/proxy_manager_web/block/views.py" />
-    <entry file="file://$PROJECT_DIR$/proxy_manager_web/block/templates/block/index.html" />
-    <entry file="file://$PROJECT_DIR$/proxy_manager_web/block/templates/block/mqtt_tab.html" />
-    <entry file="file://$PROJECT_DIR$/proxy_manager_web/block/templates/block/forms/add/add_form.html" />
     <entry file="file://$PROJECT_DIR$/proxy_manager_web/block/urls.py" />
     <entry file="file://$PROJECT_DIR$/proxy_manager_web/core/models.py" />
     <entry file="file://$PROJECT_DIR$/proxy_manager_web/block/task.py" />
@@ -10303,13 +10339,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/core/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="81" selection-start-line="7" selection-start-column="81" selection-end-line="7" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Procfile">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -10319,8 +10348,44 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
+        <state relative-caret-position="223">
+          <caret line="60" column="16" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tarefa/templates/tarefa/blocos/blocos.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-11707" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tarefa/templates/tarefa/blocos/toolbox.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#style#0;n#xml#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tarefa/templates/tarefa/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1303" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/static/core/css/pure-yahoo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="4156" selection-start-line="21" selection-start-column="4156" selection-end-line="21" selection-end-column="4156" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/core/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="76" column="46" selection-start-line="76" selection-start-column="46" selection-end-line="76" selection-end-column="46" />
         </state>
       </provider>
     </entry>
