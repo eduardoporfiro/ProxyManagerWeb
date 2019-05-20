@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="27149796-7f3e-4138-9034-8cd3310cea3d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tarefa/static/tarefa/tarefa_dados.js" beforeDir="false" afterPath="$PROJECT_DIR$/tarefa/static/tarefa/tarefa_dados.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy_manager_web/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/proxy_manager_web/settings.py" afterDir="false" />
     </list>
     <ignored path="venv/Lib/site-packages/allauth/account/management/commands/__init__.py" />
     <ignored path="venv/Lib/site-packages/allauth/account/management/commands/account_unsetmultipleprimaryemails.py" />
@@ -9656,6 +9656,24 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/requirements.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="223">
+              <caret line="60" column="16" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/proxy_manager_web/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="329">
+              <caret line="164" column="53" selection-start-line="164" selection-start-column="34" selection-end-line="164" selection-end-column="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/templates/core/base.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1360">
@@ -9669,29 +9687,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-487">
               <caret line="52" column="81" selection-start-line="52" selection-start-column="81" selection-end-line="52" selection-end-column="81" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tarefa/static/tarefa/tarefa_dados.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="116" column="38" lean-forward="true" selection-start-line="116" selection-start-column="38" selection-end-line="116" selection-end-column="38" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#h3#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Procfile">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -9774,7 +9769,6 @@
         <option value="$PROJECT_DIR$/tarefa/views.py" />
         <option value="$PROJECT_DIR$/block/views.py" />
         <option value="$PROJECT_DIR$/tarefa/models.py" />
-        <option value="$PROJECT_DIR$/proxy_manager_web/settings.py" />
         <option value="$PROJECT_DIR$/proxy_manager_web/celery.py" />
         <option value="$PROJECT_DIR$/core/static/core/css/pure-yahoo.css" />
         <option value="$PROJECT_DIR$/requirements.txt" />
@@ -9783,6 +9777,7 @@
         <option value="$PROJECT_DIR$/tarefa/fixtures/tarefa.json" />
         <option value="$PROJECT_DIR$/core/admin.py" />
         <option value="$PROJECT_DIR$/tarefa/static/tarefa/tarefa_dados.js" />
+        <option value="$PROJECT_DIR$/proxy_manager_web/settings.py" />
       </list>
     </option>
   </component>
@@ -9808,33 +9803,7 @@
             <path>
               <item name="ProxyManagerWeb" type="b2602c69:ProjectViewProjectNode" />
               <item name="ProxyManagerWeb" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProxyManagerWeb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProxyManagerWeb" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProxyManagerWeb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProxyManagerWeb" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProxyManagerWeb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProxyManagerWeb" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProxyManagerWeb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProxyManagerWeb" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="proxy_manager_web" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ProxyManagerWeb" type="b2602c69:ProjectViewProjectNode" />
@@ -10044,11 +10013,25 @@
       <option name="project" value="LOCAL" />
       <updated>1558393256682</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="HEROKU - 6">
+      <created>1558393851933</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1558393851933</updated>
+    </task>
+    <task id="LOCAL-00022" summary="HEROKU - 6">
+      <created>1558394503037</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1558394503037</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5095000" />
+    <option name="totallyTimeSpent" value="6632000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -10156,7 +10139,8 @@
     <MESSAGE value="HEROKU - 3" />
     <MESSAGE value="HEROKU - 4" />
     <MESSAGE value="HEROKU - 5" />
-    <option name="LAST_COMMIT_MESSAGE" value="HEROKU - 5" />
+    <MESSAGE value="HEROKU - 6" />
+    <option name="LAST_COMMIT_MESSAGE" value="HEROKU - 6" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/proxy_manager_web/tarefa/admin.py" />
@@ -10357,13 +10341,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proxy_manager_web/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="32" column="24" lean-forward="true" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/static/core/css/pure-min.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -10371,13 +10348,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="50" lean-forward="true" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="60" column="16" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -10446,6 +10416,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tarefa/static/tarefa/tarefa_dados.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="111" column="56" lean-forward="true" selection-start-line="111" selection-start-column="56" selection-end-line="111" selection-end-column="56" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h3#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/templates/core/home.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-487">
@@ -10453,15 +10435,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tarefa/static/tarefa/tarefa_dados.js">
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="116" column="38" lean-forward="true" selection-start-line="116" selection-start-column="38" selection-end-line="116" selection-end-column="38" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h3#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="223">
+          <caret line="60" column="16" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proxy_manager_web/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="164" column="53" selection-start-line="164" selection-start-column="34" selection-end-line="164" selection-end-column="53" />
         </state>
       </provider>
     </entry>
