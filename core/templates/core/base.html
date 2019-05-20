@@ -2,15 +2,14 @@
 {% load staticfiles %}
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ProxyManager" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>ProxyManagerWeb</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="{% static 'core/css/font-awesome.min.css' %}" />
     <link rel="stylesheet" href="{% static 'core/css/styles.css' %}" />
     <link rel="stylesheet" href="{% static 'core/bootstrap/css/bootstrap.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script>
     <script src="{% static 'core/bootstrap/js/bootstrap.min.js' %}"></script>
     {% block core_head %}
     {% endblock %}
@@ -32,6 +31,17 @@
         <a class="nav-link" href="{% url 'accounts:dashboard' %}">Painel</a>
       </li>
 
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Adicionar
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'block:add_proxy' %}">Proxy</a>
+          <a class="dropdown-item" href="{% url 'block:add_mqtt' %}">MQTT</a>
+          <a class="dropdown-item" href="{% url 'tarefa:add_dispositivo' %}">Dispositivo</a>
+        </div>
+      </li>
+
       <li class="nav-item">
         <a class="nav-link" href="{% url 'accounts:logout' %}">Sair</a>
       </li>
@@ -46,11 +56,15 @@
 
 <div>
     {% if messages %}
-    <div class="alert alert-success" role="alert">
-            {% for message in messages %}
-            <p>{{ message }}</p>
-            {% endfor %}
-    </div>
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div class="alert alert-danger" role="alert">
+            {% else %}
+                <div class="alert alert-success" role="alert">
+            {% endif %}
+                    <p>{{ message }}</p>
+            </div>
+        {% endfor %}
     {% endif %}
     {% block content %}{% endblock %}
 </div>
@@ -61,5 +75,7 @@
       </div>
 </footer>
 <script src="http://yui.yahooapis.com/3.12.0/build/yui/yui-min.js"></script>
+{% block scripts %}
+{% endblock %}
 </body>
 </html>

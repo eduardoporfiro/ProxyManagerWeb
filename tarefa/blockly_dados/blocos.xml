@@ -1,0 +1,524 @@
+<xml xmlns="http://www.w3.org/1999/xhtml"><block type="factory_base" id="IlGSrUZz:Cc$;(v6dC@g" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">save_db</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="Y-@j%aQ-lbD?XZw@:lW)">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="Bla?adtzj4n0E?$#yz0?">
+            <field name="TEXT">Salvar dado do Sensor</field>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="r?~5[Nm`U/Fdk5e7-t16" deletable="false" movable="false">
+        <field name="TEXT">Salva o dado do sensor</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="XdI~m361.SJC)D6@(3rN" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="/A32n/JZoje-$HHmKWZe"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="BWLmKDbo==5mOcho@.]("></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id=":96?4uZl5WCRRH5T+2p0">
+        <mutation colour="#a5745b"></mutation>
+        <field name="HUE">20</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="adu.tD.)nun%ShKy8uXr" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">atuador_troca_estado</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="FW:[vsN{~##BvpYplj~?">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="$B:c(g-sw,cL;1Q2qwxu">
+            <field name="TEXT">Dispositivo</field>
+            <next>
+              <block type="field_dropdown" id="3pblPXAsw}BSgEm^:7:7">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
+                <field name="FIELDNAME">dispositivo</field>
+                <field name="USER0">dispo1</field>
+                <field name="CPU0">1</field>
+                <field name="USER1">dispo2</field>
+                <field name="CPU1">2</field>
+                <field name="USER2">dispo3</field>
+                <field name="CPU2">3</field>
+                <next>
+                  <block type="field_static" id="CG.rCmzM]8JZPx)lb)mY">
+                    <field name="TEXT"> troca estado</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="/V@@3[a*TnIXYw0n=~r#" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="RM#L)N*GluoB](g$PM7l" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="^Y67edr0b;GYvRptT]S{"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="8$mbCiBRtO;dH0PVJ*ef"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="$[U;j7;4fHJxiz8UAT6$">
+        <mutation colour="#5ba55b"></mutation>
+        <field name="HUE">120</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="]6/7ywz)HQ]{n~ogVL5y" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">atuador_boolean</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_value" id="{!TzI36h6X5RO/yu{]if">
+        <field name="INPUTNAME">estado</field>
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="%4zpn3r{9H0%aX#l{AvO">
+            <field name="TEXT">Trocar estado para:</field>
+          </block>
+        </statement>
+        <value name="TYPE">
+          <shadow type="type_null" id="KksKd7uRVJHbIyY9eHB%"></shadow>
+          <block type="type_boolean" id="8UJDK}I=Tq4%j,1rxdk#"></block>
+        </value>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="+m#BPlt[0DuIMg0jVUnv" deletable="false" movable="false">
+        <field name="TEXT">Somente aceito variáveis boolean</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="X#)FsEk9xQ6UY9?|)}z|" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="^+}/dv**ZH+qUzh!ps93"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id=")Fp1];8(xtB9_%q.1G7K"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="q+;HJ{4om3Sr+tsGv7Mi">
+        <mutation colour="#5ba55b"></mutation>
+        <field name="HUE">120</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="uB4_:)=yhO6FTYJ[vxeF" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="NONE"></mutation>
+    <field name="NAME">if_sensor_string</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">NONE</field>
+    <statement name="INPUTS">
+      <block type="input_value" id="H5QIsx~q{@G95w#[2h8W">
+        <field name="INPUTNAME">dado</field>
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="cIZ-UOs=Z;;nrj~=iA+g">
+            <field name="TEXT">if sensor:</field>
+            <next>
+              <block type="field_dropdown" id="6ZB.aWh6-Fg*VHAL.,n[">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;]"></mutation>
+                <field name="FIELDNAME">condicao</field>
+                <field name="USER0">=</field>
+                <field name="CPU0">=</field>
+                <field name="USER1">!=</field>
+                <field name="CPU1">!=</field>
+                <next>
+                  <block type="field_static" id="?/!4yrn@:GOU9!%w_Zp(">
+                    <field name="TEXT">(String)</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <value name="TYPE">
+          <shadow type="type_null" id="I{y`HHEu{E-x0VV|+bTL"></shadow>
+          <block type="type_string" id="S:n^9gh3U4gNXBH^{}*?"></block>
+        </value>
+        <next>
+          <block type="input_statement" id="dymz80r1CyVQf}0=C589">
+            <field name="INPUTNAME">if</field>
+            <field name="ALIGN">LEFT</field>
+            <value name="TYPE">
+              <shadow type="type_null" id="$]bf0*kx8}*31uag6.^h"></shadow>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="nw0UTF#ihV}p3/9DUVYY" deletable="false" movable="false">
+        <field name="TEXT">Somente aceita String</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="-#c*+@*bsM?qbksAADRf" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="=QKA=#|Y4`@K`Og-O-Pb">
+        <mutation colour="#5b67a5"></mutation>
+        <field name="HUE">230</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="^LVQgb.AzOhF@e48w6UC" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="NONE"></mutation>
+    <field name="NAME">if_sensor_number</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">NONE</field>
+    <statement name="INPUTS">
+      <block type="input_value" id="I*g|q#e=BH=hn,KJ=jvF">
+        <field name="INPUTNAME">valor</field>
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="~8;MzU.qe+`;Or.zE]#V">
+            <field name="TEXT">if sensor:</field>
+            <next>
+              <block type="field_dropdown" id="z;Qje9T4/ehM82dJ[qg0">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
+                <field name="FIELDNAME">condicao</field>
+                <field name="USER0">=</field>
+                <field name="CPU0">=</field>
+                <field name="USER1">&gt;</field>
+                <field name="CPU1">&gt;</field>
+                <field name="USER2">&lt;</field>
+                <field name="CPU2">&lt;</field>
+                <field name="USER3">&gt;=</field>
+                <field name="CPU3">&gt;=</field>
+                <field name="USER4">&lt;=</field>
+                <field name="CPU4">&lt;=</field>
+                <field name="USER5">!=</field>
+                <field name="CPU5">!=</field>
+                <next>
+                  <block type="field_static" id="D7eaHD?|8wIW1$GIED6|">
+                    <field name="TEXT">(Número)</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <value name="TYPE">
+          <shadow type="type_null" id="@~[).LI%nsY8G*35N-`t"></shadow>
+          <block type="type_number" id="E)x;QUxORRz~Zu[uUXNX"></block>
+        </value>
+        <next>
+          <block type="input_statement" id="(^]bN|zKbBj2cBqGIHhv">
+            <field name="INPUTNAME">if</field>
+            <field name="ALIGN">LEFT</field>
+            <value name="TYPE">
+              <shadow type="type_null" id="xA~;PG;Ba1I{h%It3LH%"></shadow>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="9`3]vH33z@VMECD_OC5c" deletable="false" movable="false">
+        <field name="TEXT">somente número</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="Bb5w=IGt;NYDi@Rh`BN*" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="8TJ{!Ekr44rs{%a8=45j">
+        <mutation colour="#5b67a5"></mutation>
+        <field name="HUE">230</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="uD$B)RF^5ixzZQ~/]?.i" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="LEFT"></mutation>
+    <field name="NAME">dado_sensor_numero</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">LEFT</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="@Xv3)?VWP6hQ*uYj]0Zl">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="~H@,(xAl_b{;P8f]2em{">
+            <field name="TEXT">dado do sensor</field>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="93H=qZvL)ZU#ssa~p-b_" deletable="false" movable="false">
+        <field name="TEXT">retorna o dado do sensor</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="jpj}C1gZ|SlqF4@^df^S" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="OUTPUTTYPE">
+      <shadow type="type_null" id=")7[dPNItAFz0R[/G9|c+"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="jYrs=D-=Y_aJDJn%nl{8">
+        <mutation colour="#a5745b"></mutation>
+        <field name="HUE">20</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="uD$B)RF^5ixzZQ~/]?.i" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="LEFT"></mutation>
+    <field name="NAME">dado_sensor_string</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">LEFT</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="@Xv3)?VWP6hQ*uYj]0Zl">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="~H@,(xAl_b{;P8f]2em{">
+            <field name="TEXT">dado do sensor</field>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="93H=qZvL)ZU#ssa~p-b_" deletable="false" movable="false">
+        <field name="TEXT">retorna o dado do sensor</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="jpj}C1gZ|SlqF4@^df^S" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="OUTPUTTYPE">
+      <shadow type="type_null" id=")7[dPNItAFz0R[/G9|c+"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="b=a1R]|zbiR;MdvxATV/">
+        <mutation colour="#a5745b"></mutation>
+        <field name="HUE">20</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="@T|pIsQBX~a*m*;Q[eYO" x="10" y="10">
+    <mutation connections="NONE"></mutation>
+    <field name="NAME">if_sensor_dadosensornumero</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">NONE</field>
+    <statement name="INPUTS">
+      <block type="input_value" id="7+p|YLt.CWCcb79eQ?x.">
+        <field name="INPUTNAME">dados</field>
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="C8%RqwUS91j9fz!m1hw#">
+            <field name="TEXT">if sensor:</field>
+            <next>
+              <block type="field_dropdown" id="UDo[-IknXj;mXU(!dI,t">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
+                <field name="FIELDNAME">condicao</field>
+                <field name="USER0">&gt;</field>
+                <field name="CPU0">&gt;</field>
+                <field name="USER1">&lt;</field>
+                <field name="CPU1">&lt;</field>
+                <field name="USER2">=</field>
+                <field name="CPU2">=</field>
+                <field name="USER3">&gt;=</field>
+                <field name="CPU3">&gt;=</field>
+                <field name="USER4">&lt;=</field>
+                <field name="CPU4">&lt;=</field>
+                <field name="USER5">!=</field>
+                <field name="CPU5">!=</field>
+                <next>
+                  <block type="field_static" id="{9wY,[JjSv0]L[ot`sT?">
+                    <field name="TEXT">(dado_sensor)</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <value name="TYPE">
+          <shadow type="type_null" id="Y,hLl()NxTP*s~0Lk5Rs"></shadow>
+          <block type="type_other" id="slWx.^@1?(CIiTmIGVz8">
+            <field name="TYPE">dado_sensor_numero</field>
+          </block>
+        </value>
+        <next>
+          <block type="input_statement" id="ph0}%c|O;Bxw?HmGxLPJ">
+            <field name="INPUTNAME">if</field>
+            <field name="ALIGN">LEFT</field>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="_yevdCAS()UsKxsY6{dz">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="8TRI}.$7?T1y@iS=0Xc[">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="1]6}b~iQnfzX!d1t5(E+">
+        <mutation colour="#5b67a5"></mutation>
+        <field name="HUE">230</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="@T|pIsQBX~a*m*;Q[eYO" x="10" y="10">
+    <mutation connections="NONE"></mutation>
+    <field name="NAME">if_sensor_dadosensorstring</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">NONE</field>
+    <statement name="INPUTS">
+      <block type="input_value" id="7+p|YLt.CWCcb79eQ?x.">
+        <field name="INPUTNAME">dados</field>
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="C8%RqwUS91j9fz!m1hw#">
+            <field name="TEXT">if sensor:</field>
+            <next>
+              <block type="field_dropdown" id="UDo[-IknXj;mXU(!dI,t">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
+                <field name="FIELDNAME">condicao</field>
+                <field name="USER0">&gt;</field>
+                <field name="CPU0">&gt;</field>
+                <field name="USER1">&lt;</field>
+                <field name="CPU1">&lt;</field>
+                <field name="USER2">=</field>
+                <field name="CPU2">=</field>
+                <field name="USER3">&gt;=</field>
+                <field name="CPU3">&gt;=</field>
+                <field name="USER4">&lt;=</field>
+                <field name="CPU4">&lt;=</field>
+                <field name="USER5">!=</field>
+                <field name="CPU5">!=</field>
+                <next>
+                  <block type="field_static" id="{9wY,[JjSv0]L[ot`sT?">
+                    <field name="TEXT">(dado_sensor)</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <value name="TYPE">
+          <shadow type="type_null" id="Y,hLl()NxTP*s~0Lk5Rs"></shadow>
+          <block type="type_other" id="slWx.^@1?(CIiTmIGVz8">
+            <field name="TYPE">dado_sensor_string</field>
+          </block>
+        </value>
+        <next>
+          <block type="input_statement" id="ph0}%c|O;Bxw?HmGxLPJ">
+            <field name="INPUTNAME">if</field>
+            <field name="ALIGN">LEFT</field>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="_yevdCAS()UsKxsY6{dz">
+        <field name="TEXT">Somente String</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="8TRI}.$7?T1y@iS=0Xc[">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="1]6}b~iQnfzX!d1t5(E+">
+        <mutation colour="#5b67a5"></mutation>
+        <field name="HUE">230</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="Mj^OtlIg%/EE+qfZd6_," deletable="false" movable="false" x="10" y="10">
+    <mutation connections="NONE"></mutation>
+    <field name="NAME">if_sensor_boolena</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">NONE</field>
+    <statement name="INPUTS">
+      <block type="input_value" id="LSTK!]KA=??n][w7`gry">
+        <field name="INPUTNAME">dado</field>
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="CZwfy)!3H;:x.}Q?pTtq">
+            <field name="TEXT">if sensor:</field>
+            <next>
+              <block type="field_dropdown" id="Oi6IdE|u@[nH(A_)4n__">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;]"></mutation>
+                <field name="FIELDNAME">condicao</field>
+                <field name="USER0">=</field>
+                <field name="CPU0">=</field>
+                <field name="USER1">!=</field>
+                <field name="CPU1">!=</field>
+                <next>
+                  <block type="field_static" id="2Z.=#EgC%}JxXVCwFhF^">
+                    <field name="TEXT">(boolean)</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <value name="TYPE">
+          <shadow type="type_null" id="5;B8+ZWDn;[hJ8J3:kCz"></shadow>
+          <block type="type_boolean" id="W29H?Jbrw;!gCf=G,6(o"></block>
+        </value>
+        <next>
+          <block type="input_statement" id="rP7^Wj]x2H%._%Pl@@4+">
+            <field name="INPUTNAME">if</field>
+            <field name="ALIGN">LEFT</field>
+            <value name="TYPE">
+              <shadow type="type_null" id=")Uc%)X`J{A#`KIgb,xfS"></shadow>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="xw6k{jc!4(bo;ev0p@i+" deletable="false" movable="false">
+        <field name="TEXT">Somente aceita boolean</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="Bcmj}(a}xg2hDl*xczdd" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="X`43Rs+#^1r;[@7!Nn|-">
+        <mutation colour="#5b67a5"></mutation>
+        <field name="HUE">230</field>
+      </block>
+    </value>
+  </block></xml>

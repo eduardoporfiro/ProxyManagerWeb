@@ -1,4 +1,5 @@
 {% extends "accounts/dashboard.html" %}
+{% load staticfiles %}
 {% block breadcrumb %}
     {{ block.super }}
     <li> / </li>
@@ -34,9 +35,9 @@
     <li class="nav-item">
         <a class="nav-link" id="sensor-tab"  href="#sensor"
            {% if proxy %}
-                form-url="{% url 'tarefa:load_dispositivo' proxy.id %}">Sensor</a>
+                form-url="{% url 'tarefa:load_dispositivo' proxy.id %}">Dispositivo</a>
            {% else %}
-                form-url="{% url 'tarefa:load_dispositivo' 0 %}">Sensor</a>
+                form-url="{% url 'tarefa:load_dispositivo' 0 %}">Dispositivo</a>
         {% endif %}
     </li>
   </ul>
@@ -54,9 +55,10 @@
     <div id="sensor-div" class="container tab-pane fade">
     </div>
   </div>
-
-<script>
-$(document).ready(function(){
+{% endblock %}
+{% block scripts %}
+    <script>
+    $(document).ready(function(){
     $.ajax({
         url: '{% url 'block:edit_proxy' proxy.id %}',
         data: {},
@@ -83,8 +85,9 @@ $(document).ready(function(){
                     div.innerHTML = data;
                 }
                 if($(this).id = "mqtt-tab") {
-                    var div = document.getElementById("mqtt-div");
+                    var div = document.getElementById("proxy-div");
                     div.innerHTML = data;
+                    alterdata(url);
                 }
 
                 if($(this).id = "sensor-tab") {
@@ -100,5 +103,64 @@ $(document).ready(function(){
         $(this).tab('show');
     });
 });
-</script>
+
+function alterhtml(url){
+    $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                    // add the country id to the GET parameters
+            },
+            success: function (data) {
+                var div = document.getElementById("proxy-div");
+                div.innerHTML='a';
+                div.innerHTML = data;
+                alterdata(url)
+            },
+            error: function () {
+                console.log('err');
+            }
+    });
+}
+
+
+function alterdata(url){
+    var id = 'proxy-div';
+    var ul = document.getElementsByClassName("pagination");
+    if(ul != null) {
+        for (var i = 0; ul.length > i; i++) {
+            var li = ul[i];
+            li = li.getElementsByTagName('li');
+            if (li != null) {
+                for (var j = 0; li.length > j; j++) {
+                    var valor = li[j];
+                    var a = valor.getElementsByTagName('a')[0];
+                    if (!a.href.includes('ajax')) {
+                        if (a.getAttribute('dados') == null) {
+                            var texto = a.href.split('?');
+                            if (url.includes('?page=')) {
+                                url = url.split('?page=')[0];
+                                texto = url + '?' + texto[1];
+                            } else {
+                                texto[0] =  url;
+                                texto = texto[0] + '?' + texto[1];
+                            }
+                            url = texto;
+                            var dados = "'" + texto + "'";
+                            a.setAttribute("onClick", 'alterhtml(' + dados + ')');
+                            a.setAttribute("class", 'btn btn-dark');
+                            a.setAttribute('dados', 'true');
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+$(document).on('click', "a[dados='true']", function(event) {
+  event.preventDefault();    // Now the link doesn't do anything
+  var href = this.href;      // The link's URL is in this variable
+});
+    </script>
+    <script src="{% static 'block/tab.js' %}"></script>
 {% endblock %}

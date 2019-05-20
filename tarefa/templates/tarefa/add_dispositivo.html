@@ -1,7 +1,7 @@
 {% extends "core/base.html" %}
 
 {% block content %}
-<div class="pure-g-r content-ribbon">
+<div class="pure-g-r content-ribbon" style="width:800px; margin:0 auto;">
     <div class="pure-u-1">
         <form class="pure-form pure-form-stacked" method="post"
               id="dispoForm" mqtt-url="{% url 'tarefa:ajax_load_mqtts' %}" novalidate>

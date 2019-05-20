@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from .models import PasswordReset
 from core.utils import generate_hash_key
+from core import mail
 
 User = get_user_model()
 
@@ -48,10 +49,11 @@ class PasswordResetForm(forms.Form):
         reset = PasswordReset(key=key, user=user)
         reset.save()
         template_name = 'accounts/password_reset_mail.html'
-        subject = 'Criar nova senha no Simple MOOC'
+        subject = 'Criar nova senha ProxyManagerWeb'
         context = {
             'reset': reset,
         }
+        mail.send_mail_template(subject, template_name, context, [user.email])
 
 
 class EditAccountForm(forms.ModelForm):

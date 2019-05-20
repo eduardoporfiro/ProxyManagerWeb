@@ -1,0 +1,713 @@
+<script>
+Blockly.Blocks['sen_se'] = {
+          init: function() {
+            this.jsonInit({
+          "type": "sen_se",
+          "message0": "se %1 %2 = %3 %4",
+          "args0": [
+            {
+              "type": "field_dropdown",
+              "name": "sensores",
+              "options": [
+                  {% if sensores %}
+                      {% for sensor in sensores %}
+                    [
+                      "{{ sensor.nome }}",
+                      "{{ sensor.pk }}"
+                    ],
+                      {% endfor %}
+                  {% else %}
+                    [
+                      "Sem_sensor",
+                      "Sem_sensor"
+                    ],
+                  {% endif %}
+            ]
+            },
+            {
+              "type": "field_dropdown",
+              "name": "condicao",
+              "options": [
+                [
+                  ">",
+                  ">"
+                ],
+                [
+                  "<",
+                  "<"
+                ],
+                [
+                  "=",
+                  "="
+                ]
+              ]
+            },
+            {
+              "type": "input_value",
+              "name": "Se"
+            },
+            {
+              "type": "input_statement",
+              "name": "Se_sta",
+              "align": "RIGHT"
+            }
+          ],
+          "colour": 230,
+          "tooltip": "",
+          "helpUrl": ""
+            });
+          }
+        };
+
+Blockly.Blocks['dispo_out'] = {
+  init: function() {
+    this.jsonInit({
+		"type": "dispo_out",
+  "message0": "Dispositivo %1 = %2",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "dispo",
+      "options": [
+          {% if atuadores %}
+          {% for atua in atuadores %}
+        [
+          "{{ atua.nome }}",
+          "{{ atua.pk }}"
+        ],
+          {% endfor %}
+          {% else %}
+       [
+          "Sem_atuador",
+          "sem_atuador"
+        ],
+          {% endif %}
+      ]
+    },
+    {
+      "type": "field_number",
+      "name": "var",
+      "value": 0
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+	});
+	}
+};
+
+Blockly.Blocks['save_db']={
+  init:function () {
+      this.jsonInit({
+          "type": "save_db",
+          "message0": "Salvar dado do Sensor",
+          "previousStatement": null,
+          "nextStatement": null,
+          "colour": 20,
+          "tooltip": "Salva o dado do sensor",
+          "helpUrl": ""
+      })
+  }
+};
+
+Blockly.Blocks['atuador_troca_estado']={
+  init:function () {
+      this.jsonInit({
+          "type": "atuador_troca_estado",
+          "message0": "Dispositivo %1  troca estado",
+          "args0": [
+            {
+              "type": "field_dropdown",
+              "name": "dispositivo",
+              "options": [
+                {% if atuadores %}
+                  {% for atua in atuadores %}
+                    [
+                      "{{ atua.nome }}",
+                      "{{ atua.pk }}"
+                    ],
+                  {% endfor %}
+                {% else %}
+                   [
+                      "Sem_atuador",
+                      "sem_atuador"
+                    ],
+                {% endif %}
+              ]
+            }
+          ],
+          "previousStatement": null,
+          "nextStatement": null,
+          "colour": 120,
+          "tooltip": "",
+          "helpUrl": ""
+      })
+  }
+};
+
+Blockly.Blocks['atuador_boolean']={
+  init:function () {
+      this.jsonInit({
+            "type": "atuador_boolean",
+              "message0": "Trocar atuador %2 estado para: %1",
+              "args0": [
+                {
+                  "type": "input_value",
+                  "name": "estado",
+                  "check": "Boolean"
+                },
+                  {
+              "type": "field_dropdown",
+              "name": "dispositivo",
+              "options": [
+                {% if atuadores %}
+                  {% for atua in atuadores %}
+                    [
+                      "{{ atua.nome }}",
+                      "{{ atua.pk }}"
+                    ],
+                  {% endfor %}
+                {% else %}
+                   [
+                      "Sem_atuador",
+                      "sem_atuador"
+                    ],
+                {% endif %}
+              ]
+            }
+              ],
+              "previousStatement": null,
+              "nextStatement": null,
+              "colour": 120,
+              "tooltip": "Somente aceito variáveis boolean",
+              "helpUrl": ""
+      })
+  }
+};
+
+Blockly.Blocks['if_sensor_string']={
+  init:function () {
+      this.jsonInit({
+          "type": "if_sensor_string",
+          "message0": "if sensor: %1 (String) %2 %3",
+          "args0": [
+            {
+              "type": "field_dropdown",
+              "name": "condicao",
+              "options": [
+                [
+                  "=",
+                  "0"
+                ],
+                [
+                  "!=",
+                  "1"
+                ]
+              ]
+            },
+            {
+              "type": "input_value",
+              "name": "dado",
+              "check": "String"
+            },
+            {
+              "type": "input_statement",
+              "name": "if"
+            }
+          ],
+          "colour": 230,
+          "tooltip": "Somente aceita String",
+          "helpUrl": ""
+      })
+  }
+};
+
+Blockly.Blocks['if_sensor_number']={
+  init:function () {
+      this.jsonInit({
+            "type": "if_sensor_number",
+              "message0": "if sensor: %1 (Número) %2 %3",
+              "args0": [
+                {
+                  "type": "field_dropdown",
+                  "name": "condicao",
+                  "options": [
+                    [
+                      "=",
+                      "0"
+                    ],
+                    [
+                      ">",
+                      "2"
+                    ],
+                    [
+                      "<",
+                      "4"
+                    ],
+                    [
+                      ">=",
+                      "3"
+                    ],
+                    [
+                      "<=",
+                      "5"
+                    ],
+                    [
+                      "!=",
+                      "1"
+                    ]
+                  ]
+                },
+                {
+                  "type": "input_value",
+                  "name": "valor",
+                  "check": "Number"
+                },
+                {
+                  "type": "input_statement",
+                  "name": "if"
+                }
+              ],
+              "colour": 230,
+              "tooltip": "somente número",
+              "helpUrl": ""
+      })
+  }
+};
+
+Blockly.Blocks['dado_sensor_numero']={
+  init:function () {
+      this.jsonInit({
+          "type": "dado_sensor_numero",
+          "message0": "dado do sensor",
+          "output": null,
+          "colour": 20,
+          "tooltip": "retorna o dado do sensor",
+          "helpUrl": ""
+      })
+  }
+};
+
+Blockly.Blocks['dado_sensor_string']={
+  init:function () {
+      this.jsonInit({
+          "type": "dado_sensor_string",
+          "message0": "dado do sensor",
+          "output": null,
+          "colour": 20,
+          "tooltip": "retorna o dado do sensor",
+          "helpUrl": ""
+      })
+  }
+};
+
+Blockly.Blocks['if_sensor_dadosensornumero']={
+  init:function () {
+      this.jsonInit({
+          "type": "if_sensor_dadosensornumero",
+          "message0": "if sensor: %1 (dado_sensor) %2 %3",
+          "args0": [
+            {
+              "type": "field_dropdown",
+              "name": "condicao",
+              "options": [
+                [
+                      "=",
+                      "0"
+                    ],
+                    [
+                      ">",
+                      "2"
+                    ],
+                    [
+                      "<",
+                      "4"
+                    ],
+                    [
+                      ">=",
+                      "3"
+                    ],
+                    [
+                      "<=",
+                      "5"
+                    ],
+                    [
+                      "!=",
+                      "1"
+                    ]
+              ]
+            },
+            {
+              "type": "input_value",
+              "name": "dados",
+              "check": "dado_sensor_numero"
+            },
+            {
+              "type": "input_statement",
+              "name": "if"
+            }
+          ],
+          "colour": 230,
+          "tooltip": "",
+          "helpUrl": ""
+      })
+  }
+};
+
+Blockly.Blocks['if_sensor_dadosensorstring']={
+  init:function () {
+      this.jsonInit({
+          "type": "if_sensor_dadosensorstring",
+          "message0": "if sensor: %1 (dado_sensor) %2 %3",
+          "args0": [
+            {
+              "type": "field_dropdown",
+              "name": "condicao",
+              "options": [
+                [
+                  "=",
+                  "0"
+                ],
+                [
+                  "!=",
+                  "1"
+                ]
+              ]
+            },
+            {
+              "type": "input_value",
+              "name": "dados",
+              "check": "dado_sensor_string"
+            },
+            {
+              "type": "input_statement",
+              "name": "if"
+            }
+          ],
+          "colour": 230,
+          "tooltip": "Somente String",
+          "helpUrl": ""
+      })
+  }
+};
+
+Blockly.Blocks['if_sensor_boolena']={
+  init:function () {
+      this.jsonInit({
+          "type": "if_sensor_boolena",
+          "message0": "if sensor: %1 (boolean) %2 %3",
+          "args0": [
+            {
+              "type": "field_dropdown",
+              "name": "condicao",
+              "options": [
+                [
+                  "!=",
+                  "0"
+                ],
+                  [
+                  "=",
+                  "1"
+                ]
+              ]
+            },
+            {
+              "type": "input_value",
+              "name": "dado",
+              "check": "Boolean"
+            },
+            {
+              "type": "input_statement",
+              "name": "if"
+            }
+          ],
+          "colour": 230,
+          "tooltip": "Somente aceita boolean",
+          "helpUrl": ""
+    })
+  }
+};
+
+Blockly.Blocks['dados_sensor_media']={
+  init:function () {
+      this.jsonInit({
+          "type": "dados_sensor_media",
+          "message0": "Média de dados do sensor",
+          "output": null,
+          "colour": 20,
+          "tooltip": "",
+          "helpUrl": ""
+    })
+  }
+};
+
+Blockly.Blocks['dado_sensor_min']={
+  init:function () {
+      this.jsonInit({
+          "type": "dado_sensor_min",
+          "message0": "Menor valor do sensor",
+          "output": null,
+          "colour": 20,
+          "tooltip": "",
+          "helpUrl": ""
+    })
+  }
+};
+
+Blockly.Blocks['dado_sensor_max']={
+  init:function () {
+      this.jsonInit({
+          "type": "dado_sensor_max",
+          "message0": "Maior valor dos sensores",
+          "output": null,
+          "colour": 20,
+          "tooltip": "",
+          "helpUrl": ""
+    })
+  }
+};
+
+Blockly.Blocks['if_else_sensor_string']={
+    init:function () {
+        this.jsonInit(
+            {
+              "type": "if_else_sensor_string",
+              "message0": "if sensor: %1 (String) %2 %3 else: %4",
+              "args0": [
+                {
+                  "type": "field_dropdown",
+                  "name": "condicao",
+                  "options": [
+                    [
+                      "=",
+                      "="
+                    ],
+                    [
+                      "!=",
+                      "!="
+                    ]
+                  ]
+                },
+                {
+                  "type": "input_value",
+                  "name": "dado",
+                  "check": "String"
+                },
+                {
+                  "type": "input_statement",
+                  "name": "if"
+                },
+                {
+                  "type": "input_statement",
+                  "name": "else"
+                }
+              ],
+              "colour": 230,
+              "tooltip": "Somente aceita String",
+              "helpUrl": ""
+            }
+        )
+    }
+}
+
+Blockly.Blocks['if_else_sensor_number']={
+  init:function () {
+      this.jsonInit({
+            "type": "if_else_sensor_number",
+              "message0": "if sensor: %1 (Número) %2 %3 else: %4",
+              "args0": [
+                {
+                  "type": "field_dropdown",
+                  "name": "condicao",
+                  "options": [
+                    [
+                      "=",
+                      "0"
+                    ],
+                    [
+                      ">",
+                      "2"
+                    ],
+                    [
+                      "<",
+                      "4"
+                    ],
+                    [
+                      ">=",
+                      "3"
+                    ],
+                    [
+                      "<=",
+                      "5"
+                    ],
+                    [
+                      "!=",
+                      "1"
+                    ]
+                  ]
+                },
+                {
+                  "type": "input_value",
+                  "name": "dado",
+                  "check": "Number"
+                },
+                {
+                  "type": "input_statement",
+                  "name": "if"
+                },
+                  {
+                  "type": "input_statement",
+                  "name": "else"
+                }
+              ],
+              "colour": 230,
+              "tooltip": "somente número",
+              "helpUrl": ""
+      })
+  }
+};
+
+Blockly.Blocks['if_else_sensor_dadosensornumero']={
+  init:function () {
+      this.jsonInit({
+          "type": "if_else_sensor_dadosensornumero",
+          "message0": "if sensor: %1 (Dado Sensor) %2 %3 else: %4",
+          "args0": [
+            {
+              "type": "field_dropdown",
+              "name": "condicao",
+              "options": [
+                [
+                      "=",
+                      "0"
+                    ],
+                    [
+                      ">",
+                      "2"
+                    ],
+                    [
+                      "<",
+                      "4"
+                    ],
+                    [
+                      ">=",
+                      "3"
+                    ],
+                    [
+                      "<=",
+                      "5"
+                    ],
+                    [
+                      "!=",
+                      "1"
+                    ]
+              ]
+            },
+            {
+              "type": "input_value",
+              "name": "dado",
+              "check": "dado_sensor_numero"
+            },
+            {
+              "type": "input_statement",
+              "name": "if"
+            },
+              {
+                  "type": "input_statement",
+                  "name": "else"
+              }
+          ],
+          "colour": 230,
+          "tooltip": "",
+          "helpUrl": ""
+      })
+  }
+};
+
+Blockly.Blocks['if_else_sensor_dadosensorstring']={
+  init:function () {
+      this.jsonInit({
+          "type": "if_else_sensor_dadosensorstring",
+          "message0": "if sensor: %1 (Dado Sensor) %2 %3 else: %4",
+          "args0": [
+            {
+              "type": "field_dropdown",
+              "name": "condicao",
+              "options": [
+                [
+                  "=",
+                  "0"
+                ],
+                [
+                  "!=",
+                  "1"
+                ]
+              ]
+            },
+            {
+              "type": "input_value",
+              "name": "dado",
+              "check": "dado_sensor_string"
+            },
+            {
+              "type": "input_statement",
+              "name": "if"
+            },{
+                  "type": "input_statement",
+                  "name": "else"
+                }
+          ],
+          "colour": 230,
+          "tooltip": "Somente String",
+          "helpUrl": ""
+      })
+  }
+};
+
+Blockly.Blocks['if_else_sensor_boolena']={
+  init:function () {
+      this.jsonInit({
+          "type": "if_else_sensor_boolena",
+          "message0": "if sensor: %1 (Boolean) %2 %3 else: %4",
+          "args0": [
+            {
+              "type": "field_dropdown",
+              "name": "condicao",
+              "options": [
+                [
+                  "!=",
+                  "0"
+                ],
+                  [
+                  "=",
+                  "1"
+                ]
+              ]
+            },
+            {
+              "type": "input_value",
+              "name": "dado",
+              "check": "Boolean"
+            },
+            {
+              "type": "input_statement",
+              "name": "if"
+            },
+              {
+                  "type": "input_statement",
+                  "name": "else"
+                }
+          ],
+          "colour": 230,
+          "tooltip": "Somente aceita boolean",
+          "helpUrl": ""
+    })
+  }
+};
+
+</script>
+
+

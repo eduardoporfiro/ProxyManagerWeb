@@ -1,153 +1,18 @@
 {% extends "core/base.html" %}
 {% load staticfiles %}
 {% block core_head %}
-  <script src="{% static 'tarefa/blockly/blockly_compressed.js' %}"></script>
-  <script src="{% static 'tarefa/blockly/blocks_compressed.js' %}"></script>
-  <script src="{% static 'tarefa/blockly/javascript_compressed.js' %}"></script>
-  <script src="{% static 'tarefa/blockly/msg/js/en.js' %}"></script>
-    <script>
-  Blockly.Blocks['execue'] = {
-  init: function() {
-    this.jsonInit({
-
-  "type": "execue",
-  "message0": "Atuadores %1 %2 %3 %4 %5 Executar quando %6 for %7",
-  "args0": [
-    {
-      "type": "field_dropdown",
-      "name": "Atuadores",
-      "options": [
-          {% if testes %}
-          {% for teste in testes%}
-        [
-          "{{teste.sensor}}",
-          "{{teste.id}}"
-        ],
-      {% endfor %}
-      {% else %}
-      [
-          "sem Sensor",
-          "0"
-      ]
-      {% endif %}
-      ]
-    },
-    {
-      "type": "field_input",
-      "name": "Teste",
-      "text": "Sensor"
-    },
-    {
-      "type": "field_dropdown",
-      "name": "Sensor",
-      "options": [
-        [
-          "Sensor 1",
-          "OPTIONNAME"
-        ],
-        [
-          "Sensor 2",
-          "OPTIONNAME"
-        ],
-        [
-          "Sensor 3",
-          "OPTIONNAME"
-        ]
-      ]
-    },
-    {
-      "type": "input_dummy",
-      "align": "CENTRE"
-    },
-    {
-      "type": "input_statement",
-      "name": "NAME",
-      "check": "String"
-    },
-    {
-      "type": "field_dropdown",
-      "name": "When",
-      "options": [
-        [
-          "option",
-          "OPTIONNAME"
-        ],
-        [
-          "option",
-          "OPTIONNAME"
-        ],
-        [
-          "option",
-          "OPTIONNAME"
-        ]
-      ]
-    },
-    {
-      "type": "field_dropdown",
-      "name": "Option",
-      "options": [
-        [
-          "option",
-          "OPTIONNAME"
-        ],
-        [
-          "option",
-          "OPTIONNAME"
-        ],
-        [
-          "option",
-          "OPTIONNAME"
-        ]
-      ]
-    }
-  ],
-  "inputsInline": false,
-  "colour": 230,
-  "tooltip": "",
-  "helpUrl": ""
-},
-{
-  "type": "s_dfnvsd",
-  "message0": "",
-  "colour": 230,
-  "tooltip": "",
-  "helpUrl": ""
-}
-    );
-  }
-};
-
-  Blockly.Blocks['s_dfnvsd'] = {
-  init: function() {
-    this.setColour(230);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-
-  Blockly.Blocks['string_length'] = {
-  init: function() {
-    this.jsonInit({
-      "message0": 'length of %1',
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "VALUE",
-          "check": "String"
-        }
-      ],
-      "output": "Number",
-      "colour": 160,
-      "tooltip": "Returns number of letters in the provided text.",
-      "helpUrl": "http://www.w3schools.com/jsref/jsref_length_string.asp"
-    });
-  }
-};
-
-</script>
+    <script src="{% static 'tarefa/blockly/blockly_compressed.js' %}"></script>
+    <script src="{% static 'tarefa/blockly/blocks_compressed.js' %}"></script>
+    <script src="{% static 'tarefa/blockly/python_compressed.js' %}"></script>
+    <script src="{% static 'tarefa/blockly/msg/js/en.js' %}"></script>
+    <script src="{% static 'tarefa/blocos.js' %}"></script>
+     <script src="{% static 'tarefa/blockly/appengine/storage.js' %}"></script>
+    {% block blocos %}
+        {% include "tarefa/blocos/blocos.html" %}
+    {% endblock blocos %}
   <style>
     body {
-      background-color: #fff;
+      background-color: #ffffff;
       font-family: sans-serif;
     }
     h1 {
@@ -155,98 +20,83 @@
       font-size: 140%;
     }
   </style>
-{% endblock %}
-{% block content %}
-  <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
 
-  <xml id="toolbox" style="display: none">
-    <category name="Logic" colour="%{BKY_LOGIC_HUE}">
-      <block type="controls_if"></block>
-      <block type="logic_compare"></block>
-      <block type="logic_operation"></block>
-      <block type="logic_negate"></block>
-      <block type="logic_boolean"></block>
-    </category>
-    <category name="Loops" colour="%{BKY_LOOPS_HUE}">
-      <block type="controls_repeat_ext">
-        <value name="TIMES">
-          <block type="math_number">
-            <field name="NUM">10</field>
-          </block>
-        </value>
-      </block>
-      <block type="controls_whileUntil"></block>
-    </category>
-    <category name="Math" colour="%{BKY_MATH_HUE}">
-      <block type="math_number">
-        <field name="NUM">123</field>
-      </block>
-      <block type="math_arithmetic"></block>
-      <block type="math_single"></block>
-    </category>
-    <category name="Text" colour="%{BKY_TEXTS_HUE}">
-      <block type="text"></block>
-      <block type="text_length"></block>
-      <block type="text_print"></block>
-    </category>
-  <category name="Category 1">
-    <block type="execue">
-      <field name="Atuadores">OPTIONNAME</field>
-      <field name="Teste">Sensor</field>
-      <field name="Sensor">OPTIONNAME</field>
-      <field name="When">OPTIONNAME</field>
-      <field name="Option">OPTIONNAME</field>
-    </block>
-    <block type="s_dfnvsd"></block>
-    <block type="logic_compare">
-      <field name="OP">EQ</field>
-    </block>
-    <block type="lists_create_with">
-      <mutation items="3"></mutation>
-    </block>
-    <block type="controls_if"></block>
-    <block type="math_arithmetic">
-      <field name="OP">ADD</field>
-      <value name="A">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-      <value name="B">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
-  </category>
-  </xml>
+{% endblock core_head %}
+
+{% block content %}
+    <div class="row">
+        <div id="blocklyDiv" style="height: 400px; width: 700px;"></div>
+        <div id="Botao">
+            <button type="button" onclick="showCode()" class="pure-button">Salvar</button>
+            <div id="message-salvar"></div>
+        </div>
+    </div>
+        {% block toolbox %}
+            {% include "tarefa/blocos/toolbox.html" %}
+        {% endblock toolbox %}
   <script>
-    var demoWorkspace = Blockly.inject('blocklyDiv',
-        {media: "{% static 'block/blockly/media/' %}",
-         toolbox: document.getElementById('toolbox')});
-    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
-                               demoWorkspace);
+     var data='';
+     var demoWorkspace = Blockly.inject('blocklyDiv', {media: "{% static 'tarefa/blockly/media/' %}",
+                    toolbox: document.getElementById('toolbox')});
+     $.ajax({
+            type: "GET",
+            url: '{% url 'tarefa:ajax_get_xml' dispositivo.pk %}',
+            data: data,
+            success: function (data) {
+                if( data != '') {
+                    var xml = Blockly.Xml.textToDom(data.toString());
+                    Blockly.Xml.domToWorkspace(xml, demoWorkspace);
+                }
+            },
+        });
+
 
     function showCode() {
-      // Generate JavaScript code and display it.
-      Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-      var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
-      alert(code);
-    }
-
-    function runCode() {
-      // Generate JavaScript code and run it.
-      window.LoopTrap = 1000;
-      Blockly.JavaScript.INFINITE_LOOP_TRAP =
-          'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-      var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
-      Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-      try {
-        eval(code);
-      } catch (e) {
-        alert(e);
-      }
+        Blockly.Python.INFINITE_LOOP_TRAP = null;
+        var code = Blockly.Python.workspaceToCode(demoWorkspace);
+        $(function () {
+            $.ajaxSetup({
+                headers: { "X-CSRFToken": getCookie("csrftoken") }
+            });
+        });
+        function getCookie(c_name)
+        {
+            if (document.cookie.length > 0)
+            {
+                c_start = document.cookie.indexOf(c_name + "=");
+                if (c_start != -1)
+                {
+                    c_start = c_start + c_name.length + 1;
+                    c_end = document.cookie.indexOf(";", c_start);
+                    if (c_end == -1) c_end = document.cookie.length;
+                    return unescape(document.cookie.substring(c_start,c_end));
+                }
+            }
+            return "";
+        }
+        var workspace = Blockly.getMainWorkspace();
+        var xml = Blockly.Xml.workspaceToDom(workspace, true);
+        if (workspace.getTopBlocks(false).length == 1 && xml.querySelector) {
+            var block = xml.querySelector('block');
+            if (block) {
+                block.removeAttribute('x');
+                block.removeAttribute('y');
+            }
+        }
+        var work = Blockly.Xml.domToText(xml);
+        $.ajax({
+            type: "POST",
+            url: '{% url 'tarefa:ajax_post_task' dispositivo.pk %}',
+            data: {'code' : code,
+                'work': work},
+            success: function (data) {
+                var div = document.getElementById("message-salvar");
+                div.innerHTML = '<strong>Salvo com sucesso</strong>';
+                setTimeout(function () {
+                    div.innerHTML = '';
+                }, 2500);
+                        },
+        });
     }
   </script>
-
-{% endblock %}
+{% endblock content %}

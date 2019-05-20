@@ -1,26 +1,62 @@
-<form class="pure-form pure-form-stacked" method="post"
-    {% if broker %}
-    action="{% url 'block:edit_broker' broker.id %}"
-    {% else %}
-    action="{% url 'block:edit_proxy' proxy.id %}"
-    {% endif %}>
-    {% csrf_token %}
-    <fieldset>
-        {{ form.non_field_errors }}
-            {% for field in form %}
-                <div class="pure-control-group">
-                    {{ field.label_tag }}
-                        {{ field }}
-                        {{ field.errors }}
-                 </div>
-             {% endfor %}
-        <div class="pure-controls">
-            <button type="submit" class="pure-button pure-button-primary">Salvar</button>
-            <a {% if broker %}
-    href="{% url 'block:delete_broker' broker.id %}"
-    {% else %}
-    href="{% url 'block:delete_proxy' proxy.id %}"
-    {% endif %} class="pure-button pure-button-primary">Apagar</a>
+<div class="row">
+    <div class="col-sm-6">
+        <form class="pure-form pure-form-stacked" method="post"
+            {% if broker %}
+            action="{% url 'block:edit_broker' broker.id %}"
+            {% else %}
+            action="{% url 'block:edit_proxy' proxy.id %}"
+            {% endif %}>
+            {% csrf_token %}
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <fieldset>
+                {{ form.non_field_errors }}
+                    {% for field in form %}
+                        <div class="pure-control-group">
+                            {{ field.label_tag }}
+                                {{ field }}
+                                {{ field.errors }}
+                         </div>
+                     {% endfor %}
+                <div class="pure-controls">
+                    <button type="submit" class="pure-button pure-button-primary">Salvar</button>
+                    <a {% if broker %}
+            href="{% url 'block:delete_broker' broker.id %}"
+            {% else %}
+            href="{% url 'block:delete_proxy' proxy.id %}"
+            {% endif %} class="pure-button pure-button-primary">Apagar</a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="col-sm-6">
+        {% if broker %}
+            <h2>Dados do Broker: {{ broker }}</h2>
+            <h4 style="color:gray">Estado: </h4> <h4 style="color: cornflowerblue;">{{ broker.get_estado_display }}</h4>
+            <br>
+            <h4 style="color:gray">RC: </h4> <h4 style="color: cornflowerblue;">{{ broker.get_RC_display }}</h4>
+
+
+        {% else %}
+            <h2>Dados do Proxy: {{ proxy }}</h2>
+            <h4 style="color:gray">Estado:</h4> <h4 style="color: cornflowerblue;"> {{ proxy.get_status_display }}</h4>
+            <br>
+            <h4 style="color:gray">Válido:</h4> <h4 style="color: cornflowerblue;">
+            {% if proxy.valido %}Sim{% else %}Não{% endif %}</h4>
+        {% endif %}
+        <div>
         </div>
-    </fieldset>
-</form>
+    </div>
+</div>
